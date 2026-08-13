@@ -9,6 +9,8 @@ export interface Project {
   link: string;
   image: string;
   imagePosition: string;
+  accent: string;
+  foreground: string;
 }
 
 export const PROJECTS: Project[] = [
@@ -25,6 +27,8 @@ export const PROJECTS: Project[] = [
     image:
       'https://images.unsplash.com/photo-1768330187404-59e46cf222c9?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center',
+    accent: '#0057FF',
+    foreground: '#ffffff',
   },
   {
     id: '02',
@@ -39,6 +43,8 @@ export const PROJECTS: Project[] = [
     image:
       'https://images.unsplash.com/photo-1774514580599-c3dae376348e?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center 35%',
+    accent: '#FF7A00',
+    foreground: '#0a0a0b',
   },
   {
     id: '03',
@@ -53,6 +59,8 @@ export const PROJECTS: Project[] = [
     image:
       'https://images.unsplash.com/photo-1768638687898-7851d341cb87?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center',
+    accent: '#7B2FFF',
+    foreground: '#ffffff',
   },
   {
     id: '04',
@@ -67,6 +75,8 @@ export const PROJECTS: Project[] = [
     image:
       'https://images.unsplash.com/photo-1446688568582-55ddb4b37cad?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center',
+    accent: '#FF2A2A',
+    foreground: '#ffffff',
   },
   {
     id: '05',
@@ -81,6 +91,8 @@ export const PROJECTS: Project[] = [
     image:
       'https://images.unsplash.com/photo-1755811717097-23fba595025d?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center',
+    accent: '#17D964',
+    foreground: '#0a0a0b',
   },
   {
     id: '06',
@@ -95,5 +107,7 @@ export const PROJECTS: Project[] = [
     image:
       'https://images.unsplash.com/photo-1598941101837-e3fdd6d94b24?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center 40%',
+    accent: '#FF2E9A',
+    foreground: '#ffffff',
   },
 ];
