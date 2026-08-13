@@ -1,7 +1,8 @@
-import { motion } from 'motion/react';
+import { type MouseEvent, useRef } from 'react';
+import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import type { Project } from '../data/projects';
-import { fadeUp, viewportOnce } from '../lib/motion';
+import { easeOut, fadeUp, viewportOnce } from '../lib/motion';
 
 interface ProjectCardProps {
   project: Project;
@@ -14,6 +15,31 @@ export function ProjectCard({ project: p, className = '' }: ProjectCardProps) {
   const fgFaint = fg === '#ffffff' ? 'rgba(255,255,255,0.4)' : 'rgba(10,10,11,0.45)';
   const fgBorder = fg === '#ffffff' ? 'rgba(255,255,255,0.25)' : 'rgba(10,10,11,0.2)';
 
+  const cardRef = useRef<HTMLAnchorElement>(null);
+
+  const { scrollYProgress } = useScroll({ target: cardRef, offset: ['start end', 'end start'] });
+  const imgY = useTransform(scrollYProgress, [0, 1], [-22, 22]);
+
+  const rotateXRaw = useMotionValue(0);
+  const rotateYRaw = useMotionValue(0);
+  const rotateX = useSpring(rotateXRaw, { stiffness: 200, damping: 22, mass: 0.5 });
+  const rotateY = useSpring(rotateYRaw, { stiffness: 200, damping: 22, mass: 0.5 });
+
+  function handleTilt(e: MouseEvent<HTMLAnchorElement>) {
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    rotateYRaw.set(px * 6);
+    rotateXRaw.set(py * -6);
+  }
+
+  function resetTilt() {
+    rotateXRaw.set(0);
+    rotateYRaw.set(0);
+  }
+
   return (
     <motion.div
       initial="hidden"
@@ -22,18 +48,24 @@ export function ProjectCard({ project: p, className = '' }: ProjectCardProps) {
       variants={fadeUp}
       className={`flex flex-col ${className}`}
     >
-      <a
+      <motion.a
+        ref={cardRef}
         href={p.link}
         target="_blank"
         rel="noopener noreferrer"
         data-project-anchor={p.id}
-        className="group relative block aspect-[4/5] w-full overflow-hidden bg-ink lg:aspect-auto lg:h-full"
+        onMouseMove={handleTilt}
+        onMouseLeave={resetTilt}
+        style={{ rotateX, rotateY, transformPerspective: 1000 }}
+        className="group relative block aspect-[4/5] w-full overflow-hidden bg-ink [transform-style:preserve-3d] lg:aspect-auto lg:h-full"
       >
-        <img
+        <motion.img
           src={p.image}
           alt={`${p.title} — ${p.subtitle}`}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:scale-[1.035]"
-          style={{ objectPosition: p.imagePosition, filter: 'saturate(0.92) brightness(0.88)' }}
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: p.imagePosition, filter: 'saturate(0.92) brightness(0.88)', y: imgY }}
+          whileHover={{ scale: 1.045 }}
+          transition={{ duration: 0.9, ease: easeOut }}
         />
 
         <div className="absolute inset-0 bg-gradient-to-t from-ink-deep/90 via-ink-deep/15 to-transparent transition-opacity duration-500 md:group-hover:opacity-0" />
@@ -102,7 +134,7 @@ export function ProjectCard({ project: p, className = '' }: ProjectCardProps) {
             </span>
           </div>
         </div>
-      </a>
+      </motion.a>
 
       {/* static meta — mobile only, since hover has no touch equivalent */}
       <div className="mt-5 flex flex-col gap-3 md:hidden">

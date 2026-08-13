@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { easeOut } from '../lib/motion';
+import { Magnetic } from './Magnetic';
 
 const NAV_LINKS = ['Work', 'Studio', 'Practice', 'Journal', 'Contact'];
 
@@ -19,6 +20,21 @@ function NavLink({ label }: { label: string }) {
 
 export function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    const diff = latest - lastY.current;
+    if (latest < 96) {
+      setHidden(false);
+    } else if (diff > 4) {
+      setHidden(true);
+    } else if (diff < -4) {
+      setHidden(false);
+    }
+    lastY.current = latest;
+  });
 
   useEffect(() => {
     document.documentElement.style.overflow = menuOpen ? 'hidden' : '';
@@ -29,7 +45,11 @@ export function Nav() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-ink/10 bg-bone/90 backdrop-blur-md">
+      <motion.header
+        animate={{ y: hidden && !menuOpen ? '-100%' : '0%' }}
+        transition={{ duration: 0.5, ease: easeOut }}
+        className="sticky top-0 z-50 border-b border-ink/10 bg-bone/90 backdrop-blur-md"
+      >
         <div className="mx-auto flex h-[72px] w-full max-w-[1320px] items-center justify-between px-6 sm:px-10 lg:px-16">
           <a href="#" className="flex items-center gap-2.5">
             <span className="block h-2 w-2 shrink-0 bg-accent" />
@@ -51,14 +71,16 @@ export function Nav() {
             href="https://masachidc.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="group hidden items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink md:inline-flex"
+            className="hidden md:inline-block"
           >
-            View Portfolio
-            <ArrowUpRight
-              size={13}
-              strokeWidth={2}
-              className="transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            />
+            <Magnetic strength={0.4} className="group flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink">
+              View Portfolio
+              <ArrowUpRight
+                size={13}
+                strokeWidth={2}
+                className="transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+            </Magnetic>
           </a>
 
           <button
@@ -69,7 +91,7 @@ export function Nav() {
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
-      </header>
+      </motion.header>
 
       {/* rendered as a header sibling — backdrop-blur on <header> would otherwise
           establish a containing block and break this panel's position:fixed */}
