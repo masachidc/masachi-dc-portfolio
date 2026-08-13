@@ -3,6 +3,7 @@ export interface Project {
   title: string;
   subtitle: string;
   category: string;
+  role: string;
   year: string;
   description: string;
   tags: string[];
@@ -19,6 +20,7 @@ export const PROJECTS: Project[] = [
     title: 'KESHO',
     subtitle: 'Prediction App',
     category: 'Full Stack / Product Design',
+    role: 'Design Engineer',
     year: '2026',
     description:
       'A sealed foresight platform where users submit timestamped predictions for live sports, entertainment, and politics — locked at kickoff, revealed after.',
@@ -35,6 +37,7 @@ export const PROJECTS: Project[] = [
     title: 'AMUSE',
     subtitle: 'Art Museum',
     category: 'UI/UX Product Design',
+    role: 'Product Designer',
     year: '2025',
     description:
       'A museum platform enabling Kenyans to discover exhibitions and book tickets seamlessly — with M-Pesa integration and an African-heritage visual identity.',
@@ -51,6 +54,7 @@ export const PROJECTS: Project[] = [
     title: 'INLINE',
     subtitle: 'Chrome Extension',
     category: 'UI/UX Design',
+    role: 'Product Designer',
     year: '2026',
     description:
       'A browser extension that turns passive browsing into an interactive canvas — annotate, highlight, draw, and invoke AI on any webpage.',
@@ -67,6 +71,7 @@ export const PROJECTS: Project[] = [
     title: 'SEEDS',
     subtitle: 'Brand Identity',
     category: 'Brand Identity Design',
+    role: 'Brand Designer',
     year: '2025',
     description:
       "Extending FIU's brand system to give Project SEEDS its own distinct presence — contributing to a 100%+ increase in student enrollment.",
@@ -83,6 +88,7 @@ export const PROJECTS: Project[] = [
     title: 'HULK',
     subtitle: 'Motion Design',
     category: 'Motion Design',
+    role: 'Motion Designer',
     year: '2025',
     description:
       'An epic comics story produced with Masachi DC Studios — kinetic typography, particle physics, and After Effects mastery woven into a bold cinematic narrative.',
@@ -99,6 +105,7 @@ export const PROJECTS: Project[] = [
     title: 'STEM X',
     subtitle: 'Architecture Camp',
     category: 'Architecture & Curriculum',
+    role: 'Curriculum Design',
     year: '2026',
     description:
       'A multi-year initiative bringing architecture and design to 500+ students across six African nations through hands-on SketchUp workshops.',

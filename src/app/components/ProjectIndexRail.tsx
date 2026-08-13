@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, type MotionValue, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react';
 import type Lenis from 'lenis';
 import { PROJECTS, type Project } from '../data/projects';
 
@@ -42,47 +42,72 @@ function useActiveProject() {
   return activeId;
 }
 
-function RailItem({ project, active }: { project: Project; active: boolean }) {
-  const [hovered, setHovered] = useState(false);
-  const on = hovered || active;
+function RailItem({
+  project,
+  active,
+  loadAmount,
+}: {
+  project: Project;
+  active: boolean;
+  loadAmount: MotionValue<number>;
+}) {
+  const hoverTarget = useMotionValue(0);
+  const hoverSmooth = useSpring(hoverTarget, { stiffness: 260, damping: 28 });
+  const titleAmount = useTransform([loadAmount, hoverSmooth], ([l, h]: number[]) => Math.max(l, h));
+
+  const roleWidth = useTransform(loadAmount, (v) => `${v * 160}px`);
+  const titleWidth = useTransform(titleAmount, (v) => `${v * 80}px`);
 
   return (
     <button
       onClick={() => scrollToProject(project.id)}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="flex items-center gap-2.5"
+      onMouseEnter={() => hoverTarget.set(1)}
+      onMouseLeave={() => hoverTarget.set(0)}
+      className="flex w-full items-center justify-between gap-3"
     >
-      <span
-        className="overflow-hidden whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.1em] text-ink/50 transition-all duration-300 ease-out"
-        style={{ maxWidth: on ? 100 : 0, opacity: on ? 1 : 0 }}
+      <motion.span
+        style={{ opacity: loadAmount, width: roleWidth }}
+        className="overflow-hidden whitespace-nowrap text-left font-mono text-[13px] tracking-[0.08em] text-ink/40"
       >
-        {project.title}
+        {project.role}
+      </motion.span>
+
+      <span className="flex items-center gap-2.5">
+        <motion.span
+          style={{ opacity: titleAmount, width: titleWidth }}
+          className="overflow-hidden whitespace-nowrap text-right font-display text-[13px] font-bold uppercase tracking-[-0.01em]"
+          animate={{ color: active ? project.accent : 'rgba(10,10,11,0.6)' }}
+          transition={{ duration: 0.3 }}
+        >
+          {project.title}
+        </motion.span>
+        <span
+          className="h-1.5 w-1.5 shrink-0 rounded-full transition-all duration-300 ease-out"
+          style={{
+            backgroundColor: active ? project.accent : 'rgba(10,10,11,0.15)',
+            transform: active ? 'scale(1.5)' : 'scale(1)',
+          }}
+        />
       </span>
-      <span
-        className="h-1.5 w-1.5 shrink-0 rounded-full transition-all duration-300 ease-out"
-        style={{
-          backgroundColor: on ? project.accent : 'rgba(10,10,11,0.15)',
-          transform: on ? 'scale(1.5)' : 'scale(1)',
-        }}
-      />
     </button>
   );
 }
 
 export function ProjectIndexRail() {
   const activeId = useActiveProject();
+  const { scrollY } = useScroll();
+  const loadAmount = useTransform(scrollY, [0, 260], [1, 0]);
 
   return (
     <motion.nav
       initial={{ opacity: 0, x: 12 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed right-8 top-1/2 z-30 hidden -translate-y-1/2 flex-col items-end gap-3 xl:flex"
+      className="fixed right-8 top-1/2 z-30 hidden w-[290px] -translate-y-1/2 flex-col gap-4 xl:flex"
       aria-label="Jump to project"
     >
       {PROJECTS.map((p) => (
-        <RailItem key={p.id} project={p} active={activeId === p.id} />
+        <RailItem key={p.id} project={p} active={activeId === p.id} loadAmount={loadAmount} />
       ))}
     </motion.nav>
   );

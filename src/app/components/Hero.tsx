@@ -33,7 +33,7 @@ export function Hero() {
 
       <motion.div
         style={{ opacity, y }}
-        className="mx-auto w-full max-w-[1320px] px-6 pb-10 pt-14 sm:px-10 sm:pt-16 lg:px-16 lg:pb-12 lg:pt-20"
+        className="mx-auto flex min-h-[calc(100vh-222px)] w-full max-w-[1320px] flex-col justify-center px-6 py-16 sm:px-10 lg:px-16 lg:py-20"
       >
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -70,19 +70,6 @@ export function Hero() {
           for founders and teams who care how it feels, not only how it
           works.
         </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, ease: easeOut, delay: 0.85 }}
-          className="mt-7 flex items-center gap-6 font-mono text-[10px] uppercase tracking-[0.14em] text-ink/35"
-        >
-          <span>Product</span>
-          <span className="h-px w-4 bg-ink/20" />
-          <span>Brand</span>
-          <span className="h-px w-4 bg-ink/20" />
-          <span>Motion</span>
-        </motion.div>
       </motion.div>
     </section>
   );
