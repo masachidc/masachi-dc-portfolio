@@ -33,13 +33,13 @@ export function Hero() {
 
       <motion.div
         style={{ opacity, y }}
-        className="mx-auto flex min-h-[calc(100vh-260px)] w-full max-w-[1320px] flex-col justify-center px-6 py-16 sm:px-10 lg:px-16 lg:py-20"
+        className="mx-auto w-full max-w-[1320px] px-6 pb-10 pt-14 sm:px-10 sm:pt-16 lg:px-16 lg:pb-12 lg:pt-20"
       >
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: easeOut }}
-          className="mb-7 flex items-center gap-3"
+          className="mb-5 flex items-center gap-3"
         >
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/60" />
@@ -52,7 +52,7 @@ export function Hero() {
 
         <h1
           className="font-display font-extrabold leading-[0.96] tracking-[-0.02em] text-ink"
-          style={{ fontSize: 'clamp(48px, 7.5vw, 104px)' }}
+          style={{ fontSize: 'clamp(36px, 5.5vw, 76px)' }}
         >
           <RevealLine delay={0.15}>Design that moves</RevealLine>
           <RevealLine delay={0.28} className="text-accent">
@@ -64,7 +64,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: easeOut, delay: 0.65 }}
-          className="mt-8 max-w-md text-[15px] font-medium leading-relaxed text-ink/50"
+          className="mt-6 max-w-md text-[15px] font-medium leading-relaxed text-ink/50"
         >
           Six selected projects in product, brand, and motion design — built
           for founders and teams who care how it feels, not only how it
@@ -75,7 +75,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, ease: easeOut, delay: 0.85 }}
-          className="mt-10 flex items-center gap-6 font-mono text-[10px] uppercase tracking-[0.14em] text-ink/35"
+          className="mt-7 flex items-center gap-6 font-mono text-[10px] uppercase tracking-[0.14em] text-ink/35"
         >
           <span>Product</span>
           <span className="h-px w-4 bg-ink/20" />
