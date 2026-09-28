@@ -41,8 +41,8 @@ export function SectionRail({ sections }: { sections: readonly RailSection[] }) 
                   e.preventDefault();
                   scrollToSection(id);
                 }}
-                className={`group/link flex min-h-7 items-center gap-3 whitespace-nowrap text-[14px] leading-tight transition-colors ${
-                  active ? 'font-semibold text-ink' : 'font-medium text-ink/45 hover:text-ink'
+                className={`group/link flex min-h-7 items-center gap-3 whitespace-nowrap text-small leading-tight transition-colors ${
+                  active ? 'font-semibold text-ink' : 'font-medium text-fg-subtle hover:text-ink'
                 }`}
               >
                 {/* Inactive dashes reserve the active length so titles align. */}
