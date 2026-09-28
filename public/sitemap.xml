@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Indexable pages only. Add a /works/<slug> entry when a case study stops being a draft. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://masachidc.com/</loc></url>
+  <url><loc>https://masachidc.com/works/amuse-art-museum</loc></url>
+</urlset>

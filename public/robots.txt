@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://masachidc.com/sitemap.xml

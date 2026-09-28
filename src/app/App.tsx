@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import Lenis from 'lenis';
 import { useLocation } from 'react-router-dom';
 import { scrollToTarget } from './components/SiteLink';
+import { usePageMeta } from './lib/usePageMeta';
 import { Nav } from './components/Nav';
 import { Hero } from './components/Hero';
 import { ProjectGrid } from './components/ProjectGrid';
@@ -73,6 +74,7 @@ function useHashScroll() {
 export default function App() {
   useSmoothScroll();
   useHashScroll();
+  usePageMeta();
 
   return (
     <div className="relative flex min-h-screen flex-col bg-bone font-sans">
@@ -81,7 +83,7 @@ export default function App() {
       <ProjectIndexRail />
       <div className="relative z-10 flex min-h-screen flex-col">
         <Nav />
-        <main className="flex-1">
+        <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
           <Hero />
           <ProjectGrid />
         </main>

@@ -52,14 +52,14 @@ function RailItem({
 
   return (
     <button
-      onClick={() => scrollToProject(project.id)}
+      onClick={() => scrollToProject(project.slug)}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       className="flex w-full items-center justify-end gap-2.5"
     >
       <motion.span
         style={{ opacity: titleAmount, width: titleWidth, color: hovered ? project.accent : 'rgba(10,10,11,0.6)' }}
-        className="overflow-hidden whitespace-nowrap text-right font-display text-[13px] font-bold tracking-[-0.01em] transition-colors duration-300"
+        className="overflow-hidden whitespace-nowrap text-right font-display text-small font-bold tracking-[-0.01em] transition-colors duration-300"
       >
         {collapsed ? project.title : project.railTitle}
       </motion.span>
@@ -92,7 +92,7 @@ export function ProjectIndexRail() {
       aria-label="Jump to project"
     >
       {PROJECTS.map((p) => (
-        <RailItem key={p.id} project={p} loadAmount={loadAmount} collapsed={collapsed} />
+        <RailItem key={p.slug} project={p} loadAmount={loadAmount} collapsed={collapsed} />
       ))}
     </motion.nav>
   );

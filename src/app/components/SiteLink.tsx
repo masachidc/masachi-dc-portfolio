@@ -35,12 +35,14 @@ export function SiteLink({
   children,
   onNavigate,
   ariaLabel,
+  ariaCurrent,
 }: {
   href: string;
   className?: string;
   children: ReactNode;
   onNavigate?: () => void;
   ariaLabel?: string;
+  ariaCurrent?: 'page';
 }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -56,6 +58,7 @@ export function SiteLink({
         {...(newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       >
         {children}
+        {newTab && <span className="sr-only"> (opens in a new tab)</span>}
       </a>
     );
   }
@@ -78,7 +81,7 @@ export function SiteLink({
   }
 
   return (
-    <Link to={href} aria-label={ariaLabel} className={className} onClick={handleClick}>
+    <Link to={href} aria-label={ariaLabel} aria-current={ariaCurrent} className={className} onClick={handleClick}>
       {children}
     </Link>
   );
