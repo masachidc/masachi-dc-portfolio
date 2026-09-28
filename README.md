@@ -13,7 +13,10 @@
 
   ## Structure
 
-  - `src/main.tsx` — entry point
-  - `src/app/App.tsx` — the entire page (header, hero, project mosaic, footer)
-  - `src/styles/` — fonts, Tailwind entry, and design tokens (`theme.css`)
-  
+  - `src/main.tsx` — entry point and routes
+  - `src/app/App.tsx` — homepage (hero, project mosaic)
+  - `src/app/pages/` — case study template, placeholder pages, 404
+  - `src/app/data/` — projects, case-study content, site links and metadata defaults
+  - `src/app/components/` — shared UI (nav, footer, cards, rails, wordmark)
+  - `src/styles/theme.css` — design tokens: color, type scale, layout, motion
+  - `public/` — favicon, robots.txt, sitemap.xml
