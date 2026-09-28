@@ -52,23 +52,34 @@ function CardInner({ p, imgY, fg, fgSoft, fgFaint, fgBorder, hexToRgbaFn }: {
   return (
     <>
       <motion.img
-        src={p.image}
+        src={p.cover.src}
         alt=""
         decoding="async"
         className="absolute inset-0 h-full w-full object-cover"
-        style={{ objectPosition: p.imagePosition, filter: 'saturate(0.92) brightness(0.88)', y: imgY }}
+        style={{ objectPosition: p.cover.position, filter: 'saturate(0.92) brightness(0.88)', y: imgY }}
         whileHover={{ scale: 1.045 }}
         transition={{ duration: 0.9, ease: easeOut }}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-ink-deep/90 via-ink-deep/15 to-transparent transition-opacity duration-500 md:group-hover:opacity-0" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink-deep/90 via-ink-deep/25 to-transparent transition-opacity duration-500 md:group-hover:opacity-0" />
 
-      <div className="absolute inset-x-0 bottom-0 z-10 p-6 transition-opacity duration-300 md:group-hover:opacity-0">
-        <p className="mb-1.5 flex items-center gap-1.5 font-mono text-micro font-medium tracking-[0.1em] text-bone/70">
-          <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: p.accent }} />
-          N°{projectNumber(p)} — {p.year}
-        </p>
-        <h3 className="font-display text-card uppercase text-bone">{p.cardTitle}</h3>
+      {/* At rest the card answers: what is it, what did Nathan do, when. No hover required. */}
+      <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5 transition-opacity duration-300 sm:p-6 md:group-hover:opacity-0">
+        <div className="min-w-0">
+          <p className="mb-2 flex items-center gap-1.5 font-mono text-micro font-medium tracking-[0.1em] text-bone/75">
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: p.accent }} />
+            N°{projectNumber(p)} · {p.year}
+          </p>
+          <h3 className="font-display text-card uppercase text-bone">{p.cardTitle}</h3>
+          <p className="mt-2 text-body font-medium text-bone/90">{p.summary}</p>
+          <p className="mt-1 text-micro caps text-bone/70">{p.disciplines}</p>
+        </div>
+        <span
+          aria-hidden="true"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-bone/30 text-bone"
+        >
+          <ArrowUpRight size={15} strokeWidth={2} />
+        </span>
       </div>
 
       {/* Hover detail panel: decorative duplicate of the card's content, hidden from assistive tech. */}
@@ -94,7 +105,7 @@ function CardInner({ p, imgY, fg, fgSoft, fgFaint, fgBorder, hexToRgbaFn }: {
             className="mb-2 text-micro caps"
             style={{ color: fgFaint }}
           >
-            {p.category}
+            {p.summary} · {p.disciplines}
           </motion.p>
           <motion.p
             variants={panelItem}
@@ -105,27 +116,17 @@ function CardInner({ p, imgY, fg, fgSoft, fgFaint, fgBorder, hexToRgbaFn }: {
           </motion.p>
           <motion.p
             variants={panelItem}
-            className="mb-4 max-w-[34ch] text-small"
+            className="mb-5 max-w-[36ch] text-body"
             style={{ color: fgSoft }}
           >
             {p.description}
           </motion.p>
-          <motion.div variants={panelItem} className="mb-5 flex flex-wrap gap-1.5">
-            {p.tags.map((t) => (
-              <span
-                key={t}
-                className="border px-2.5 py-1 text-micro caps tracking-[0.14em]"
-                style={{ borderColor: fgBorder, backgroundColor: hexToRgbaFn(p.accentDeep, 0.28) }}
-              >
-                {t}
-              </span>
-            ))}
-          </motion.div>
           <motion.span
             variants={panelItem}
-            className="inline-flex items-center gap-1.5 text-micro caps tracking-[0.18em]"
+            className="inline-flex items-center gap-1.5 border-b pb-1 text-label caps"
+            style={{ borderColor: fgBorder }}
           >
-            View project <ArrowUpRight size={12} strokeWidth={2.25} />
+            View case study <ArrowUpRight size={12} strokeWidth={2.25} />
           </motion.span>
         </div>
       </motion.div>
@@ -142,7 +143,7 @@ export function ProjectCard({ project: p, className = '' }: ProjectCardProps) {
   const hoverShadow = `0 1px 2px rgba(10,10,11,0.06), 0 40px 70px -20px ${hexToRgba(p.accentDeep, 0.55)}`;
   const href = projectHref(p);
   const isInternal = !p.externalUrl;
-  const linkLabel = `${p.railTitle} — ${p.category}, ${p.year}. View case study`;
+  const linkLabel = `${p.railTitle}: ${p.summary}. ${p.disciplines}, ${p.year}. View case study`;
 
   const cardRef = useRef<HTMLAnchorElement>(null);
   const { scrollYProgress } = useScroll({ target: cardRef, offset: ['start end', 'end start'] });
@@ -183,7 +184,7 @@ export function ProjectCard({ project: p, className = '' }: ProjectCardProps) {
       '--rest-shadow': restShadow,
       '--hover-shadow': hoverShadow,
     } as never,
-    className: 'group relative block aspect-[4/5] w-full overflow-hidden bg-ink shadow-[var(--rest-shadow)] transition-shadow duration-500 [transform-style:preserve-3d] hover:shadow-[var(--hover-shadow)] lg:aspect-auto lg:h-full',
+    className: 'group relative block aspect-square w-full overflow-hidden min-[380px]:aspect-[4/3] sm:aspect-[4/5] bg-ink shadow-[var(--rest-shadow)] transition-shadow duration-500 [transform-style:preserve-3d] hover:shadow-[var(--hover-shadow)] lg:aspect-auto lg:h-full',
   };
 
   const innerProps = { p, imgY, fg, fgSoft, fgFaint, fgBorder, hexToRgbaFn: hexToRgba };
@@ -212,46 +213,8 @@ export function ProjectCard({ project: p, className = '' }: ProjectCardProps) {
         </motion.a>
       )}
 
-      {/* static meta — mobile only */}
-      <div className="mt-5 flex flex-col gap-3 md:hidden">
-        <div className="flex items-baseline justify-between">
-          <p className="flex items-center gap-1.5 text-micro caps text-fg-subtle">
-            <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: p.accent }} />
-            {p.category}
-          </p>
-          <p className="text-micro caps text-fg-subtle">{p.year}</p>
-        </div>
-        <p className="text-body text-fg-muted">{p.description}</p>
-        <div className="flex flex-wrap gap-1.5">
-          {p.tags.map((t) => (
-            <span
-              key={t}
-              className="border border-line px-2.5 py-1 text-micro caps tracking-[0.14em] text-fg-muted"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-        {isInternal ? (
-          <Link
-            to={href}
-            aria-label={linkLabel}
-            className="mt-1 inline-flex w-fit items-center gap-1.5 py-2 text-label caps text-ink"
-          >
-            View project <ArrowUpRight size={12} strokeWidth={2.25} aria-hidden />
-          </Link>
-        ) : (
-          <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${linkLabel} (opens in a new tab)`}
-            className="mt-1 inline-flex w-fit items-center gap-1.5 py-2 text-label caps text-ink"
-          >
-            View project <ArrowUpRight size={12} strokeWidth={2.25} aria-hidden />
-          </a>
-        )}
-      </div>
+      {/* why it's interesting — below the card on touch screens, where there's no hover */}
+      <p className="mt-4 text-body text-fg-muted md:hidden">{p.description}</p>
     </motion.div>
   );
 }

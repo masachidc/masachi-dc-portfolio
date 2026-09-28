@@ -6,6 +6,8 @@ import { usePageMeta } from './lib/usePageMeta';
 import { Nav } from './components/Nav';
 import { Hero } from './components/Hero';
 import { ProjectGrid } from './components/ProjectGrid';
+import { HomeAbout } from './components/HomeAbout';
+import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { Atmosphere } from './components/Atmosphere';
 import { ProjectIndexRail } from './components/ProjectIndexRail';
@@ -86,6 +88,8 @@ export default function App() {
         <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
           <Hero />
           <ProjectGrid />
+          <HomeAbout />
+          <ContactSection />
         </main>
         <Footer />
       </div>

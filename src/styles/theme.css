@@ -43,6 +43,12 @@
   --text-display--letter-spacing: -0.02em;
   --text-display--font-weight: 800;
 
+  /* Section-level statement (homepage About / contact) — between title and display. */
+  --text-headline: clamp(2rem, 1.5rem + 2.1vw, 3.25rem);
+  --text-headline--line-height: 1.02;
+  --text-headline--letter-spacing: -0.02em;
+  --text-headline--font-weight: 800;
+
   /* Big numbers in outcome rows. */
   --text-stat: clamp(3rem, 2.4rem + 2.2vw, 3.75rem);
   --text-stat--line-height: 1;
