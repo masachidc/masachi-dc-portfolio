@@ -3,10 +3,10 @@ import { useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { easeOut } from '../lib/motion';
-import { Magnetic } from './Magnetic';
+import { ContactMenu } from './ContactMenu';
 import { SiteLink } from './SiteLink';
 import { Wordmark } from './Wordmark';
-import { EMAIL, NAV_LINKS, SOCIAL_LINKS, type NavItem } from '../data/site';
+import { CONTACT_LINKS, NAV_LINKS, type NavItem } from '../data/site';
 
 /** A nav item is current when its route is the page being viewed. Work also owns case studies. */
 function useIsCurrent() {
@@ -101,16 +101,9 @@ export function Nav() {
             ))}
           </nav>
 
-          <SiteLink href={`mailto:${EMAIL}`} className="hidden py-2 md:block">
-            <Magnetic strength={0.4} className="group flex items-center gap-1.5 text-label caps text-ink">
-              Get in touch
-              <ArrowUpRight
-                size={13}
-                strokeWidth={2}
-                className="transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-              />
-            </Magnetic>
-          </SiteLink>
+          <div className="hidden md:block">
+            <ContactMenu />
+          </div>
 
           <button
             ref={toggleRef}
@@ -165,7 +158,7 @@ export function Nav() {
             </nav>
             <div className="mt-10 flex flex-col gap-1">
               <p className="mb-2 text-micro caps text-fg-subtle">Get in touch</p>
-              {[{ label: 'Email', href: `mailto:${EMAIL}` }, ...SOCIAL_LINKS].map((c) => (
+              {CONTACT_LINKS.map((c) => (
                 <SiteLink
                   key={c.label}
                   href={c.href}
