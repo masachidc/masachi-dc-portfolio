@@ -44,7 +44,7 @@ export const PROJECTS: Project[] = [
     description:
       'A discovery and ticketing platform for Kenyan museums, built on M-Pesa payments and an African-heritage visual identity.',
     tags: ['Mobile-First', 'Cultural Tech', 'Kenya'],
-    link: 'https://masachidc.com/works/amuse-art-museum',
+    link: '/projects/amuse',
     image:
       'https://images.unsplash.com/photo-1774514580599-c3dae376348e?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center 35%',
