@@ -9,7 +9,6 @@ import { ProjectGrid } from './components/ProjectGrid';
 import { HomeAbout } from './components/HomeAbout';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
-import { Atmosphere } from './components/Atmosphere';
 import { ProjectIndexRail } from './components/ProjectIndexRail';
 import { ScrollProgress } from './components/ScrollProgress';
 
@@ -80,7 +79,6 @@ export default function App() {
 
   return (
     <div className="relative flex min-h-screen flex-col bg-bone font-sans">
-      <Atmosphere />
       <ScrollProgress />
       <div className="relative z-10 flex min-h-screen flex-col">
         <Nav />
