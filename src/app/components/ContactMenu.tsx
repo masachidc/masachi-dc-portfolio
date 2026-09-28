@@ -71,7 +71,7 @@ export function ContactMenu() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.2, ease: easeOut }}
-            className="absolute right-0 top-full z-10 mt-3 w-56 border border-line bg-bone p-1.5 shadow-[0_18px_48px_-12px_rgba(10,10,11,0.18)]"
+            className="absolute right-0 top-full z-10 mt-3 w-56 border border-line bg-paper p-1.5 shadow-[0_18px_48px_-12px_rgba(10,10,11,0.18)]"
           >
             {CONTACT_LINKS.map((c, i) => (
               // Email is the primary action; a hairline sets it apart from the socials.

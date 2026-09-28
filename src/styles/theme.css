@@ -17,10 +17,10 @@
   --font-sans: 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* ── Color ───────────────────────────────────────────────────────────── */
-  --color-bone: #ffffff; /* page background */
+  --color-bone: #fafafb; /* page background — cool off-white, the 'polished' white */
   --color-bone-deep: #f0f0f0;
-  --color-paper: #ffffff;
-  --color-surface: #f3f3f1; /* image frames, soft cards */
+  --color-paper: #ffffff; /* raised surfaces (menus, panels) lift off the page */
+  --color-surface: #f1f1f4; /* image frames, soft cards — cool, to match the page */
 
   --color-ink: #0a0a0b; /* primary text */
   --color-ink-soft: #1c1c1e;
