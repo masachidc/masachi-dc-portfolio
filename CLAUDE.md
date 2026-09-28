@@ -9,7 +9,7 @@ Personal portfolio. React 18 + Vite 6 + Tailwind CSS v4 + motion + react-router-
 
 ## Conventions
 
-- **Design tokens** live in `src/styles/theme.css`. Use type roles (`text-display`, `text-title`, `text-lede`, `text-kicker`, `text-body-lg`, `text-body`, `text-small`, `text-label caps`, `text-micro caps`), text colors (`text-ink`, `text-fg-muted`, `text-fg-subtle`, `text-fg-faint` — large text only), and layout utilities (`container-site`, `container-reading`, `section-y`). Avoid new `text-[Npx]` / `max-w-[...] px-...` one-offs.
+- **Design tokens** live in `src/styles/theme.css`. Use type roles (`text-display`, `text-headline`, `text-title`, `text-lede`, `text-kicker`, `text-body-lg`, `text-body`, `text-small`, `text-label caps`, `text-micro caps`), text colors (`text-ink`, `text-fg-muted`, `text-fg-subtle`, `text-fg-faint` — large text only), and layout utilities (`container-site`, `container-reading`, `section-y`). Avoid new `text-[Npx]` / `max-w-[...] px-...` one-offs.
 - **Routes**: `/` home, `/works/<slug>` case studies (slugs match existing public masachidc.com URLs), `/about`, `/impact`, `/resume`; unknown paths render the 404 page. Old `/projects/<slug>` URLs redirect.
 - **Projects**: `src/app/data/projects.ts` — array order is display order. Case-study content: `src/app/data/caseStudies.tsx`; projects without a written study get a `draft` placeholder (noindex, not in sitemap).
 - **Metadata**: call `usePageMeta()` in every page. When a case study stops being a draft, add it to `public/sitemap.xml`.
