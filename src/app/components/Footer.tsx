@@ -15,8 +15,10 @@ export function Footer() {
     <footer className="bg-ink-deep text-bone">
       <div className="container-site">
         {/* ── Top: identity + link columns ── */}
-        <div className="grid grid-cols-1 gap-14 py-16 md:grid-cols-[1fr_auto] md:gap-24 md:py-20">
-          <div className="flex flex-col gap-5">
+        {/* Equal space above and below the text (56px, 72px from md): bottom padding is 8px short to absorb the last link's padding and line height. */}
+        <div className="grid grid-cols-1 gap-12 pb-12 pt-14 md:grid-cols-[1fr_auto] md:gap-24 md:pb-16 md:pt-18">
+          {/* -mt-2 cancels the wordmark's tap padding so its letters align with the column headings. */}
+          <div className="-mt-2 flex flex-col gap-1">
             <Wordmark tone="light" />
             <p className="max-w-[32ch] text-body text-bone/70">A product designer who ships.</p>
           </div>
@@ -57,7 +59,7 @@ export function Footer() {
         </div>
 
         {/* ── Bottom bar ── */}
-        <div className="flex flex-col-reverse items-start gap-4 border-t border-bone/10 py-7 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col-reverse items-start gap-3 border-t border-bone/10 py-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-small text-bone/60">© {year} Masachi DC. All rights reserved.</p>
           <button
             type="button"
