@@ -33,8 +33,7 @@ export function HomeAbout() {
             I studied architecture before moving into digital interactive media, with a minor in
             computer science. That path shaped how I work: <strong className="font-semibold text-ink">structure first</strong>,
             then form, then the details that make a product feel right. Today I take products from
-            research and interface design into working code, using AI-assisted tools to get from
-            idea to release quickly. I'm based in Tampa, Florida.
+            research and interface design into working code. I'm based in Tampa, Florida.
           </p>
 
           <dl className="mt-10 grid grid-cols-1 gap-6 border-t border-line pt-6 sm:grid-cols-3 sm:gap-8">

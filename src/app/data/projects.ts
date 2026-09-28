@@ -86,7 +86,7 @@ export const PROJECTS: Project[] = [
     disciplines: 'Brand Identity · Web',
     year: '2025',
     description:
-      "A distinct identity for FIU's Project SEEDS, built on the university brand system. Part of a push that helped double student enrollment.",
+      "A distinct identity for FIU's Project SEEDS, built on the university brand system. Enrollment more than doubled during the initiative.",
     cover: { src: unsplash('photo-1446688568582-55ddb4b37cad'), position: 'center', placeholder: true },
     accent: '#FF2A2A',
     accentDeep: '#8C0F0F',

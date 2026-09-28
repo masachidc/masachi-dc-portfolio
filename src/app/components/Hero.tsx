@@ -23,7 +23,7 @@ function CornerMark({ className, delay }: { className: string; delay: number }) 
 const PROOF = [
   { lead: 'Shipped to the App Store', detail: 'Tembo: Storylines, a social app for iOS.' },
   { lead: 'Design through to code', detail: 'Interfaces built in React and React Native, prototype to production.' },
-  { lead: 'Measurable outcomes', detail: "A brand system that helped double enrollment for FIU's Project SEEDS." },
+  { lead: 'Measurable outcomes', detail: "Brand and web work for FIU's Project SEEDS during a period when enrollment more than doubled." },
 ];
 
 export function Hero() {
