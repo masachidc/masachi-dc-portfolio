@@ -5,7 +5,6 @@ import { easeOut } from '../lib/motion';
 import { CONTACT_LINKS } from '../data/site';
 import { Magnetic } from './Magnetic';
 import { SiteLink } from './SiteLink';
-import { ContactIcon } from './ContactIcon';
 
 /**
  * "Get in touch" disclosure: a button that reveals every contact channel.
@@ -72,24 +71,22 @@ export function ContactMenu() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.2, ease: easeOut }}
-            className="absolute right-0 top-full z-10 mt-3 w-52 border border-line bg-bone py-1.5 shadow-[0_16px_40px_rgba(0,0,0,0.08)]"
+            className="absolute right-0 top-full z-10 mt-3 w-56 border border-line bg-paper p-1.5 shadow-[0_18px_48px_-12px_rgba(10,10,11,0.18)]"
           >
-            {CONTACT_LINKS.map((c) => (
-              <li key={c.label}>
+            {CONTACT_LINKS.map((c, i) => (
+              // Email is the primary action; a hairline sets it apart from the socials.
+              <li key={c.label} className={i === 1 ? 'mt-1.5 border-t border-line pt-1.5' : undefined}>
                 <SiteLink
                   href={c.href}
                   onNavigate={() => setOpen(false)}
-                  className="group flex items-center gap-3 px-4 py-2.5 text-small font-medium text-fg-muted transition-colors duration-200 hover:bg-surface hover:text-ink"
+                  className="group flex min-h-11 items-center justify-between gap-6 px-3.5 text-label caps text-fg-muted outline-offset-[-2px] transition-colors duration-200 hover:bg-surface hover:text-ink focus-visible:bg-surface focus-visible:text-ink"
                 >
-                  <span className="flex w-4 justify-center text-fg-subtle transition-colors duration-200 group-hover:text-accent">
-                    <ContactIcon label={c.label} />
-                  </span>
                   {c.label}
                   <ArrowUpRight
-                    size={12}
+                    size={13}
                     strokeWidth={2}
                     aria-hidden
-                    className="ml-auto text-fg-faint opacity-0 transition-all duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent group-hover:opacity-100 group-focus-visible:opacity-100"
+                    className="shrink-0 text-fg-faint transition-[transform,color] duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent group-focus-visible:text-accent"
                   />
                 </SiteLink>
               </li>

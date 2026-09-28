@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react';
-import { Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { easeOut } from '../lib/motion';
 import { ContactMenu } from './ContactMenu';
-import { ContactIcon } from './ContactIcon';
 import { SiteLink } from './SiteLink';
 import { Wordmark } from './Wordmark';
 import { CONTACT_LINKS, NAV_LINKS, type NavItem } from '../data/site';
@@ -164,12 +163,10 @@ export function Nav() {
                   key={c.label}
                   href={c.href}
                   onNavigate={() => setMenuOpen(false)}
-                  className="flex w-fit items-center gap-3 py-2.5 text-body font-medium text-fg-muted"
+                  className="flex min-h-11 w-fit items-center gap-2 text-label caps text-fg-muted"
                 >
-                  <span className="flex w-4 justify-center text-fg-subtle">
-                    <ContactIcon label={c.label} size={16} />
-                  </span>
                   {c.label}
+                  <ArrowUpRight size={13} strokeWidth={2} aria-hidden className="text-fg-faint" />
                 </SiteLink>
               ))}
             </div>
