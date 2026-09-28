@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { projectHref, projectNumber, type Project } from '../data/projects';
-import { easeOut, viewportOnce } from '../lib/motion';
+import { easeOut } from '../lib/motion';
 
 const MotionLink = motion(Link);
 
@@ -19,6 +19,11 @@ function hexToRgba(hex: string, alpha: number) {
   const b = n & 255;
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
+
+// Cards reveal as soon as any part is on screen (or about to be), so the ones
+// peeking above the fold on first load animate in immediately instead of
+// waiting for a scroll. The shared viewportOnce inset would hold them back.
+const cardViewport = { once: true, margin: '0px 0px 15% 0px' } as const;
 
 const cardEntrance = {
   hidden: { opacity: 0, y: 28, scale: 0.975 },
@@ -193,7 +198,7 @@ export function ProjectCard({ project: p, className = '' }: ProjectCardProps) {
     <motion.div
       initial="hidden"
       whileInView="show"
-      viewport={viewportOnce}
+      viewport={cardViewport}
       variants={cardEntrance}
       className={`flex flex-col ${className}`}
     >
