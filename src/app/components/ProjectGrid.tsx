@@ -49,7 +49,8 @@ function MosaicBand({ group, mirrored }: { group: Project[]; mirrored: boolean }
 export function ProjectGrid() {
   return (
     <section id="work" aria-labelledby="work-title" className="relative bg-bone">
-      <div className="container-site pb-(--space-section) pt-10">
+      {/* Hero description → "Selected work" equals nav → hero kicker: both are --space-section. */}
+      <div className="container-site pb-(--space-section) pt-(--space-section)">
         <div className="mb-8 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
           <h2 id="work-title" className="font-display text-kicker text-fg-faint">
             Selected work
