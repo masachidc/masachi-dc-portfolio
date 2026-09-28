@@ -5,6 +5,7 @@ import { easeOut } from '../lib/motion';
 import { CONTACT_LINKS } from '../data/site';
 import { Magnetic } from './Magnetic';
 import { SiteLink } from './SiteLink';
+import { ContactIcon } from './ContactIcon';
 
 /**
  * "Get in touch" disclosure: a button that reveals every contact channel.
@@ -71,21 +72,24 @@ export function ContactMenu() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.2, ease: easeOut }}
-            className="absolute right-0 top-full z-10 mt-3 w-48 border border-line bg-bone py-1.5 shadow-[0_16px_40px_rgba(0,0,0,0.08)]"
+            className="absolute right-0 top-full z-10 mt-3 w-52 border border-line bg-bone py-1.5 shadow-[0_16px_40px_rgba(0,0,0,0.08)]"
           >
             {CONTACT_LINKS.map((c) => (
               <li key={c.label}>
                 <SiteLink
                   href={c.href}
                   onNavigate={() => setOpen(false)}
-                  className="group flex items-center justify-between px-4 py-2.5 text-label caps text-fg-muted transition-colors duration-200 hover:text-ink"
+                  className="group flex items-center gap-3 px-4 py-2.5 text-small font-medium text-fg-muted transition-colors duration-200 hover:bg-surface hover:text-ink"
                 >
+                  <span className="flex w-4 justify-center text-fg-subtle transition-colors duration-200 group-hover:text-accent">
+                    <ContactIcon label={c.label} />
+                  </span>
                   {c.label}
                   <ArrowUpRight
                     size={12}
                     strokeWidth={2}
                     aria-hidden
-                    className="text-fg-faint transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                    className="ml-auto text-fg-faint opacity-0 transition-all duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent group-hover:opacity-100 group-focus-visible:opacity-100"
                   />
                 </SiteLink>
               </li>
