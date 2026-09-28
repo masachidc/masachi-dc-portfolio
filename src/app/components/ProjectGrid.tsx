@@ -49,10 +49,9 @@ function MosaicBand({ group, mirrored }: { group: Project[]; mirrored: boolean }
 export function ProjectGrid() {
   return (
     <section id="work" aria-labelledby="work-title" className="relative bg-bone">
-      {/* Description → first card equals nav → hero kicker (--space-section):
-          top padding + the fixed 3.5rem heading row add up to that gap. */}
-      <div className="container-site pb-(--space-section) pt-[calc(var(--space-section)-3.5rem)]">
-        <div className="flex h-14 flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+      {/* Hero description → "Selected work" equals nav → hero kicker: both are --space-section. */}
+      <div className="container-site pb-(--space-section) pt-(--space-section)">
+        <div className="mb-8 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
           <h2 id="work-title" className="font-display text-kicker text-fg-faint">
             Selected work
           </h2>

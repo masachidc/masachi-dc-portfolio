@@ -1,8 +1,6 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { ArrowDown } from 'lucide-react';
 import { easeOut } from '../lib/motion';
-import { SiteLink } from './SiteLink';
 import { RevealLine } from './RevealLine';
 
 function CornerMark({ className, delay }: { className: string; delay: number }) {
@@ -31,7 +29,7 @@ export function Hero() {
       <CornerMark className="left-(--gutter) top-4" delay={0.9} />
       <CornerMark className="right-(--gutter) top-4 rotate-90" delay={1.0} />
 
-      {/* Top padding = the section rhythm; ProjectGrid mirrors it below the description. */}
+      {/* Top padding = the section rhythm; ProjectGrid mirrors it above "Selected work". */}
       <motion.div style={{ opacity, y }} className="container-site pt-(--space-section)">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
@@ -58,28 +56,6 @@ export function Hero() {
             I design products and build them, from research and interface design through to
             production code in React and React Native.
           </p>
-
-          <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
-            <SiteLink
-              href="/#work"
-              className="group inline-flex items-center gap-2 border-b border-ink pb-1 text-label caps text-ink"
-            >
-              See selected work
-              <ArrowDown
-                size={13}
-                strokeWidth={2}
-                aria-hidden
-                className="transition-transform duration-300 ease-out group-hover:translate-y-0.5"
-              />
-            </SiteLink>
-            <SiteLink
-              href="/#contact"
-              className="inline-flex items-center gap-2 py-1 text-small text-fg-subtle transition-colors hover:text-ink"
-            >
-              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
-              Open to new roles
-            </SiteLink>
-          </div>
         </motion.div>
       </motion.div>
     </section>
