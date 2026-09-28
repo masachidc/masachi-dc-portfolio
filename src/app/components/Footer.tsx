@@ -18,7 +18,7 @@ export function Footer() {
           <div className="flex flex-col gap-5">
             <Wordmark tone="light" />
             <p className="max-w-[32ch] text-[14px] leading-[1.7] text-bone/45">
-              Product, brand, and motion design — made with care, built to be used.
+              A product designer who ships.
             </p>
           </div>
 
@@ -28,16 +28,9 @@ export function Footer() {
               <ul className="flex flex-col gap-3.5">
                 {NAV_LINKS.map((item) => (
                   <li key={item.label}>
-                    {item.href ? (
-                      <SiteLink href={item.href} className={COLUMN_LINK}>
-                        {item.label}
-                      </SiteLink>
-                    ) : (
-                      <span aria-disabled="true" className="inline-flex items-baseline gap-2 text-[13px] font-medium text-bone/25">
-                        {item.label}
-                        <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-bone/25">Soon</span>
-                      </span>
-                    )}
+                    <SiteLink href={item.href} className={COLUMN_LINK}>
+                      {item.label}
+                    </SiteLink>
                   </li>
                 ))}
               </ul>

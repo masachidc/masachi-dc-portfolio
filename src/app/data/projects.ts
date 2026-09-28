@@ -26,7 +26,7 @@ export const PROJECTS: Project[] = [
     description:
       'A prediction platform for sports, entertainment, and politics — forecasts are sealed at kickoff and revealed once the outcome lands.',
     tags: ['Sports Tech', 'PWA', 'AI'],
-    link: 'https://masachidc.com/works/kesho-app',
+    link: '/projects/kesho',
     image:
       'https://images.unsplash.com/photo-1768330187404-59e46cf222c9?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center',
@@ -62,7 +62,7 @@ export const PROJECTS: Project[] = [
     description:
       'A browser extension that turns any webpage into an interactive canvas — annotate, highlight, draw, and call up AI without leaving the tab.',
     tags: ['Browser AI', 'Productivity', 'FIU Award'],
-    link: 'https://masachidc.com/works/inline-chrome-extension',
+    link: '/projects/inline',
     image:
       'https://images.unsplash.com/photo-1768638687898-7851d341cb87?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center',
@@ -80,7 +80,7 @@ export const PROJECTS: Project[] = [
     description:
       "Extended FIU's brand system into a distinct identity for Project SEEDS — part of a push that helped drive a 100%+ rise in student enrollment.",
     tags: ['Logo Design', 'Web Design', 'FIU'],
-    link: 'https://masachidc.com/works/project-seeds-branding',
+    link: '/projects/seeds',
     image:
       'https://images.unsplash.com/photo-1446688568582-55ddb4b37cad?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center',
@@ -98,7 +98,7 @@ export const PROJECTS: Project[] = [
     description:
       'A comic-book origin story told through kinetic typography and particle effects — motion design produced with Masachi DC Studios.',
     tags: ['After Effects', 'Kinetic Type', 'Comics'],
-    link: 'https://masachidc.com/works/the-incredible-hulk',
+    link: '/projects/hulk',
     image:
       'https://images.unsplash.com/photo-1755811717097-23fba595025d?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center',
@@ -116,7 +116,7 @@ export const PROJECTS: Project[] = [
     description:
       'A multi-year program bringing architecture and design to 500+ students across six African nations through hands-on SketchUp workshops.',
     tags: ['STEM Education', 'Africa', '6 Countries'],
-    link: 'https://masachidc.com/works/stemxposure',
+    link: '/projects/stem-x',
     image:
       'https://images.unsplash.com/photo-1598941101837-e3fdd6d94b24?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center 40%',

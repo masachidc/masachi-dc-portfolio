@@ -8,20 +8,6 @@ import { Wordmark } from './Wordmark';
 import { CONTACT_LINKS, NAV_LINKS, type NavItem } from '../data/site';
 
 function NavLink({ item }: { item: NavItem }) {
-  if (!item.href) {
-    return (
-      <span
-        aria-disabled="true"
-        title="Coming soon"
-        className="group relative cursor-default text-[11px] font-medium uppercase tracking-[0.18em] text-ink/25"
-      >
-        {item.label}
-        <span className="pointer-events-none absolute -top-3 left-full ml-0.5 text-[8px] font-semibold tracking-[0.14em] text-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          Soon
-        </span>
-      </span>
-    );
-  }
   return (
     <SiteLink
       href={item.href}
@@ -163,33 +149,19 @@ export function Nav() {
             className="fixed inset-x-0 top-[72px] bottom-0 z-40 flex flex-col justify-between overflow-y-auto bg-bone px-6 py-10 md:hidden"
           >
             <nav aria-label="Primary" className="flex flex-col gap-1">
-              {NAV_LINKS.map((item, i) => {
-                const cls = 'group flex items-baseline gap-3 border-b border-ink/10 py-4';
-                const inner = (
-                  <>
-                    <span className="font-mono text-[10px] font-medium text-accent">0{i + 1}</span>
-                    <span
-                      className={`font-display text-3xl font-bold uppercase leading-none tracking-[-0.01em] transition-transform duration-300 ease-out group-active:translate-x-1 ${
-                        item.href ? 'text-ink' : 'text-ink/25'
-                      }`}
-                    >
-                      {item.label}
-                    </span>
-                    {!item.href && (
-                      <span className="ml-auto text-[10px] font-semibold uppercase tracking-[0.18em] text-ink/30">Soon</span>
-                    )}
-                  </>
-                );
-                return item.href ? (
-                  <SiteLink key={item.label} href={item.href} onNavigate={() => setMenuOpen(false)} className={cls}>
-                    {inner}
-                  </SiteLink>
-                ) : (
-                  <span key={item.label} aria-disabled="true" className={cls}>
-                    {inner}
+              {NAV_LINKS.map((item, i) => (
+                <SiteLink
+                  key={item.label}
+                  href={item.href}
+                  onNavigate={() => setMenuOpen(false)}
+                  className="group flex items-baseline gap-3 border-b border-ink/10 py-4"
+                >
+                  <span className="font-mono text-[10px] font-medium text-accent">0{i + 1}</span>
+                  <span className="font-display text-3xl font-bold uppercase leading-none tracking-[-0.01em] text-ink transition-transform duration-300 ease-out group-active:translate-x-1">
+                    {item.label}
                   </span>
-                );
-              })}
+                </SiteLink>
+              ))}
             </nav>
             <div className="mt-10 flex flex-col gap-1">
               <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/35">

@@ -15,7 +15,7 @@ export function Wordmark({
   onNavigate?: () => void;
 }) {
   const color = tone === 'dark' ? 'text-ink' : 'text-bone';
-  const fontSize = size === 'md' ? 'text-[15px]' : 'text-[13px]';
+  const fontSize = size === 'md' ? 'text-[17px]' : 'text-[14px]';
 
   return (
     <SiteLink

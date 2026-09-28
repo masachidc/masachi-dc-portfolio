@@ -5,7 +5,6 @@ import { scrollToTarget } from './components/SiteLink';
 import { Nav } from './components/Nav';
 import { Hero } from './components/Hero';
 import { ProjectGrid } from './components/ProjectGrid';
-import { ClosingCta } from './components/ClosingCta';
 import { Footer } from './components/Footer';
 import { Atmosphere } from './components/Atmosphere';
 import { ProjectIndexRail } from './components/ProjectIndexRail';
@@ -85,7 +84,6 @@ export default function App() {
         <main className="flex-1">
           <Hero />
           <ProjectGrid />
-          <ClosingCta />
         </main>
         <Footer />
       </div>

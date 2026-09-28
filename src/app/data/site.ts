@@ -1,14 +1,13 @@
 export interface NavItem {
   label: string;
-  /** Omit for pages that don't exist yet — rendered as a muted "Soon" item, never a dead link. */
-  href?: string;
+  href: string;
 }
 
 export const NAV_LINKS: NavItem[] = [
   { label: 'Work', href: '/#work' },
-  { label: 'Impact' },
-  { label: 'About', href: 'https://masachidc.com/about' },
-  { label: 'Resume' },
+  { label: 'Impact', href: '/impact' },
+  { label: 'About', href: '/about' },
+  { label: 'Resume', href: '/resume' },
 ];
 
 export const SOCIAL_LINKS = [
