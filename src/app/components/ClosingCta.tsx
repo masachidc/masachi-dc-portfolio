@@ -49,7 +49,7 @@ export function ClosingCta() {
         >
           <Magnetic
             strength={0.3}
-            className="group flex items-center gap-2 bg-accent px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:bg-accent-soft"
+            className="group flex items-center gap-2 bg-accent px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-bone shadow-[0_1px_2px_rgba(0,0,0,0.2)] transition-all duration-300 hover:bg-accent-soft hover:shadow-[0_24px_60px_-16px_rgba(47,90,255,0.65)]"
           >
             View full portfolio
             <ArrowUpRight

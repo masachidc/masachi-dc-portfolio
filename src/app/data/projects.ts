@@ -1,9 +1,9 @@
 export interface Project {
   id: string;
   title: string;
-  subtitle: string;
+  cardTitle: string;
+  railTitle: string;
   category: string;
-  role: string;
   year: string;
   description: string;
   tags: string[];
@@ -11,6 +11,7 @@ export interface Project {
   image: string;
   imagePosition: string;
   accent: string;
+  accentDeep: string;
   foreground: string;
 }
 
@@ -18,103 +19,109 @@ export const PROJECTS: Project[] = [
   {
     id: '01',
     title: 'KESHO',
-    subtitle: 'Prediction App',
+    cardTitle: 'KESHO APP',
+    railTitle: 'KESHO App',
     category: 'Full Stack / Product Design',
-    role: 'Design Engineer',
     year: '2026',
     description:
-      'A sealed foresight platform where users submit timestamped predictions for live sports, entertainment, and politics — locked at kickoff, revealed after.',
+      'A prediction platform for sports, entertainment, and politics — forecasts are sealed at kickoff and revealed once the outcome lands.',
     tags: ['Sports Tech', 'PWA', 'AI'],
     link: 'https://masachidc.com/works/kesho-app',
     image:
       'https://images.unsplash.com/photo-1768330187404-59e46cf222c9?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center',
     accent: '#0057FF',
+    accentDeep: '#00297A',
     foreground: '#ffffff',
   },
   {
     id: '02',
     title: 'AMUSE',
-    subtitle: 'Art Museum',
+    cardTitle: 'AMUSE MUSEUM',
+    railTitle: 'AMUSE Museum Booking App',
     category: 'UI/UX Product Design',
-    role: 'Product Designer',
     year: '2025',
     description:
-      'A museum platform enabling Kenyans to discover exhibitions and book tickets seamlessly — with M-Pesa integration and an African-heritage visual identity.',
+      'A discovery and ticketing platform for Kenyan museums, built on M-Pesa payments and an African-heritage visual identity.',
     tags: ['Mobile-First', 'Cultural Tech', 'Kenya'],
     link: 'https://masachidc.com/works/amuse-art-museum',
     image:
       'https://images.unsplash.com/photo-1774514580599-c3dae376348e?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center 35%',
     accent: '#FF7A00',
+    accentDeep: '#8C3D00',
     foreground: '#0a0a0b',
   },
   {
     id: '03',
     title: 'INLINE',
-    subtitle: 'Chrome Extension',
+    cardTitle: 'INLINE CHROME EXT',
+    railTitle: 'INLINE Chrome Extension',
     category: 'UI/UX Design',
-    role: 'Product Designer',
     year: '2026',
     description:
-      'A browser extension that turns passive browsing into an interactive canvas — annotate, highlight, draw, and invoke AI on any webpage.',
+      'A browser extension that turns any webpage into an interactive canvas — annotate, highlight, draw, and call up AI without leaving the tab.',
     tags: ['Browser AI', 'Productivity', 'FIU Award'],
     link: 'https://masachidc.com/works/inline-chrome-extension',
     image:
       'https://images.unsplash.com/photo-1768638687898-7851d341cb87?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center',
     accent: '#7B2FFF',
+    accentDeep: '#3E1385',
     foreground: '#ffffff',
   },
   {
     id: '04',
     title: 'SEEDS',
-    subtitle: 'Brand Identity',
+    cardTitle: 'SEEDS BRAND',
+    railTitle: 'SEEDS Brand Identity',
     category: 'Brand Identity Design',
-    role: 'Brand Designer',
     year: '2025',
     description:
-      "Extending FIU's brand system to give Project SEEDS its own distinct presence — contributing to a 100%+ increase in student enrollment.",
+      "Extended FIU's brand system into a distinct identity for Project SEEDS — part of a push that helped drive a 100%+ rise in student enrollment.",
     tags: ['Logo Design', 'Web Design', 'FIU'],
     link: 'https://masachidc.com/works/project-seeds-branding',
     image:
       'https://images.unsplash.com/photo-1446688568582-55ddb4b37cad?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center',
     accent: '#FF2A2A',
+    accentDeep: '#8C0F0F',
     foreground: '#ffffff',
   },
   {
     id: '05',
     title: 'HULK',
-    subtitle: 'Motion Design',
+    cardTitle: 'HULK MOTION',
+    railTitle: 'HULK Motion Design',
     category: 'Motion Design',
-    role: 'Motion Designer',
     year: '2025',
     description:
-      'An epic comics story produced with Masachi DC Studios — kinetic typography, particle physics, and After Effects mastery woven into a bold cinematic narrative.',
+      'A comic-book origin story told through kinetic typography and particle effects — motion design produced with Masachi DC Studios.',
     tags: ['After Effects', 'Kinetic Type', 'Comics'],
     link: 'https://masachidc.com/works/the-incredible-hulk',
     image:
       'https://images.unsplash.com/photo-1755811717097-23fba595025d?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center',
     accent: '#17D964',
+    accentDeep: '#087236',
     foreground: '#0a0a0b',
   },
   {
     id: '06',
     title: 'STEM X',
-    subtitle: 'Architecture Camp',
+    cardTitle: 'STEM X CAMP',
+    railTitle: 'STEM X Architecture Camp',
     category: 'Architecture & Curriculum',
-    role: 'Curriculum Design',
     year: '2026',
     description:
-      'A multi-year initiative bringing architecture and design to 500+ students across six African nations through hands-on SketchUp workshops.',
+      'A multi-year program bringing architecture and design to 500+ students across six African nations through hands-on SketchUp workshops.',
     tags: ['STEM Education', 'Africa', '6 Countries'],
     link: 'https://masachidc.com/works/stemxposure',
     image:
       'https://images.unsplash.com/photo-1598941101837-e3fdd6d94b24?w=1600&q=80&auto=format&fit=crop',
     imagePosition: 'center 40%',
     accent: '#FF2E9A',
+    accentDeep: '#8C1050',
     foreground: '#ffffff',
   },
 ];

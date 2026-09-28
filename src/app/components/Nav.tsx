@@ -1,10 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { ArrowUpRight, ChevronDown, Menu, X } from 'lucide-react';
 import { easeOut } from '../lib/motion';
 import { Magnetic } from './Magnetic';
 
 const NAV_LINKS = ['Work', 'Studio', 'Practice', 'Journal', 'Contact'];
+
+const CONTACT_LINKS = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/nathanmasachi/' },
+  { label: 'Email', href: 'mailto:hello@masachidc.com' },
+  { label: 'Instagram', href: 'https://www.instagram.com/masachi.dc/' },
+  { label: 'X', href: 'https://x.com/MasachiDC' },
+];
 
 function NavLink({ label }: { label: string }) {
   return (
@@ -21,8 +28,28 @@ function NavLink({ label }: { label: string }) {
 export function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
   const lastY = useRef(0);
+  const contactRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
+
+  useEffect(() => {
+    if (!contactOpen) return;
+    function onPointerDown(e: PointerEvent) {
+      if (contactRef.current && !contactRef.current.contains(e.target as Node)) {
+        setContactOpen(false);
+      }
+    }
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') setContactOpen(false);
+    }
+    document.addEventListener('pointerdown', onPointerDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [contactOpen]);
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const diff = latest - lastY.current;
@@ -51,13 +78,12 @@ export function Nav() {
         className="sticky top-0 z-50 border-b border-ink/10 bg-bone/90 backdrop-blur-md"
       >
         <div className="mx-auto flex h-[72px] w-full max-w-[1320px] items-center justify-between px-6 sm:px-10 lg:px-16">
-          <a href="#" className="flex items-center gap-2.5">
-            <span className="block h-2 w-2 shrink-0 bg-accent" />
+          <a href="#" className="flex items-center gap-1.5">
             <span className="font-display text-[17px] font-bold uppercase leading-none tracking-[-0.01em] text-ink">
               Masachi
             </span>
-            <span className="text-[10px] font-semibold uppercase leading-none tracking-[0.32em] text-ink/35">
-              DC
+            <span className="flex items-center font-mono text-[11px] font-semibold uppercase leading-none tracking-[0.1em] text-accent">
+              <span className="text-ink/25">[</span>DC<span className="text-ink/25">]</span>
             </span>
           </a>
 
@@ -67,21 +93,53 @@ export function Nav() {
             ))}
           </nav>
 
-          <a
-            href="https://masachidc.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:inline-block"
-          >
-            <Magnetic strength={0.4} className="group flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink">
-              View Portfolio
-              <ArrowUpRight
-                size={13}
-                strokeWidth={2}
-                className="transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              />
-            </Magnetic>
-          </a>
+          <div ref={contactRef} className="relative hidden md:block">
+            <button
+              type="button"
+              aria-haspopup="menu"
+              aria-expanded={contactOpen}
+              onClick={() => setContactOpen((v) => !v)}
+            >
+              <Magnetic strength={0.4} className="group flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink">
+                Contact Me
+                <ChevronDown
+                  size={13}
+                  strokeWidth={2}
+                  className={`transition-transform duration-300 ease-out ${contactOpen ? 'rotate-180' : ''}`}
+                />
+              </Magnetic>
+            </button>
+
+            <AnimatePresence>
+              {contactOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.2, ease: easeOut }}
+                  className="absolute right-0 top-full z-10 mt-3 w-44 border border-ink/10 bg-bone py-1.5 shadow-[0_16px_40px_rgba(0,0,0,0.08)]"
+                >
+                  {CONTACT_LINKS.map((c) => (
+                    <a
+                      key={c.label}
+                      href={c.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setContactOpen(false)}
+                      className="group flex items-center justify-between px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/60 transition-colors duration-200 hover:text-ink"
+                    >
+                      {c.label}
+                      <ArrowUpRight
+                        size={12}
+                        strokeWidth={2}
+                        className="text-ink/25 transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
+                      />
+                    </a>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           <button
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
@@ -122,14 +180,23 @@ export function Nav() {
                 </a>
               ))}
             </nav>
-            <a
-              href="https://masachidc.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-10 inline-flex w-fit items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/60"
-            >
-              View Portfolio <ArrowUpRight size={13} strokeWidth={2} />
-            </a>
+            <div className="mt-10 flex flex-col gap-1">
+              <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/35">
+                Contact Me
+              </p>
+              {CONTACT_LINKS.map((c) => (
+                <a
+                  key={c.label}
+                  href={c.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex w-fit items-center gap-1.5 py-1.5 text-[13px] font-semibold uppercase tracking-[0.18em] text-ink/60"
+                >
+                  {c.label} <ArrowUpRight size={13} strokeWidth={2} />
+                </a>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

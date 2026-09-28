@@ -2,18 +2,51 @@ import { type MouseEvent, useRef } from 'react';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import type { Project } from '../data/projects';
-import { easeOut, fadeUp, viewportOnce } from '../lib/motion';
+import { easeOut, viewportOnce } from '../lib/motion';
 
 interface ProjectCardProps {
   project: Project;
   className?: string;
 }
 
+function hexToRgba(hex: string, alpha: number) {
+  const n = parseInt(hex.replace('#', ''), 16);
+  const r = (n >> 16) & 255;
+  const g = (n >> 8) & 255;
+  const b = n & 255;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+// entrance: a touch of scale-settle alongside the usual fade + rise
+const cardEntrance = {
+  hidden: { opacity: 0, y: 28, scale: 0.975 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.9, ease: easeOut } },
+};
+
+// hover lift on the card itself — also the root the panel content reads its state from
+const cardHover = {
+  rest: { y: 0, transition: { duration: 0.4, ease: easeOut } },
+  hover: { y: -8, transition: { duration: 0.5, ease: easeOut } },
+};
+
+// orchestrates the panel's children into a brief cascade instead of one flat fade
+const panelStagger = {
+  rest: { transition: { staggerChildren: 0.025, staggerDirection: -1 } },
+  hover: { transition: { staggerChildren: 0.05, delayChildren: 0.06 } },
+};
+
+const panelItem = {
+  rest: { opacity: 0, y: 8, transition: { duration: 0.18, ease: easeOut } },
+  hover: { opacity: 1, y: 0, transition: { duration: 0.32, ease: easeOut } },
+};
+
 export function ProjectCard({ project: p, className = '' }: ProjectCardProps) {
   const fg = p.foreground;
   const fgSoft = fg === '#ffffff' ? 'rgba(255,255,255,0.7)' : 'rgba(10,10,11,0.65)';
   const fgFaint = fg === '#ffffff' ? 'rgba(255,255,255,0.4)' : 'rgba(10,10,11,0.45)';
   const fgBorder = fg === '#ffffff' ? 'rgba(255,255,255,0.25)' : 'rgba(10,10,11,0.2)';
+  const restShadow = '0 1px 2px rgba(10,10,11,0.05), 0 24px 48px -30px rgba(10,10,11,0.22)';
+  const hoverShadow = `0 1px 2px rgba(10,10,11,0.06), 0 40px 70px -20px ${hexToRgba(p.accentDeep, 0.55)}`;
 
   const cardRef = useRef<HTMLAnchorElement>(null);
 
@@ -45,7 +78,7 @@ export function ProjectCard({ project: p, className = '' }: ProjectCardProps) {
       initial="hidden"
       whileInView="show"
       viewport={viewportOnce}
-      variants={fadeUp}
+      variants={cardEntrance}
       className={`flex flex-col ${className}`}
     >
       <motion.a
@@ -56,12 +89,21 @@ export function ProjectCard({ project: p, className = '' }: ProjectCardProps) {
         data-project-anchor={p.id}
         onMouseMove={handleTilt}
         onMouseLeave={resetTilt}
-        style={{ rotateX, rotateY, transformPerspective: 1000 }}
-        className="group relative block aspect-[4/5] w-full overflow-hidden bg-ink [transform-style:preserve-3d] lg:aspect-auto lg:h-full"
+        initial="rest"
+        whileHover="hover"
+        variants={cardHover}
+        style={{
+          rotateX,
+          rotateY,
+          transformPerspective: 1000,
+          '--rest-shadow': restShadow,
+          '--hover-shadow': hoverShadow,
+        } as never}
+        className="group relative block aspect-[4/5] w-full overflow-hidden bg-ink shadow-[var(--rest-shadow)] transition-shadow duration-500 [transform-style:preserve-3d] hover:shadow-[var(--hover-shadow)] lg:aspect-auto lg:h-full"
       >
         <motion.img
           src={p.image}
-          alt={`${p.title} — ${p.subtitle}`}
+          alt={`${p.cardTitle} — ${p.category}`}
           className="absolute inset-0 h-full w-full object-cover"
           style={{ objectPosition: p.imagePosition, filter: 'saturate(0.92) brightness(0.88)', y: imgY }}
           whileHover={{ scale: 1.045 }}
@@ -77,19 +119,20 @@ export function ProjectCard({ project: p, className = '' }: ProjectCardProps) {
             N°{p.id} — {p.year}
           </p>
           <h3 className="font-display text-[26px] font-bold uppercase leading-none tracking-[-0.01em] text-bone">
-            {p.title}
+            {p.cardTitle}
           </h3>
-          <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-bone/45">
-            {p.subtitle}
-          </p>
         </div>
 
         {/* hover panel — desktop only, bold saturated per-project color */}
-        <div
+        <motion.div
+          variants={panelStagger}
           className="pointer-events-none absolute inset-0 z-20 hidden flex-col justify-between p-7 opacity-0 transition-opacity duration-[400ms] ease-out md:flex md:group-hover:opacity-100"
-          style={{ backgroundColor: p.accent, color: fg }}
+          style={{
+            background: `linear-gradient(155deg, ${p.accent} 0%, ${p.accentDeep} 100%)`,
+            color: fg,
+          }}
         >
-          <div className="flex items-start justify-between">
+          <motion.div variants={panelItem} className="flex items-start justify-between">
             <span className="font-mono text-[11px] font-medium">N°{p.id}</span>
             <span
               className="text-[9px] font-semibold uppercase tracking-[0.22em]"
@@ -97,43 +140,49 @@ export function ProjectCard({ project: p, className = '' }: ProjectCardProps) {
             >
               {p.year}
             </span>
-          </div>
+          </motion.div>
 
           <div>
-            <p
+            <motion.p
+              variants={panelItem}
               className="mb-2 text-[9px] font-semibold uppercase tracking-[0.22em]"
               style={{ color: fgFaint }}
             >
               {p.category}
-            </p>
-            <h3 className="font-display text-[30px] font-bold uppercase leading-[0.95] tracking-[-0.01em]">
-              {p.title}
-            </h3>
-            <p
-              className="mb-4 mt-1 text-[10px] font-semibold uppercase tracking-[0.2em]"
-              style={{ color: fgFaint }}
+            </motion.p>
+            <motion.h3
+              variants={panelItem}
+              className="mb-4 font-display text-[30px] font-bold uppercase leading-[0.95] tracking-[-0.01em]"
+              style={{ textShadow: `0 12px 28px ${hexToRgba(p.accentDeep, 0.55)}` }}
             >
-              {p.subtitle}
-            </p>
-            <p className="mb-4 max-w-[34ch] text-[13px] leading-relaxed" style={{ color: fgSoft }}>
+              {p.cardTitle}
+            </motion.h3>
+            <motion.p
+              variants={panelItem}
+              className="mb-4 max-w-[34ch] text-[13px] leading-relaxed"
+              style={{ color: fgSoft }}
+            >
               {p.description}
-            </p>
-            <div className="mb-5 flex flex-wrap gap-1.5">
+            </motion.p>
+            <motion.div variants={panelItem} className="mb-5 flex flex-wrap gap-1.5">
               {p.tags.map((t) => (
                 <span
                   key={t}
                   className="border px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.14em]"
-                  style={{ borderColor: fgBorder }}
+                  style={{ borderColor: fgBorder, backgroundColor: hexToRgba(p.accentDeep, 0.28) }}
                 >
                   {t}
                 </span>
               ))}
-            </div>
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.18em]">
+            </motion.div>
+            <motion.span
+              variants={panelItem}
+              className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.18em]"
+            >
               View project <ArrowUpRight size={12} strokeWidth={2.25} />
-            </span>
+            </motion.span>
           </div>
-        </div>
+        </motion.div>
       </motion.a>
 
       {/* static meta — mobile only, since hover has no touch equivalent */}

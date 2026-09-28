@@ -41,12 +41,8 @@ export function Hero() {
           transition={{ duration: 0.7, ease: easeOut }}
           className="mb-5 flex items-center gap-3"
         >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/60" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-          </span>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-ink/45">
-            Available for select work — 2026
+          <p className="text-[21px] font-bold tracking-[-0.01em] text-ink/45">
+            Meet Nathan Masachi,
           </p>
         </motion.div>
 
@@ -54,9 +50,9 @@ export function Hero() {
           className="font-display font-extrabold leading-[0.96] tracking-[-0.02em] text-ink"
           style={{ fontSize: 'clamp(36px, 5.5vw, 76px)' }}
         >
-          <RevealLine delay={0.15}>Design that moves</RevealLine>
+          <RevealLine delay={0.15}>A product designer</RevealLine>
           <RevealLine delay={0.28} className="text-accent">
-            with intention.
+            who ships.
           </RevealLine>
         </h1>
 
@@ -64,7 +60,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: easeOut, delay: 0.65 }}
-          className="mt-6 max-w-md text-[15px] font-medium leading-relaxed text-ink/50"
+          className="mt-6 max-w-md text-[18px] font-medium leading-relaxed text-ink/50"
         >
           Six selected projects in product, brand, and motion design — built
           for founders and teams who care how it feels, not only how it
