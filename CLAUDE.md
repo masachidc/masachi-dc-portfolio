@@ -13,6 +13,7 @@ Personal portfolio. React 18 + Vite 6 + Tailwind CSS v4 + motion + react-router-
 - **Routes**: `/` home, `/works/<slug>` case studies (slugs match existing public masachidc.com URLs), `/about`, `/impact`, `/resume`; unknown paths render the 404 page. Old `/projects/<slug>` URLs redirect.
 - **Projects**: `src/app/data/projects.ts` — array order is display order.
 - **Case studies**: one file per study in `src/app/data/caseStudies/` (`<slug>.tsx`), registered in `index.ts`; types in `types.ts`. Blocks: `section` (kicker + title + prose, optional media), `insight` (one-line turning point), `media` (grey band; `wide` breaks out), `outcomes`. Section ids come from kickers. Media without `src` is a labelled slot shown only in `?preview`. `status: 'draft'` = noindex, public page shows "in progress"; append `?preview` to review. Projects with no study get an automatic in-progress page. Only verified content — never invent metrics or research.
+- **Professional record** (About, Impact, Resume): `src/app/data/profile.ts`, one source so a claim is never worded two ways. Verified facts only; state outcomes alongside the work, not as caused by it. Unconfirmed details are listed as internal CONTENT GAPS there, never rendered. `resumePdf` stays null until a real PDF is in /public. Resume is noindex until education details are confirmed.
 - **Metadata**: call `usePageMeta()` in every page. When a case study stops being a draft, add it to `public/sitemap.xml`.
 
 ## Autonomous work

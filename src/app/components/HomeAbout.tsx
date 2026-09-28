@@ -1,5 +1,7 @@
 import { motion } from 'motion/react';
+import { ArrowRight } from 'lucide-react';
 import { fadeUp, stagger, viewportOnce } from '../lib/motion';
+import { SiteLink } from './SiteLink';
 
 // Range, grouped so it reads as one practice rather than a list of skills.
 const PRACTICE = [
@@ -44,6 +46,14 @@ export function HomeAbout() {
               </div>
             ))}
           </dl>
+
+          <SiteLink
+            href="/about"
+            className="group mt-10 inline-flex items-center gap-1.5 border-b border-ink pb-1 text-label caps text-ink"
+          >
+            More about me
+            <ArrowRight size={12} strokeWidth={2} aria-hidden className="transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
+          </SiteLink>
         </motion.div>
       </div>
     </motion.section>

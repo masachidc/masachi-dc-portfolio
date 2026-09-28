@@ -3,7 +3,9 @@ import { BrowserRouter, Routes, Route, Navigate, useParams } from 'react-router-
 import { MotionConfig } from 'motion/react';
 import App from './app/App.tsx';
 import { CaseStudyPage } from './app/pages/CaseStudyPage.tsx';
-import { BlankPage } from './app/pages/BlankPage.tsx';
+import { AboutPage } from './app/pages/AboutPage.tsx';
+import { ImpactPage } from './app/pages/ImpactPage.tsx';
+import { ResumePage } from './app/pages/ResumePage.tsx';
 import { NotFoundPage } from './app/pages/NotFoundPage.tsx';
 import './styles/index.css';
 
@@ -34,9 +36,9 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/works" element={<Navigate to="/#work" replace />} />
         <Route path="/works/:slug" element={<CaseStudyPage />} />
         <Route path="/projects/:slug" element={<LegacyProjectRedirect />} />
-        <Route path="/impact" element={<BlankPage title="Impact" />} />
-        <Route path="/about" element={<BlankPage title="About" />} />
-        <Route path="/resume" element={<BlankPage title="Resume" />} />
+        <Route path="/impact" element={<ImpactPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/resume" element={<ResumePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
