@@ -1,0 +1,41 @@
+import { PROJECTS, findProject, type Project } from '../projects';
+import { amuse } from './amuse';
+import { inline } from './inline';
+import { kesho } from './kesho';
+import type { CaseStudy } from './types';
+
+export type { CaseBlock, CaseStudy, Media, MediaRatio } from './types';
+
+/** Authored case studies. To add one: create `<slug>.tsx` beside this file and list it here. */
+const WRITTEN: CaseStudy[] = [amuse, kesho, inline];
+
+/**
+ * Projects without an authored study still get a real URL: a draft built only
+ * from verified project data, rendered as a "case study in progress" page.
+ */
+function comingSoon(p: Project): CaseStudy {
+  const rest = p.railTitle.slice(p.title.length).trim();
+  return {
+    slug: p.slug,
+    status: 'draft',
+    title: rest ? [p.title, rest] : [p.title],
+    tagline: p.description,
+    facts: [
+      ['Discipline', p.disciplines],
+      ['Year', p.year],
+    ],
+    blocks: [],
+  };
+}
+
+export const CASE_STUDIES: CaseStudy[] = PROJECTS.map(
+  (p) => WRITTEN.find((c) => c.slug === p.slug) ?? comingSoon(p),
+);
+
+export const findCaseStudy = (slug: string | undefined) => {
+  const study = CASE_STUDIES.find((c) => c.slug === slug);
+  const project = findProject(slug);
+  return study && project ? { study, project } : undefined;
+};
+
+export const isPublished = (slug: string) => CASE_STUDIES.find((c) => c.slug === slug)?.status === 'published';

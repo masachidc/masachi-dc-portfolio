@@ -6,12 +6,12 @@ import { SiteLink } from './SiteLink';
 // At rest: one muted dot per project on the right edge, the project being
 // viewed slightly darker. Hovering or keyboard-focusing the rail opens it into
 // a panel listing every project; each item takes on its project's accent on
-// hover. Desktop pointer devices only.
+// hover. Pointer devices ≥1280px only, where the side margin clears the reading column.
 export function ProjectRail({ currentSlug }: { currentSlug: string }) {
   return (
     <nav
       aria-label="More projects"
-      className="group/rail fixed right-6 top-1/2 z-30 hidden -translate-y-1/2 lg:[@media(hover:hover)]:block xl:right-10"
+      className="group/rail fixed right-6 top-1/2 z-30 hidden -translate-y-1/2 xl:[@media(hover:hover)]:block xl:right-10"
     >
       <div className="flex w-8 flex-col items-end rounded-[12px] border border-transparent px-2.5 py-3 transition-all duration-300 ease-out group-hover/rail:w-[260px] group-hover/rail:border-line group-hover/rail:bg-bone group-hover/rail:px-4 group-hover/rail:shadow-[0_12px_32px_rgba(17,17,17,0.08)] group-focus-within/rail:w-[260px] group-focus-within/rail:border-line group-focus-within/rail:bg-bone group-focus-within/rail:px-4 group-focus-within/rail:shadow-[0_12px_32px_rgba(17,17,17,0.08)]">
         <p className="mb-1 max-h-0 w-full overflow-hidden text-right text-micro caps text-fg-subtle opacity-0 transition-all duration-300 group-hover/rail:max-h-6 group-hover/rail:opacity-100 group-focus-within/rail:max-h-6 group-focus-within/rail:opacity-100">
