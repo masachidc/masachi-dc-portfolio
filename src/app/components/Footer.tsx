@@ -1,4 +1,8 @@
-const SOCIALS = ['Instagram', 'LinkedIn', 'Behance'];
+const SOCIALS = [
+  { label: 'Instagram', href: 'https://www.instagram.com/masachi.dc/' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/nathanmasachi/' },
+  { label: 'X', href: 'https://x.com/MasachiDC' },
+];
 
 export function Footer() {
   return (
@@ -20,13 +24,13 @@ export function Footer() {
         <div className="flex items-center gap-7">
           {SOCIALS.map((s) => (
             <a
-              key={s}
-              href="https://masachidc.com"
+              key={s.label}
+              href={s.href}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[9px] font-semibold uppercase tracking-[0.22em] text-bone/35 transition-colors duration-300 hover:text-bone/70"
             >
-              {s}
+              {s.label}
             </a>
           ))}
         </div>
