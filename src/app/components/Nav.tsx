@@ -3,25 +3,33 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/
 import { ArrowUpRight, ChevronDown, Menu, X } from 'lucide-react';
 import { easeOut } from '../lib/motion';
 import { Magnetic } from './Magnetic';
+import { SiteLink } from './SiteLink';
+import { Wordmark } from './Wordmark';
+import { CONTACT_LINKS, NAV_LINKS, type NavItem } from '../data/site';
 
-const NAV_LINKS = ['Work', 'Studio', 'Practice', 'Journal', 'Contact'];
-
-const CONTACT_LINKS = [
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/nathanmasachi/' },
-  { label: 'Email', href: 'mailto:hello@masachidc.com' },
-  { label: 'Instagram', href: 'https://www.instagram.com/masachi.dc/' },
-  { label: 'X', href: 'https://x.com/MasachiDC' },
-];
-
-function NavLink({ label }: { label: string }) {
+function NavLink({ item }: { item: NavItem }) {
+  if (!item.href) {
+    return (
+      <span
+        aria-disabled="true"
+        title="Coming soon"
+        className="group relative cursor-default text-[11px] font-medium uppercase tracking-[0.18em] text-ink/25"
+      >
+        {item.label}
+        <span className="pointer-events-none absolute -top-3 left-full ml-0.5 text-[8px] font-semibold tracking-[0.14em] text-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          Soon
+        </span>
+      </span>
+    );
+  }
   return (
-    <a
-      href="#"
+    <SiteLink
+      href={item.href}
       className="group relative text-[11px] font-medium uppercase tracking-[0.18em] text-ink/55 transition-colors duration-300 hover:text-ink"
     >
-      {label}
+      {item.label}
       <span className="pointer-events-none absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-300 ease-out group-hover:scale-x-100" />
-    </a>
+    </SiteLink>
   );
 }
 
@@ -78,18 +86,11 @@ export function Nav() {
         className="sticky top-0 z-50 border-b border-ink/10 bg-bone/90 backdrop-blur-md"
       >
         <div className="mx-auto flex h-[72px] w-full max-w-[1320px] items-center justify-between px-6 sm:px-10 lg:px-16">
-          <a href="#" className="flex items-center gap-1.5">
-            <span className="font-display text-[17px] font-bold uppercase leading-none tracking-[-0.01em] text-ink">
-              Masachi
-            </span>
-            <span className="flex items-center font-mono text-[11px] font-semibold uppercase leading-none tracking-[0.1em] text-accent">
-              <span className="text-ink/25">[</span>DC<span className="text-ink/25">]</span>
-            </span>
-          </a>
+          <Wordmark onNavigate={() => setMenuOpen(false)} />
 
-          <nav className="hidden items-center gap-10 md:flex">
-            {NAV_LINKS.map((l) => (
-              <NavLink key={l} label={l} />
+          <nav aria-label="Primary" className="hidden items-center gap-10 md:flex">
+            {NAV_LINKS.map((item) => (
+              <NavLink key={item.label} item={item} />
             ))}
           </nav>
 
@@ -120,12 +121,10 @@ export function Nav() {
                   className="absolute right-0 top-full z-10 mt-3 w-44 border border-ink/10 bg-bone py-1.5 shadow-[0_16px_40px_rgba(0,0,0,0.08)]"
                 >
                   {CONTACT_LINKS.map((c) => (
-                    <a
+                    <SiteLink
                       key={c.label}
                       href={c.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setContactOpen(false)}
+                      onNavigate={() => setContactOpen(false)}
                       className="group flex items-center justify-between px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/60 transition-colors duration-200 hover:text-ink"
                     >
                       {c.label}
@@ -134,7 +133,7 @@ export function Nav() {
                         strokeWidth={2}
                         className="text-ink/25 transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
                       />
-                    </a>
+                    </SiteLink>
                   ))}
                 </motion.div>
               )}
@@ -163,38 +162,48 @@ export function Nav() {
             transition={{ duration: 0.4, ease: easeOut }}
             className="fixed inset-x-0 top-[72px] bottom-0 z-40 flex flex-col justify-between overflow-y-auto bg-bone px-6 py-10 md:hidden"
           >
-            <nav className="flex flex-col gap-1">
-              {NAV_LINKS.map((l, i) => (
-                <a
-                  key={l}
-                  href="#"
-                  onClick={() => setMenuOpen(false)}
-                  className="group flex items-baseline gap-3 border-b border-ink/10 py-4"
-                >
-                  <span className="font-mono text-[10px] font-medium text-accent">
-                    0{i + 1}
+            <nav aria-label="Primary" className="flex flex-col gap-1">
+              {NAV_LINKS.map((item, i) => {
+                const cls = 'group flex items-baseline gap-3 border-b border-ink/10 py-4';
+                const inner = (
+                  <>
+                    <span className="font-mono text-[10px] font-medium text-accent">0{i + 1}</span>
+                    <span
+                      className={`font-display text-3xl font-bold uppercase leading-none tracking-[-0.01em] transition-transform duration-300 ease-out group-active:translate-x-1 ${
+                        item.href ? 'text-ink' : 'text-ink/25'
+                      }`}
+                    >
+                      {item.label}
+                    </span>
+                    {!item.href && (
+                      <span className="ml-auto text-[10px] font-semibold uppercase tracking-[0.18em] text-ink/30">Soon</span>
+                    )}
+                  </>
+                );
+                return item.href ? (
+                  <SiteLink key={item.label} href={item.href} onNavigate={() => setMenuOpen(false)} className={cls}>
+                    {inner}
+                  </SiteLink>
+                ) : (
+                  <span key={item.label} aria-disabled="true" className={cls}>
+                    {inner}
                   </span>
-                  <span className="font-display text-3xl font-bold uppercase leading-none tracking-[-0.01em] text-ink transition-transform duration-300 ease-out group-active:translate-x-1">
-                    {l}
-                  </span>
-                </a>
-              ))}
+                );
+              })}
             </nav>
             <div className="mt-10 flex flex-col gap-1">
               <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/35">
                 Contact Me
               </p>
               {CONTACT_LINKS.map((c) => (
-                <a
+                <SiteLink
                   key={c.label}
                   href={c.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setMenuOpen(false)}
+                  onNavigate={() => setMenuOpen(false)}
                   className="flex w-fit items-center gap-1.5 py-1.5 text-[13px] font-semibold uppercase tracking-[0.18em] text-ink/60"
                 >
                   {c.label} <ArrowUpRight size={13} strokeWidth={2} />
-                </a>
+                </SiteLink>
               ))}
             </div>
           </motion.div>

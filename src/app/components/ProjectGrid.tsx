@@ -5,7 +5,7 @@ export function ProjectGrid() {
   const [a, b, c, d, e, f] = PROJECTS;
 
   return (
-    <section className="relative bg-bone">
+    <section id="work" className="relative bg-bone">
       <div className="mx-auto w-full max-w-[1320px] px-6 pb-28 pt-12 sm:px-10 lg:px-16">
         {/* mobile / tablet — simple stacked & 2-col rhythm */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:hidden">
