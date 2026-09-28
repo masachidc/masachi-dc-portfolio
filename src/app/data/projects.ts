@@ -8,67 +8,71 @@ export interface Project {
   title: string;
   cardTitle: string;
   railTitle: string;
-  category: string;
+  /** What it is, in a few words. Always visible on the card. */
+  summary: string;
+  /** What Nathan did, "·"-separated. Always visible on the card. */
+  disciplines: string;
   year: string;
+  /** One or two sentences on why it's interesting. Shown on hover (desktop) and below the card (mobile). */
   description: string;
-  tags: string[];
   /** Temporary: link out to a case study hosted elsewhere instead of /works/<slug>. */
   externalUrl?: string;
-  image: string;
-  imagePosition: string;
+  /**
+   * Card image. `placeholder: true` marks generic stock imagery awaiting a real
+   * project cover — swap `src` (and drop the flag) when artwork exists.
+   */
+  cover: { src: string; position: string; placeholder?: boolean };
   accent: string;
   accentDeep: string;
   foreground: string;
 }
 
+const unsplash = (id: string) => `https://images.unsplash.com/${id}?w=1600&q=80&auto=format&fit=crop`;
+
+// Order: strongest product and design-engineering work first. AMUSE leads as
+// the fully written case study; KESHO and INLINE show product + build range.
 export const PROJECTS: Project[] = [
+  {
+    slug: 'amuse-art-museum',
+    title: 'AMUSE',
+    cardTitle: 'AMUSE MUSEUM',
+    railTitle: 'AMUSE Art Museum',
+    summary: 'Museum discovery and booking',
+    disciplines: 'Product Design · UX Research',
+    year: '2025',
+    description:
+      'A mobile-first platform connecting how people discover exhibitions in Kenya with how they plan and book a visit, with M-Pesa payments built into the flow.',
+    cover: { src: unsplash('photo-1774514580599-c3dae376348e'), position: 'center 35%', placeholder: true },
+    accent: '#FF7A00',
+    accentDeep: '#8C3D00',
+    foreground: '#0a0a0b',
+  },
   {
     slug: 'kesho-app',
     title: 'KESHO',
     cardTitle: 'KESHO APP',
     railTitle: 'KESHO App',
-    category: 'Full Stack / Product Design',
+    summary: 'Prediction platform',
+    disciplines: 'Product Design · Full Stack',
     year: '2026',
     description:
-      'A prediction platform for sports, entertainment, and politics — forecasts are sealed at kickoff and revealed once the outcome lands.',
-    tags: ['Sports Tech', 'PWA', 'AI'],
-    image:
-      'https://images.unsplash.com/photo-1768330187404-59e46cf222c9?w=1600&q=80&auto=format&fit=crop',
-    imagePosition: 'center',
+      'Predictions for sports, entertainment, and politics. Forecasts are sealed at kickoff and revealed once the outcome lands.',
+    cover: { src: unsplash('photo-1768330187404-59e46cf222c9'), position: 'center', placeholder: true },
     accent: '#0057FF',
     accentDeep: '#00297A',
     foreground: '#ffffff',
-  },
-  {
-    slug: 'amuse-art-museum',
-    title: 'AMUSE',
-    cardTitle: 'AMUSE MUSEUM',
-    railTitle: 'AMUSE Museum Booking App',
-    category: 'UI/UX Product Design',
-    year: '2025',
-    description:
-      'A discovery and ticketing platform for Kenyan museums, built on M-Pesa payments and an African-heritage visual identity.',
-    tags: ['Mobile-First', 'Cultural Tech', 'Kenya'],
-    image:
-      'https://images.unsplash.com/photo-1774514580599-c3dae376348e?w=1600&q=80&auto=format&fit=crop',
-    imagePosition: 'center 35%',
-    accent: '#FF7A00',
-    accentDeep: '#8C3D00',
-    foreground: '#0a0a0b',
   },
   {
     slug: 'inline-chrome-extension',
     title: 'INLINE',
     cardTitle: 'INLINE CHROME EXT',
     railTitle: 'INLINE Chrome Extension',
-    category: 'UI/UX Design',
+    summary: 'AI browser extension',
+    disciplines: 'Product Design · UI',
     year: '2026',
     description:
-      'A browser extension that turns any webpage into an interactive canvas — annotate, highlight, draw, and call up AI without leaving the tab.',
-    tags: ['Browser AI', 'Productivity', 'FIU Award'],
-    image:
-      'https://images.unsplash.com/photo-1768638687898-7851d341cb87?w=1600&q=80&auto=format&fit=crop',
-    imagePosition: 'center',
+      'Turns any webpage into an interactive canvas. Annotate, highlight, draw, and call up AI without leaving the tab.',
+    cover: { src: unsplash('photo-1768638687898-7851d341cb87'), position: 'center', placeholder: true },
     accent: '#7B2FFF',
     accentDeep: '#3E1385',
     foreground: '#ffffff',
@@ -78,16 +82,29 @@ export const PROJECTS: Project[] = [
     title: 'SEEDS',
     cardTitle: 'SEEDS BRAND',
     railTitle: 'SEEDS Brand Identity',
-    category: 'Brand Identity Design',
+    summary: 'University program identity',
+    disciplines: 'Brand Identity · Web',
     year: '2025',
     description:
-      "Extended FIU's brand system into a distinct identity for Project SEEDS — part of a push that helped drive a 100%+ rise in student enrollment.",
-    tags: ['Logo Design', 'Web Design', 'FIU'],
-    image:
-      'https://images.unsplash.com/photo-1446688568582-55ddb4b37cad?w=1600&q=80&auto=format&fit=crop',
-    imagePosition: 'center',
+      "A distinct identity for FIU's Project SEEDS, built on the university brand system. Part of a push that helped double student enrollment.",
+    cover: { src: unsplash('photo-1446688568582-55ddb4b37cad'), position: 'center', placeholder: true },
     accent: '#FF2A2A',
     accentDeep: '#8C0F0F',
+    foreground: '#ffffff',
+  },
+  {
+    slug: 'stemxposure',
+    title: 'STEM X',
+    cardTitle: 'STEM X CAMP',
+    railTitle: 'STEM X Architecture Camp',
+    summary: 'Architecture education program',
+    disciplines: 'Curriculum · Architecture',
+    year: '2026',
+    description:
+      'A multi-year program bringing architecture and design to 500+ students across six African nations through hands-on SketchUp workshops.',
+    cover: { src: unsplash('photo-1598941101837-e3fdd6d94b24'), position: 'center 40%', placeholder: true },
+    accent: '#FF2E9A',
+    accentDeep: '#8C1050',
     foreground: '#ffffff',
   },
   {
@@ -95,34 +112,15 @@ export const PROJECTS: Project[] = [
     title: 'HULK',
     cardTitle: 'HULK MOTION',
     railTitle: 'HULK Motion Design',
-    category: 'Motion Design',
+    summary: 'Kinetic type short',
+    disciplines: 'Motion Design',
     year: '2025',
     description:
-      'A comic-book origin story told through kinetic typography and particle effects — motion design produced with Masachi DC Studios.',
-    tags: ['After Effects', 'Kinetic Type', 'Comics'],
-    image:
-      'https://images.unsplash.com/photo-1755811717097-23fba595025d?w=1600&q=80&auto=format&fit=crop',
-    imagePosition: 'center',
+      'A comic-book origin story told through kinetic typography and particle effects, produced with Masachi DC Studios.',
+    cover: { src: unsplash('photo-1755811717097-23fba595025d'), position: 'center', placeholder: true },
     accent: '#17D964',
     accentDeep: '#087236',
     foreground: '#0a0a0b',
-  },
-  {
-    slug: 'stemxposure',
-    title: 'STEM X',
-    cardTitle: 'STEM X CAMP',
-    railTitle: 'STEM X Architecture Camp',
-    category: 'Architecture & Curriculum',
-    year: '2026',
-    description:
-      'A multi-year program bringing architecture and design to 500+ students across six African nations through hands-on SketchUp workshops.',
-    tags: ['STEM Education', 'Africa', '6 Countries'],
-    image:
-      'https://images.unsplash.com/photo-1598941101837-e3fdd6d94b24?w=1600&q=80&auto=format&fit=crop',
-    imagePosition: 'center 40%',
-    accent: '#FF2E9A',
-    accentDeep: '#8C1050',
-    foreground: '#ffffff',
   },
 ];
 

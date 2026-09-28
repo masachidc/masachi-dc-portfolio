@@ -254,16 +254,16 @@ function placeholderStudy(p: Project): CaseStudy {
   return {
     slug: p.slug,
     draft: true,
-    disciplines: p.category,
+    disciplines: p.disciplines,
     title: rest ? [p.title, rest] : [p.title],
     subtitle: p.description,
     meta: [
       ['Timeline', `Placeholder · ${p.year}`],
       ['Role', 'Placeholder role'],
-      ['Scope', p.category],
-      ['Focus', p.tags.join(', ')],
+      ['Scope', p.disciplines],
+      ['Focus', p.summary],
     ],
-    hero: { src: p.image, alt: `${p.railTitle} — cover` },
+    hero: { src: p.cover.src, alt: `${p.railTitle} — cover` },
     overview: (
       <>
         Placeholder overview for {p.railTitle}. Summarise <Hl>what the product is and who it's for</Hl> in two or three
@@ -316,7 +316,7 @@ function placeholderStudy(p: Project): CaseStudy {
         images: [
           { src: STOCK.sketches, alt: 'Placeholder process image' },
           { src: STOCK.mobile, alt: 'Placeholder process image' },
-          { src: p.image, alt: 'Placeholder process image' },
+          { src: p.cover.src, alt: 'Placeholder process image' },
         ],
       },
       {
@@ -335,7 +335,7 @@ function placeholderStudy(p: Project): CaseStudy {
           />
         ),
       },
-      { kind: 'frame', images: [{ src: p.image, alt: `${p.railTitle} — final design` }], caption: 'Placeholder caption — final design' },
+      { kind: 'frame', images: [{ src: p.cover.src, alt: `${p.railTitle} — final design` }], caption: 'Placeholder caption — final design' },
       {
         kind: 'content',
         id: 'testing',
