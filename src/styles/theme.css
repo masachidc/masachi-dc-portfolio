@@ -107,7 +107,7 @@
 
 /* Page gutter and section rhythm: fluid, so there are no breakpoint jumps. */
 :root {
-  --gutter: clamp(1.5rem, 0.6rem + 3.6vw, 4rem); /* 24 → 64px */
+  --gutter: clamp(1.75rem, 0.75rem + 5vw, 7.5rem); /* 28 → 120px: ~31 at 375, ~50 at 768, ~84 at 1440 */
   --space-section: clamp(4rem, 2.8rem + 4.8vw, 6rem); /* 64 → 96px */
   --header-h: 72px;
 }
