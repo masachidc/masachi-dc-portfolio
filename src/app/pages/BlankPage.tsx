@@ -3,23 +3,28 @@ import { motion } from 'motion/react';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
 import { easeOut } from '../lib/motion';
+import { usePageMeta } from '../lib/usePageMeta';
 
-/** Placeholder page for a nav destination whose content isn't written yet. */
+/**
+ * Placeholder for a nav destination whose content isn't written yet.
+ * Kept out of search results (noindex) and the sitemap until it has content.
+ */
 export function BlankPage({ title }: { title: string }) {
+  usePageMeta({ title, noindex: true });
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = `${title} — Masachi DC`;
   }, [title]);
 
   return (
     <div className="relative flex min-h-screen flex-col bg-bone font-sans">
       <Nav />
-      <main className="mx-auto w-full max-w-[1280px] flex-1 px-6 pb-32 pt-20 sm:px-12 md:px-20 lg:px-32 lg:pt-28 xl:px-40">
+      <main id="main" tabIndex={-1} className="container-site flex-1 pb-32 pt-20 focus:outline-none lg:pt-28">
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: easeOut }}
-          className="font-display text-[52px] font-extrabold leading-[0.96] tracking-[-0.02em] text-ink sm:text-[68px] lg:text-[80px]"
+          className="font-display text-display text-ink"
         >
           {title}
         </motion.h1>

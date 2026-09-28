@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { Bullets, Cards, Hl, Points } from '../components/caseStudy';
-import { PROJECTS, type Project } from './projects';
+import { PROJECTS, findProject, type Project } from './projects';
 
 export interface CaseImage {
   src: string;
@@ -16,8 +16,13 @@ export type CaseBlock =
   | { kind: 'stats'; id: string; label: string; items: { value: string; label: string }[] };
 
 export interface CaseStudy {
+  /** Same slug as the project: served at /works/<slug>. */
   slug: string;
-  projectId: string;
+  /**
+   * Placeholder content. Drafts render normally (so navigation never dead-ends)
+   * but are noindex and left out of the sitemap until real copy lands.
+   */
+  draft?: boolean;
   disciplines: string;
   /** Hero title, one entry per line. */
   title: string[];
@@ -40,8 +45,7 @@ const STOCK = {
 // ── AMUSE (real content) ────────────────────────────────────────────────────
 
 const AMUSE: CaseStudy = {
-  slug: 'amuse',
-  projectId: '02',
+  slug: 'amuse-art-museum',
   disciplines: 'Product Design · UX Research · Interaction Design',
   title: ['AMUSE', 'Art Museum'],
   subtitle: 'Making contemporary art easier to discover, plan, and experience in Kenya.',
@@ -245,11 +249,11 @@ const AMUSE: CaseStudy = {
 
 // ── Placeholder studies (same structure; replace copy per project) ──────────
 
-function placeholderStudy(p: Project, slug: string): CaseStudy {
+function placeholderStudy(p: Project): CaseStudy {
   const rest = p.railTitle.slice(p.title.length).trim();
   return {
-    slug,
-    projectId: p.id,
+    slug: p.slug,
+    draft: true,
     disciplines: p.category,
     title: rest ? [p.title, rest] : [p.title],
     subtitle: p.description,
@@ -368,15 +372,15 @@ function placeholderStudy(p: Project, slug: string): CaseStudy {
   };
 }
 
-const project = (id: string) => PROJECTS.find((p) => p.id === id)!;
+/** Written case studies. Every other project gets a draft placeholder in the same structure. */
+const WRITTEN: CaseStudy[] = [AMUSE];
 
-export const CASE_STUDIES: CaseStudy[] = [
-  placeholderStudy(project('01'), 'kesho'),
-  AMUSE,
-  placeholderStudy(project('03'), 'inline'),
-  placeholderStudy(project('04'), 'seeds'),
-  placeholderStudy(project('05'), 'hulk'),
-  placeholderStudy(project('06'), 'stem-x'),
-];
+export const CASE_STUDIES: CaseStudy[] = PROJECTS.map(
+  (p) => WRITTEN.find((c) => c.slug === p.slug) ?? placeholderStudy(p),
+);
 
-export const findCaseStudy = (slug: string | undefined) => CASE_STUDIES.find((c) => c.slug === slug);
+export const findCaseStudy = (slug: string | undefined) => {
+  const study = CASE_STUDIES.find((c) => c.slug === slug);
+  const project = findProject(slug);
+  return study && project ? { study, project } : undefined;
+};
