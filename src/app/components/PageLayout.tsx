@@ -11,12 +11,18 @@ export function PageLayout({
   kicker,
   title,
   lede,
+  actions,
+  width = 'site',
   children,
 }: {
   meta: { title: string; description: string; noindex?: boolean };
   kicker: string;
   title: ReactNode;
   lede?: ReactNode;
+  /** Links directly under the title (contact, downloads), before the lede. */
+  actions?: ReactNode;
+  /** Hero container: `reading` matches the case-study column, for pages whose body uses it too. */
+  width?: 'site' | 'reading';
   children: ReactNode;
 }) {
   usePageMeta(meta);
@@ -29,7 +35,7 @@ export function PageLayout({
     <div className="relative flex min-h-screen flex-col bg-bone font-sans">
       <Nav />
       <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
-        <header className="container-site pb-12 pt-16 lg:pb-16 lg:pt-24">
+        <header className={`${width === 'reading' ? 'container-reading' : 'container-site'} pb-12 pt-16 lg:pb-16 lg:pt-24`}>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -46,11 +52,21 @@ export function PageLayout({
           >
             {title}
           </motion.h1>
+          {actions && (
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: easeOut, delay: 0.25 }}
+              className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4"
+            >
+              {actions}
+            </motion.div>
+          )}
           {lede && (
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: easeOut, delay: 0.3 }}
+              transition={{ duration: 0.8, ease: easeOut, delay: 0.35 }}
               className="mt-8 max-w-[52ch] text-pretty text-lede text-fg-muted"
             >
               {lede}
