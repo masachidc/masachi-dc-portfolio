@@ -39,6 +39,7 @@ export const PROJECTS: Project[] = [
     railTitle: 'TEMBO App',
     summary: 'Social storytelling app',
     disciplines: 'Founder · Product Design',
+    year: '2026',
     description:
       'A social iOS app for turning everyday moments into ongoing Storylines about goals, hobbies, relationships, pets, and trips. Live on the App Store.',
     cover: { src: unsplash('photo-1549366021-9f761d450615'), position: 'center', placeholder: true },
