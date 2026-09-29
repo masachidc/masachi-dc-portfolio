@@ -1,4 +1,4 @@
-import { PROJECTS, findProject, type Project } from '../projects';
+import { OTHER_PROJECTS, PROJECTS, findProject, type Project } from '../projects';
 import { amuse } from './amuse';
 import { inline } from './inline';
 import { kesho } from './kesho';
@@ -20,15 +20,17 @@ function comingSoon(p: Project): CaseStudy {
     status: 'draft',
     title: rest ? [p.title, rest] : [p.title],
     tagline: p.description,
-    facts: [
-      ['Discipline', p.disciplines],
-      ['Year', p.year],
-    ],
+    facts: p.year
+      ? [
+          ['Discipline', p.disciplines],
+          ['Year', p.year],
+        ]
+      : [['Discipline', p.disciplines]],
     blocks: [],
   };
 }
 
-export const CASE_STUDIES: CaseStudy[] = PROJECTS.map(
+export const CASE_STUDIES: CaseStudy[] = [...PROJECTS, ...OTHER_PROJECTS].map(
   (p) => WRITTEN.find((c) => c.slug === p.slug) ?? comingSoon(p),
 );
 

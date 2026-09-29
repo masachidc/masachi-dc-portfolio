@@ -12,7 +12,8 @@ export interface Project {
   summary: string;
   /** What Nathan did, "·"-separated. Always visible on the card. */
   disciplines: string;
-  year: string;
+  /** Omit until verified. */
+  year?: string;
   /** One or two sentences on why it's interesting. Shown on hover (desktop) and below the card (mobile). */
   description: string;
   /** Temporary: link out to a case study hosted elsewhere instead of /works/<slug>. */
@@ -29,30 +30,28 @@ export interface Project {
 
 const unsplash = (id: string) => `https://images.unsplash.com/${id}?w=1600&q=80&auto=format&fit=crop`;
 
-// Order: strongest product and design-engineering work first. AMUSE leads as
-// the fully written case study; KESHO and INLINE show product + build range.
+// Order: Selected work on the homepage, as Nathan ranks it.
 export const PROJECTS: Project[] = [
   {
-    slug: 'amuse-art-museum',
-    title: 'AMUSE',
-    cardTitle: 'AMUSE MUSEUM',
-    railTitle: 'AMUSE Art Museum',
-    summary: 'Museum discovery and booking',
-    disciplines: 'Product Design · UX Research',
-    year: '2025',
+    slug: 'tembo-app',
+    title: 'TEMBO',
+    cardTitle: 'TEMBO APP',
+    railTitle: 'TEMBO App',
+    summary: 'Social storytelling app',
+    disciplines: 'Founder · Product Design',
     description:
-      'A mobile-first platform connecting how people discover exhibitions in Kenya with how they plan and book a visit, with M-Pesa payments built into the flow.',
-    cover: { src: unsplash('photo-1774514580599-c3dae376348e'), position: 'center 35%', placeholder: true },
-    accent: '#FF7A00',
-    accentDeep: '#8C3D00',
-    foreground: '#0a0a0b',
+      'A social iOS app for turning everyday moments into ongoing Storylines about goals, hobbies, relationships, pets, and trips. Live on the App Store.',
+    cover: { src: unsplash('photo-1549366021-9f761d450615'), position: 'center', placeholder: true },
+    accent: '#00707A',
+    accentDeep: '#003A40',
+    foreground: '#ffffff',
   },
   {
     slug: 'kesho-app',
     title: 'KESHO',
     cardTitle: 'KESHO APP',
     railTitle: 'KESHO App',
-    summary: 'Prediction platform',
+    summary: 'Social foresight platform',
     disciplines: 'Product Design · Full Stack',
     year: '2026',
     description:
@@ -63,11 +62,26 @@ export const PROJECTS: Project[] = [
     foreground: '#ffffff',
   },
   {
+    slug: 'amuse-art-museum',
+    title: 'AMUSE',
+    cardTitle: 'AMUSE WEB APP',
+    railTitle: 'AMUSE Web App',
+    summary: 'Museum Discovery and Booking',
+    disciplines: 'Product Design · UX Research',
+    year: '2025',
+    description:
+      'A mobile-first platform connecting how people discover exhibitions in Kenya with how they plan and book a visit, with M-Pesa payments built into the flow.',
+    cover: { src: unsplash('photo-1774514580599-c3dae376348e'), position: 'center 35%', placeholder: true },
+    accent: '#B84300',
+    accentDeep: '#5C2200',
+    foreground: '#ffffff',
+  },
+  {
     slug: 'inline-chrome-extension',
     title: 'INLINE',
-    cardTitle: 'INLINE CHROME EXT',
-    railTitle: 'INLINE Chrome Extension',
-    summary: 'AI browser extension',
+    cardTitle: 'INLINE EXTENSION',
+    railTitle: 'INLINE Extension',
+    summary: 'AI annotation chrome extension',
     disciplines: 'Product Design · UI',
     year: '2026',
     description:
@@ -79,10 +93,10 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'project-seeds-branding',
-    title: 'SEEDS',
-    cardTitle: 'SEEDS BRAND',
-    railTitle: 'SEEDS Brand Identity',
-    summary: 'University program identity',
+    title: 'Project SEEDS',
+    cardTitle: 'PROJECT SEEDS',
+    railTitle: 'Project SEEDS',
+    summary: 'Logo and Brand Identity Design',
     disciplines: 'Brand Identity · Web',
     year: '2025',
     description:
@@ -92,6 +106,28 @@ export const PROJECTS: Project[] = [
     accentDeep: '#8C0F0F',
     foreground: '#ffffff',
   },
+  {
+    slug: 'the-incredible-hulk',
+    title: 'The Incredible Hulk',
+    cardTitle: 'THE INCREDIBLE HULK',
+    railTitle: 'The Incredible Hulk',
+    summary: 'Motion Design and Kinetic Typography',
+    disciplines: 'Motion Design',
+    year: '2025',
+    description:
+      'A comic-book origin story told through kinetic typography and particle effects, produced with Masachi DC Studios.',
+    cover: { src: unsplash('photo-1755811717097-23fba595025d'), position: 'center', placeholder: true },
+    accent: '#0B7A3B',
+    accentDeep: '#03401F',
+    foreground: '#ffffff',
+  },
+];
+
+/**
+ * Work kept out of Selected work but still routable at /works/<slug>, since
+ * About and Impact link to it. STEM X moves to its own category later.
+ */
+export const OTHER_PROJECTS: Project[] = [
   {
     slug: 'stemxposure',
     title: 'STEM X',
@@ -107,21 +143,6 @@ export const PROJECTS: Project[] = [
     accentDeep: '#8C1050',
     foreground: '#ffffff',
   },
-  {
-    slug: 'the-incredible-hulk',
-    title: 'HULK',
-    cardTitle: 'HULK MOTION',
-    railTitle: 'HULK Motion Design',
-    summary: 'Kinetic type short',
-    disciplines: 'Motion Design',
-    year: '2025',
-    description:
-      'A comic-book origin story told through kinetic typography and particle effects, produced with Masachi DC Studios.',
-    cover: { src: unsplash('photo-1755811717097-23fba595025d'), position: 'center', placeholder: true },
-    accent: '#17D964',
-    accentDeep: '#087236',
-    foreground: '#0a0a0b',
-  },
 ];
 
 /** Where a project's card and rail entries lead. */
@@ -130,4 +151,5 @@ export const projectHref = (p: Project) => p.externalUrl ?? `/works/${p.slug}`;
 /** Display number from list position: "01", "02", … */
 export const projectNumber = (p: Project) => String(PROJECTS.indexOf(p) + 1).padStart(2, '0');
 
-export const findProject = (slug: string | undefined) => PROJECTS.find((p) => p.slug === slug);
+export const findProject = (slug: string | undefined) =>
+  [...PROJECTS, ...OTHER_PROJECTS].find((p) => p.slug === slug);
