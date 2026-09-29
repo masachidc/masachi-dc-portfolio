@@ -73,7 +73,7 @@ function CardInner({ p, imgY, fg, fgSoft, fgFaint, fgBorder, hexToRgbaFn }: {
         <div className="min-w-0">
           <p className="mb-2 flex items-center gap-1.5 font-mono text-micro font-medium tracking-[0.1em] text-bone/75">
             <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: p.accent }} />
-            N°{projectNumber(p)} · {p.year}
+            N°{projectNumber(p)}{p.year && ` · ${p.year}`}
           </p>
           <h3 className="font-display text-card uppercase text-bone">{p.cardTitle}</h3>
           <p className="mt-2 text-body font-medium text-bone/90">{p.summary}</p>
@@ -148,7 +148,7 @@ export function ProjectCard({ project: p, className = '' }: ProjectCardProps) {
   const hoverShadow = `0 1px 2px rgba(10,10,11,0.06), 0 40px 70px -20px ${hexToRgba(p.accentDeep, 0.55)}`;
   const href = projectHref(p);
   const isInternal = !p.externalUrl;
-  const linkLabel = `${p.railTitle}: ${p.summary}. ${p.disciplines}, ${p.year}. View case study`;
+  const linkLabel = `${p.railTitle}: ${p.summary}. ${p.disciplines}${p.year ? `, ${p.year}` : ''}. View case study`;
 
   const cardRef = useRef<HTMLAnchorElement>(null);
   const { scrollYProgress } = useScroll({ target: cardRef, offset: ['start end', 'end start'] });

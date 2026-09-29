@@ -12,7 +12,8 @@ export interface Project {
   summary: string;
   /** What Nathan did, "·"-separated. Always visible on the card. */
   disciplines: string;
-  year: string;
+  /** Omit until verified. */
+  year?: string;
   /** One or two sentences on why it's interesting. Shown on hover (desktop) and below the card (mobile). */
   description: string;
   /** Temporary: link out to a case study hosted elsewhere instead of /works/<slug>. */
@@ -29,22 +30,20 @@ export interface Project {
 
 const unsplash = (id: string) => `https://images.unsplash.com/${id}?w=1600&q=80&auto=format&fit=crop`;
 
-// Order: strongest product and design-engineering work first. AMUSE leads as
-// the fully written case study; KESHO and INLINE show product + build range.
+// Order: Selected work on the homepage, as Nathan ranks it.
 export const PROJECTS: Project[] = [
   {
-    slug: 'amuse-art-museum',
-    title: 'AMUSE',
-    cardTitle: 'AMUSE WEB APP',
-    railTitle: 'AMUSE Web App',
-    summary: 'Museum Discovery and Booking',
-    disciplines: 'Product Design · UX Research',
-    year: '2025',
+    slug: 'tembo-app',
+    title: 'TEMBO',
+    cardTitle: 'TEMBO APP',
+    railTitle: 'TEMBO App',
+    summary: 'Social storytelling app',
+    disciplines: 'Founder · Product Design',
     description:
-      'A mobile-first platform connecting how people discover exhibitions in Kenya with how they plan and book a visit, with M-Pesa payments built into the flow.',
-    cover: { src: unsplash('photo-1774514580599-c3dae376348e'), position: 'center 35%', placeholder: true },
-    accent: '#B84300',
-    accentDeep: '#5C2200',
+      'A social iOS app for turning everyday moments into ongoing Storylines about goals, hobbies, relationships, pets, and trips. Live on the App Store.',
+    cover: { src: unsplash('photo-1549366021-9f761d450615'), position: 'center', placeholder: true },
+    accent: '#00707A',
+    accentDeep: '#003A40',
     foreground: '#ffffff',
   },
   {
@@ -60,6 +59,21 @@ export const PROJECTS: Project[] = [
     cover: { src: unsplash('photo-1768330187404-59e46cf222c9'), position: 'center', placeholder: true },
     accent: '#0057FF',
     accentDeep: '#00297A',
+    foreground: '#ffffff',
+  },
+  {
+    slug: 'amuse-art-museum',
+    title: 'AMUSE',
+    cardTitle: 'AMUSE WEB APP',
+    railTitle: 'AMUSE Web App',
+    summary: 'Museum Discovery and Booking',
+    disciplines: 'Product Design · UX Research',
+    year: '2025',
+    description:
+      'A mobile-first platform connecting how people discover exhibitions in Kenya with how they plan and book a visit, with M-Pesa payments built into the flow.',
+    cover: { src: unsplash('photo-1774514580599-c3dae376348e'), position: 'center 35%', placeholder: true },
+    accent: '#B84300',
+    accentDeep: '#5C2200',
     foreground: '#ffffff',
   },
   {
@@ -93,21 +107,6 @@ export const PROJECTS: Project[] = [
     foreground: '#ffffff',
   },
   {
-    slug: 'stemxposure',
-    title: 'STEM X',
-    cardTitle: 'STEM X CAMP',
-    railTitle: 'STEM X Architecture Camp',
-    summary: 'Architecture education program',
-    disciplines: 'Curriculum · Architecture',
-    year: '2026',
-    description:
-      'A multi-year program bringing architecture and design to 500+ students across six African nations through hands-on SketchUp workshops.',
-    cover: { src: unsplash('photo-1598941101837-e3fdd6d94b24'), position: 'center 40%', placeholder: true },
-    accent: '#FF2E9A',
-    accentDeep: '#8C1050',
-    foreground: '#ffffff',
-  },
-  {
     slug: 'the-incredible-hulk',
     title: 'HULK',
     cardTitle: 'HULK MOTION',
@@ -124,10 +123,33 @@ export const PROJECTS: Project[] = [
   },
 ];
 
+/**
+ * Work kept out of Selected work but still routable at /works/<slug>, since
+ * About and Impact link to it. STEM X moves to its own category later.
+ */
+export const OTHER_PROJECTS: Project[] = [
+  {
+    slug: 'stemxposure',
+    title: 'STEM X',
+    cardTitle: 'STEM X CAMP',
+    railTitle: 'STEM X Architecture Camp',
+    summary: 'Architecture education program',
+    disciplines: 'Curriculum · Architecture',
+    year: '2026',
+    description:
+      'A multi-year program bringing architecture and design to 500+ students across six African nations through hands-on SketchUp workshops.',
+    cover: { src: unsplash('photo-1598941101837-e3fdd6d94b24'), position: 'center 40%', placeholder: true },
+    accent: '#FF2E9A',
+    accentDeep: '#8C1050',
+    foreground: '#ffffff',
+  },
+];
+
 /** Where a project's card and rail entries lead. */
 export const projectHref = (p: Project) => p.externalUrl ?? `/works/${p.slug}`;
 
 /** Display number from list position: "01", "02", … */
 export const projectNumber = (p: Project) => String(PROJECTS.indexOf(p) + 1).padStart(2, '0');
 
-export const findProject = (slug: string | undefined) => PROJECTS.find((p) => p.slug === slug);
+export const findProject = (slug: string | undefined) =>
+  [...PROJECTS, ...OTHER_PROJECTS].find((p) => p.slug === slug);
