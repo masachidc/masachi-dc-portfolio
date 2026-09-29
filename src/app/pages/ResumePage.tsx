@@ -6,7 +6,7 @@ import { SiteLink } from '../components/SiteLink';
 import { Bullets } from '../components/caseStudy';
 import { fadeUp, viewportOnce } from '../lib/motion';
 import { EDUCATION, EXPERIENCE, PROFILE, RESUME_PROJECTS, SKILLS } from '../data/profile';
-import { EMAIL } from '../data/site';
+import { EMAIL, isExternal } from '../data/site';
 
 /** Hero link, as in the case-study hero. */
 const heroLink = 'group inline-flex items-center gap-1.5 border-b border-ink pb-1 text-label caps text-ink';
@@ -88,12 +88,19 @@ export function ResumePage() {
             LinkedIn
             <ArrowUpRight size={12} strokeWidth={2} aria-hidden />
           </SiteLink>
-          {PROFILE.resumePdf && (
-            <a href={PROFILE.resumePdf} download className={heroLink}>
-              Download résumé
-              <Download size={12} strokeWidth={2} aria-hidden />
-            </a>
-          )}
+          {/* Hidden until PROFILE.resumePdf is set: a hosted link opens in a new tab, a /public file downloads. */}
+          {PROFILE.resumePdf &&
+            (isExternal(PROFILE.resumePdf) ? (
+              <SiteLink href={PROFILE.resumePdf} className={heroLink}>
+                Download résumé
+                <Download size={12} strokeWidth={2} aria-hidden />
+              </SiteLink>
+            ) : (
+              <a href={PROFILE.resumePdf} download className={heroLink}>
+                Download résumé
+                <Download size={12} strokeWidth={2} aria-hidden />
+              </a>
+            ))}
         </>
       }
     >

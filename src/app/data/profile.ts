@@ -12,7 +12,10 @@ export const PROFILE = {
   role: 'Product Designer & Design Engineer',
   location: 'Tampa, Florida',
   linkedin: 'https://www.linkedin.com/in/nathanmasachi/',
-  /** Public path to a résumé PDF in /public. Leave null until a real file exists; the download action stays hidden. */
+  /**
+   * Résumé for the Resume page's "Download résumé" link: a hosted URL (opens in a new tab) or a path to a PDF in
+   * /public (downloads). Leave null until a real file exists; the link stays hidden.
+   */
   resumePdf: null as string | null,
 };
 
