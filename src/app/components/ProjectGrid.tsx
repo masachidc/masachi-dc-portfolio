@@ -51,7 +51,7 @@ export function ProjectGrid() {
     <section id="work" aria-labelledby="work-title" className="relative bg-bone">
       {/* Hero description → "Selected work" equals nav → hero kicker: both are --space-section. */}
       <div className="container-site pb-(--space-section) pt-(--space-section)">
-        <h2 id="work-title" className="mb-8 font-display text-kicker text-fg-faint">
+        <h2 id="work-title" className="mb-8 font-display text-kicker uppercase text-ink">
           Selected work
         </h2>
 
