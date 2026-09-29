@@ -11,11 +11,28 @@ import { EMAIL } from '../data/site';
 /** Hero link, as in the case-study hero. */
 const heroLink = 'group inline-flex items-center gap-1.5 border-b border-ink pb-1 text-label caps text-ink';
 
-/**
- * One résumé section, headed like a case-study outcomes block (the muted kicker is the h2), over a hairline as in
- * the case-study glance row. `lead` sections open a column: from lg the grid's full-width rule stands in for theirs.
- */
-function Block({ id, title, lead = false, children }: { id: string; title: string; lead?: boolean; children: ReactNode }) {
+const RULE = {
+  /** Hairline above the section, as in the case-study glance row. */
+  always: 'border-t border-line pt-6',
+  /** Opens a column: stacked it keeps its rule; from lg the grid's full-width rule stands in for it. */
+  lead: 'border-t border-line pt-6 lg:border-t-0 lg:pt-0',
+  none: '',
+};
+
+/** One résumé section, headed like a case-study outcomes block: the muted kicker is the h2. */
+function Block({
+  id,
+  title,
+  rule = 'always',
+  className = '',
+  children,
+}: {
+  id: string;
+  title: string;
+  rule?: keyof typeof RULE;
+  className?: string;
+  children: ReactNode;
+}) {
   return (
     <motion.section
       aria-labelledby={id}
@@ -23,7 +40,7 @@ function Block({ id, title, lead = false, children }: { id: string; title: strin
       whileInView="show"
       viewport={viewportOnce}
       variants={fadeUp}
-      className={`border-t border-line pt-6 ${lead ? 'lg:border-t-0 lg:pt-0' : ''}`}
+      className={`${RULE[rule]} ${className}`}
     >
       <h2 id={id} className="mb-8 font-display text-kicker text-fg-faint">
         {title}
@@ -87,47 +104,51 @@ export function ResumePage() {
           products from research and interface design into working code, and I've shipped to the App Store.
         </p>
 
-        {/* The case-study section grid, so the left column matches a case study's title column. Source
-            order is reading priority (Experience first), which is also the stacked order; from lg the
-            supporting column moves to the left. */}
+        {/* The case-study section grid, so the left column matches a case study's title column. Source order is
+            reading priority (Experience, Projects, then Skills + Education), which is also the stacked order. From lg:
+            row 1 is Skills + Education beside Experience under one full-width rule; row 2 is Selected projects under
+            its own full-width rule, content kept in the right column. */}
         <div className="mt-(--space-section) grid grid-cols-1 gap-y-(--space-section) lg:grid-cols-[2fr_3fr] lg:gap-x-16 lg:border-t lg:border-line lg:pt-6">
-          <div className="flex flex-col gap-(--space-section) lg:col-start-2 lg:row-start-1">
-            <Block id="experience" title="Experience" lead>
-              <ol className="flex flex-col gap-12">
-                {EXPERIENCE.map((e) => (
-                  <li key={`${e.title}-${e.org}`} className="max-w-(--measure)">
-                    <EntryHead name={e.title} context={e.org} when={e.when} />
-                    <div className="mt-4 text-body-lg text-fg-muted">
-                      {e.points.length > 1 ? <Bullets items={e.points} /> : <p>{e.points[0]}</p>}
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </Block>
+          <Block id="experience" title="Experience" rule="lead" className="lg:col-start-2 lg:row-start-1">
+            <ol className="flex flex-col gap-12">
+              {EXPERIENCE.map((e) => (
+                <li key={`${e.title}-${e.org}`} className="max-w-(--measure)">
+                  <EntryHead name={e.title} context={e.org} when={e.when} />
+                  <div className="mt-4 text-body-lg text-fg-muted">
+                    {e.points.length > 1 ? <Bullets items={e.points} /> : <p>{e.points[0]}</p>}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </Block>
 
-            <Block id="projects" title="Selected projects">
-              <ul className="flex flex-col gap-10">
-                {RESUME_PROJECTS.map((p) => (
-                  <li key={p.name} className="max-w-(--measure)">
-                    <EntryHead
-                      name={
-                        <SiteLink href={p.href} className="group inline-flex items-center gap-2 transition-colors hover:text-accent-deep">
-                          {p.name}
-                          <ArrowRight size={14} strokeWidth={2} aria-hidden className="transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
-                        </SiteLink>
-                      }
-                      context={p.role}
-                      when={p.when}
-                    />
-                    <p className="mt-2 text-body text-fg-muted">{p.summary}</p>
-                  </li>
-                ))}
-              </ul>
-            </Block>
-          </div>
+          <Block
+            id="projects"
+            title="Selected projects"
+            // Spans both columns so its rule is full width; heading and list sit in the right column.
+            className="lg:col-span-2 lg:row-start-2 lg:grid lg:grid-cols-[2fr_3fr] lg:gap-x-16 lg:*:col-start-2"
+          >
+            <ul className="flex flex-col gap-10">
+              {RESUME_PROJECTS.map((p) => (
+                <li key={p.name} className="max-w-(--measure)">
+                  <EntryHead
+                    name={
+                      <SiteLink href={p.href} className="group inline-flex items-center gap-2 transition-colors hover:text-accent-deep">
+                        {p.name}
+                        <ArrowRight size={14} strokeWidth={2} aria-hidden className="transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
+                      </SiteLink>
+                    }
+                    context={p.role}
+                    when={p.when}
+                  />
+                  <p className="mt-2 text-body text-fg-muted">{p.summary}</p>
+                </li>
+              ))}
+            </ul>
+          </Block>
 
           <div className="flex flex-col gap-(--space-section) lg:col-start-1 lg:row-start-1">
-            <Block id="skills" title="Skills" lead>
+            <Block id="skills" title="Skills" rule="lead">
               <dl className="flex max-w-(--measure) flex-col gap-6">
                 {SKILLS.map((s) => (
                   <div key={s.group}>
@@ -138,7 +159,7 @@ export function ResumePage() {
               </dl>
             </Block>
 
-            <Block id="education" title="Education">
+            <Block id="education" title="Education" rule="none">
               <ul className="flex max-w-(--measure) flex-col gap-6">
                 {EDUCATION.map((e) => (
                   <li key={e.field}>
