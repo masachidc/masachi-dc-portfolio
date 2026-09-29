@@ -11,7 +11,7 @@ import { EMAIL } from '../data/site';
 /** Hero link, as in the case-study hero. */
 const heroLink = 'group inline-flex items-center gap-1.5 border-b border-ink pb-1 text-label caps text-ink';
 
-/** One résumé section, headed like a case-study outcomes block: the muted kicker is the h2. */
+/** One résumé section, headed like a case-study outcomes block (the muted kicker is the h2), over a hairline as in the case-study glance row. */
 function Block({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
     <motion.section
@@ -20,6 +20,7 @@ function Block({ id, title, children }: { id: string; title: string; children: R
       whileInView="show"
       viewport={viewportOnce}
       variants={fadeUp}
+      className="border-t border-line pt-6"
     >
       <h2 id={id} className="mb-8 font-display text-kicker text-fg-faint">
         {title}
