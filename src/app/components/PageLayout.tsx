@@ -12,6 +12,7 @@ export function PageLayout({
   title,
   lede,
   actions,
+  width = 'site',
   children,
 }: {
   meta: { title: string; description: string; noindex?: boolean };
@@ -20,6 +21,8 @@ export function PageLayout({
   lede?: ReactNode;
   /** Links under the lede (contact, downloads), in the case-study hero link style. */
   actions?: ReactNode;
+  /** Hero container: `reading` matches the case-study column, for pages whose body uses it too. */
+  width?: 'site' | 'reading';
   children: ReactNode;
 }) {
   usePageMeta(meta);
@@ -32,7 +35,7 @@ export function PageLayout({
     <div className="relative flex min-h-screen flex-col bg-bone font-sans">
       <Nav />
       <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
-        <header className="container-site pb-12 pt-16 lg:pb-16 lg:pt-24">
+        <header className={`${width === 'reading' ? 'container-reading' : 'container-site'} pb-12 pt-16 lg:pb-16 lg:pt-24`}>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}

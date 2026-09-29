@@ -51,6 +51,7 @@ export function ResumePage() {
       }}
       kicker="Resume"
       title={PROFILE.name}
+      width="reading"
       lede={
         <>
           <strong className="font-semibold text-ink">{PROFILE.role}</strong> in {PROFILE.location}. Trained in
@@ -77,7 +78,7 @@ export function ResumePage() {
         </>
       }
     >
-      <div className="container-site pb-(--space-section) pt-8 lg:pt-12">
+      <div className="container-reading pb-(--space-section) pt-8 lg:pt-12">
         {/* The case-study `wide` section grid. Source order is reading priority (Experience first),
             which is also the stacked order; from lg the supporting column moves to the left. */}
         <div className="grid grid-cols-1 gap-y-(--space-section) lg:grid-cols-[5fr_7fr] lg:gap-x-16">
@@ -122,7 +123,13 @@ export function ResumePage() {
                 {SKILLS.map((s) => (
                   <div key={s.group}>
                     <dt className="text-label caps text-fg-subtle">{s.group}</dt>
-                    <dd className="mt-2 text-body text-fg-muted">{s.items.join(', ')}</dd>
+                    <dd className="mt-2">
+                      <ul className="text-body text-fg-muted">
+                        {s.items.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </dd>
                   </div>
                 ))}
               </dl>
