@@ -32,7 +32,7 @@
 
   --color-line: rgb(10 10 11 / 0.1); /* hairlines and borders */
 
-  --color-accent: #008c95; /* brand teal — large text, fills, rules (4.05:1) */
+  --color-accent: #008c95; /* brand teal — large text, fills, rules (4.05:1). Also set in public/favicon.svg. */
   --color-accent-soft: #33bcca; /* on dark grounds */
   --color-accent-deep: #006068; /* small accent text on white — 7.3:1 */
 
