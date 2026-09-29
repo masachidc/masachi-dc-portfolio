@@ -131,9 +131,12 @@ export function Nav() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.4, ease: easeOut }}
-            className="fixed inset-x-0 top-(--header-h) bottom-0 z-40 flex flex-col justify-between overflow-y-auto bg-bone px-(--gutter) py-10 md:hidden"
+            // Right-aligned so every target sits in the thumb's reach; one row rhythm
+            // (py-5, cap-trimmed type) keeps text optically centred between hairlines;
+            // the header's bottom border is the first rule.
+            className="fixed inset-x-0 top-(--header-h) bottom-0 z-40 flex flex-col overflow-y-auto bg-bone px-(--gutter) pb-[max(2.5rem,env(safe-area-inset-bottom))] text-right md:hidden"
           >
-            <nav aria-label="Primary" className="flex flex-col">
+            <nav aria-label="Primary" className="flex flex-col divide-y divide-line border-b border-line">
               {NAV_LINKS.map((item) => {
                 const current = isCurrent(item);
                 return (
@@ -142,10 +145,11 @@ export function Nav() {
                     href={item.href}
                     ariaCurrent={current ? 'page' : undefined}
                     onNavigate={() => setMenuOpen(false)}
-                    className="group block border-b border-line py-5"
+                    // inset ring: the first row touches the scroll edge, which would clip it
+                    className="group block py-5 focus-visible:outline-offset-[-2px]"
                   >
                     <span
-                      className={`block font-display text-title uppercase transition-transform duration-300 ease-out group-active:translate-x-1 ${
+                      className={`block font-display text-title uppercase [text-box:trim-both_cap_alphabetic] transition-transform duration-300 ease-out group-active:-translate-x-1 ${
                         current ? 'text-accent-deep' : 'text-ink'
                       }`}
                     >
@@ -155,20 +159,30 @@ export function Nav() {
                 );
               })}
             </nav>
-            <div className="mt-10 flex flex-col gap-1">
-              <p className="mb-2 text-micro caps text-fg-subtle">Get in touch</p>
-              {CONTACT_LINKS.map((c) => (
-                <SiteLink
-                  key={c.label}
-                  href={c.href}
-                  onNavigate={() => setMenuOpen(false)}
-                  className="flex min-h-11 w-fit items-center gap-2 text-label caps text-fg-muted"
-                >
-                  {c.label}
-                  <ArrowUpRight size={13} strokeWidth={2} aria-hidden className="text-fg-faint" />
-                </SiteLink>
-              ))}
-            </div>
+
+            <section aria-labelledby="mobile-menu-contact" className="flex flex-col items-end">
+              <h2
+                id="mobile-menu-contact"
+                className="py-5 font-display text-title uppercase text-ink [text-box:trim-both_cap_alphabetic]"
+              >
+                Get in touch
+              </h2>
+              <ul className="flex flex-col items-end">
+                {CONTACT_LINKS.map((c) => (
+                  <li key={c.label}>
+                    <SiteLink
+                      href={c.href}
+                      onNavigate={() => setMenuOpen(false)}
+                      className="flex min-h-11 items-center gap-2 text-label caps text-fg-muted transition-colors duration-300 active:text-ink"
+                    >
+                      {c.label}
+                      {/* -mr-1 cancels the icon's inner padding so its stroke lines up with the titles */}
+                      <ArrowUpRight size={13} strokeWidth={2} aria-hidden className="-mr-1" />
+                    </SiteLink>
+                  </li>
+                ))}
+              </ul>
+            </section>
           </motion.div>
         )}
       </AnimatePresence>
