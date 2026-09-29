@@ -62,7 +62,8 @@ export function Nav() {
   useEffect(() => {
     if (!menuOpen) return;
     document.documentElement.style.overflow = 'hidden';
-    menuRef.current?.querySelector<HTMLElement>('a')?.focus();
+    // Focus the panel, not the first link, so no row opens looking selected.
+    menuRef.current?.focus();
     function onKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') {
         setMenuOpen(false);
@@ -127,6 +128,7 @@ export function Nav() {
             ref={menuRef}
             id="mobile-menu"
             key="mobile-menu"
+            tabIndex={-1}
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
@@ -134,7 +136,7 @@ export function Nav() {
             // Page titles read left; contact links sit right, within the thumb's reach. One row
             // rhythm (py-5, cap-trimmed type) keeps text optically centred between hairlines;
             // the header's bottom border is the first rule.
-            className="fixed inset-x-0 top-(--header-h) bottom-0 z-40 flex flex-col overflow-y-auto bg-bone px-(--gutter) pb-[max(2.5rem,env(safe-area-inset-bottom))] md:hidden"
+            className="fixed inset-x-0 top-(--header-h) bottom-0 z-40 flex flex-col overflow-y-auto bg-bone px-(--gutter) pb-[max(2.5rem,env(safe-area-inset-bottom))] outline-none md:hidden"
           >
             <nav aria-label="Primary" className="flex flex-col divide-y divide-line border-b border-line">
               {NAV_LINKS.map((item) => {
@@ -145,11 +147,11 @@ export function Nav() {
                     href={item.href}
                     ariaCurrent={current ? 'page' : undefined}
                     onNavigate={() => setMenuOpen(false)}
-                    // inset ring: the first row touches the scroll edge, which would clip it
-                    className="group block py-5 focus-visible:outline-offset-[-2px]"
+                    // Focus is shown by text colour alone, matching the current-page state.
+                    className="group block py-5 focus-visible:outline-none"
                   >
                     <span
-                      className={`block font-display text-title uppercase [text-box:trim-both_cap_alphabetic] transition-transform duration-300 ease-out group-active:translate-x-1 ${
+                      className={`block font-display text-title uppercase [text-box:trim-both_cap_alphabetic] transition-[color,transform] duration-300 ease-out group-focus-visible:text-accent-deep group-active:translate-x-1 ${
                         current ? 'text-accent-deep' : 'text-ink'
                       }`}
                     >
