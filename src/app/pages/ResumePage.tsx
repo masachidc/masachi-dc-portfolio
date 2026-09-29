@@ -79,9 +79,10 @@ export function ResumePage() {
       }
     >
       <div className="container-reading pb-(--space-section) pt-8 lg:pt-12">
-        {/* The case-study `wide` section grid. Source order is reading priority (Experience first),
-            which is also the stacked order; from lg the supporting column moves to the left. */}
-        <div className="grid grid-cols-1 gap-y-(--space-section) lg:grid-cols-[5fr_7fr] lg:gap-x-16">
+        {/* The case-study section grid, so the left column matches a case study's title column. Source
+            order is reading priority (Experience first), which is also the stacked order; from lg the
+            supporting column moves to the left. */}
+        <div className="grid grid-cols-1 gap-y-(--space-section) lg:grid-cols-[2fr_3fr] lg:gap-x-16">
           <div className="flex flex-col gap-(--space-section) lg:col-start-2 lg:row-start-1">
             <Block id="experience" title="Experience">
               <ol className="flex flex-col gap-12">
