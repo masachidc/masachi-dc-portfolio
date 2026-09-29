@@ -65,8 +65,8 @@ export const PROJECTS: Project[] = [
   {
     slug: 'inline-chrome-extension',
     title: 'INLINE',
-    cardTitle: 'INLINE CHROME EXT',
-    railTitle: 'INLINE Chrome Extension',
+    cardTitle: 'INLINE EXTENSION',
+    railTitle: 'INLINE Extension',
     summary: 'AI browser extension',
     disciplines: 'Product Design · UI',
     year: '2026',
