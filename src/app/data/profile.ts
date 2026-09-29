@@ -78,27 +78,43 @@ export const IMPACT: ImpactItem[] = [
   },
 ];
 
+/** Resume intro: the positioning paragraph under the contact links (~35–55 words). */
+export const RESUME_INTRO =
+  "A product designer who builds. Trained in architecture, digital interactive media, and computer science, I think in systems and take products from research and interface design into working software. I've shipped one to the App Store. Based in Tampa, Florida.";
+
+/**
+ * Resume roles, most relevant first. Adding a role is data only: 2–3 points,
+ * each an action with its context or result. Report results alongside the work,
+ * not as caused by it.
+ */
 export interface ExperienceItem {
   title: string;
   org: string;
   /** Only verified dates. Omit rather than guess. */
   when?: string;
   points: string[];
+  /** Public proof of the work, shown under the points. */
+  link?: { label: string; href: string };
 }
 
 export const EXPERIENCE: ExperienceItem[] = [
   {
     title: 'Founder',
     org: 'Tembo',
-    points: ['Designed and shipped Tembo: Storylines, a social iOS app, to the App Store.'],
+    when: 'Aug 2026 – Present',
+    points: [
+      'Founded, designed, and shipped Tembo: Storylines, a social iOS app now live on the App Store.',
+      'Designed its core model: everyday moments gathered into ongoing Storylines about goals, hobbies, relationships, pets, and trips.',
+    ],
+    link: { label: 'View on the App Store', href: TEMBO_APP_STORE },
   },
   {
     title: 'Marketing Officer',
     org: 'FIU Project SEEDS',
     when: '2025',
     points: [
-      "Led recruitment; extended FIU's brand system into an approved identity for the initiative.",
-      'Designed and built the program website for non-technical staff to maintain.',
+      "Led recruitment and extended FIU's brand system into an identity approved by FIU branding and the SEEDS team.",
+      'Designed and built a program website simple enough for non-technical staff to maintain.',
       'Enrollment more than doubled during the initiative.',
     ],
   },
@@ -107,12 +123,13 @@ export const EXPERIENCE: ExperienceItem[] = [
     org: 'STEM Xposure Inc. · Volunteer',
     when: '3 consecutive years',
     points: [
-      'Built a two-week architecture and design curriculum reaching 500+ high school students in the US and six African countries.',
-      'Recruited and onboarded 14 volunteer instructors; helped secure free SketchUp licenses for every student.',
+      'Built a two-week architecture and design curriculum that reached 500+ high school students in the US and six African countries.',
+      'Recruited and onboarded 14 classmates as volunteer instructors, and took part in negotiations that secured a free SketchUp license for every student.',
     ],
   },
 ];
 
+/** Resume projects: the strongest supporting evidence only, not every portfolio piece. Roles above aren't repeated here. */
 export interface ProjectLine {
   name: string;
   role: string;
@@ -126,51 +143,58 @@ export const RESUME_PROJECTS: ProjectLine[] = [
     name: 'KESHO',
     role: 'Product designer & full-stack developer',
     when: '2026',
-    summary: 'Sealed prediction platform. Next.js, React 19, TypeScript, Neon Postgres, Drizzle, Clerk, Vercel.',
+    summary:
+      'Designed and built a sealed prediction platform end to end, from research and interface through database and deployment. Next.js, TypeScript, and Postgres.',
     href: '/works/kesho-app',
   },
   {
     name: 'AMUSE Art Museum',
     role: 'Lead product designer',
     when: '2025',
-    summary: 'Mobile-first museum discovery and booking platform for Kenya. Research through usability testing.',
+    summary:
+      'Museum discovery and booking for Kenya. Research moved it from a native app to a lightweight web platform with M-Pesa booking; usability testing made My Museum a core feature.',
     href: '/works/amuse-art-museum',
   },
   {
     name: 'INLINE',
-    role: 'UI/UX designer',
+    role: 'UI/UX designer on a five-person team',
     when: '2026',
-    summary: "Chrome extension for annotating any webpage. FIU Blackstone LaunchPad's Most Unique Project.",
+    summary:
+      "A Chrome extension that makes any webpage writable with notes, drawing, highlights, and AI. Most Unique Project at FIU Blackstone LaunchPad's demo day.",
     href: '/works/inline-chrome-extension',
   },
-  {
-    name: 'The Incredible Hulk',
-    role: 'Motion designer',
-    when: '2025',
-    summary: 'Kinetic type and particle short for Masachi DC Studios with Brandspot Media. After Effects, Premiere Pro.',
-    href: '/works/the-incredible-hulk',
-  },
 ];
 
+/** Capabilities first, tools last. Keep each group short: signal, not keyword density. */
 export const SKILLS: { group: string; items: string[] }[] = [
   { group: 'Product', items: ['User research', 'Product strategy', 'Information architecture', 'Interaction design', 'Usability testing'] },
-  { group: 'Design', items: ['UI design', 'Design systems', 'Prototyping', 'Brand identity', 'Motion design'] },
-  { group: 'Engineering', items: ['React', 'React Native', 'Next.js', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Vercel', 'GitHub Actions'] },
-  { group: 'Tools', items: ['Figma', 'Claude Code', 'Adobe Illustrator', 'After Effects', 'Premiere Pro', 'SketchUp'] },
+  { group: 'Design', items: ['Interface design', 'Design systems', 'Prototyping', 'Brand identity', 'Motion design'] },
+  {
+    group: 'Engineering',
+    items: ['TypeScript', 'React', 'React Native', 'Next.js', 'PostgreSQL', 'Tailwind CSS', 'CI/CD with GitHub Actions and Vercel', 'AI-assisted development'],
+  },
+  { group: 'Tools', items: ['Figma', 'Adobe Illustrator', 'After Effects', 'Premiere Pro', 'SketchUp'] },
 ];
 
-export const EDUCATION: { field: string; minor?: string; school?: string; note?: string }[] = [
+export const EDUCATION: { field: string; minor?: string; school?: string; note?: string; /** Verified dates only. */ when?: string }[] = [
   { field: 'Digital Interactive Media', minor: 'Minor in Computer Science', school: 'Florida International University' },
-  { field: 'Architecture', note: 'Studied before moving into digital interactive media.' },
+  {
+    field: 'Architecture',
+    school: 'Hillsborough Community College',
+    when: '2021–2024',
+    note: 'Studied before moving into digital interactive media.',
+  },
 ];
 
 /*
  * CONTENT GAPS (internal — never render):
- * - Degree names, graduation dates, and the architecture school's name.
+ * - Degree names, and FIU dates.
  * - Confirm Digital Interactive Media + CS minor were at FIU (inferred from FIU
  *   journalism school / Caplin News and SEEDS "about to graduate").
- * - Tembo: exact dates (year is 2026), public-safe metrics, and whether to describe the build stack.
+ *   Resume stays noindex until this is confirmed: education is the one record
+ *   section that is still inferred.
+ * - Tembo: public-safe metrics, and whether to describe the build stack.
  * - Employment dates for SEEDS (year only) and STEM Xposure (years).
- * - A résumé PDF for PROFILE.resumePdf.
+ * - A current résumé PDF (or hosted link) for PROFILE.resumePdf.
  * - Portrait for About (optional).
  */

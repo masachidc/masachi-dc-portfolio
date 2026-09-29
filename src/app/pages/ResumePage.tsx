@@ -5,7 +5,7 @@ import { PageLayout } from '../components/PageLayout';
 import { SiteLink } from '../components/SiteLink';
 import { Bullets } from '../components/caseStudy';
 import { fadeUp, viewportOnce } from '../lib/motion';
-import { EDUCATION, EXPERIENCE, PROFILE, RESUME_PROJECTS, SKILLS } from '../data/profile';
+import { EDUCATION, EXPERIENCE, PROFILE, RESUME_INTRO, RESUME_PROJECTS, SKILLS } from '../data/profile';
 import { EMAIL, isExternal } from '../data/site';
 
 /** Hero link, as in the case-study hero. */
@@ -66,8 +66,8 @@ export function ResumePage() {
     <PageLayout
       meta={{
         title: 'Resume',
-        description: `${PROFILE.name}, ${PROFILE.role}. Experience, selected projects, skills, and education.`,
-        // Indexed once education details are confirmed and a PDF exists (see profile.ts CONTENT GAPS).
+        description: `${PROFILE.name}, ${PROFILE.role}: shipped work, experience, selected projects, skills, and education.`,
+        // Indexed (and added to the sitemap) once education is confirmed; see profile.ts CONTENT GAPS. A PDF isn't required.
         noindex: true,
       }}
       kicker="Resume"
@@ -78,6 +78,7 @@ export function ResumePage() {
         </>
       }
       width="reading"
+      lede={RESUME_INTRO}
       actions={
         <>
           <SiteLink href={`mailto:${EMAIL}`} className={heroLink}>
@@ -105,17 +106,11 @@ export function ResumePage() {
       }
     >
       <div className="container-reading pb-(--space-section)">
-        {/* Summary after the contact links, in the case-study overview style. */}
-        <p className="max-w-[44ch] text-pretty text-lede text-fg-muted">
-          Based in {PROFILE.location}. Trained in architecture, digital interactive media, and computer science, I take
-          products from research and interface design into working code, and I've shipped to the App Store.
-        </p>
-
         {/* The case-study section grid, so the left column matches a case study's title column. Source order is
             reading priority (Experience, Projects, then Skills + Education), which is also the stacked order. From lg:
             row 1 is Skills + Education beside Experience under one full-width rule; row 2 is Selected projects under
             its own full-width rule, content kept in the right column. */}
-        <div className="mt-(--space-section) grid grid-cols-1 gap-y-(--space-section) lg:grid-cols-[2fr_3fr] lg:gap-x-16 lg:border-t lg:border-line lg:pt-6">
+        <div className="mt-4 grid grid-cols-1 gap-y-(--space-section) lg:mt-8 lg:grid-cols-[2fr_3fr] lg:gap-x-16 lg:border-t lg:border-line lg:pt-6">
           <Block id="experience" title="Experience" rule="lead" className="lg:col-start-2 lg:row-start-1">
             <ol className="flex flex-col gap-12">
               {EXPERIENCE.map((e) => (
@@ -124,6 +119,12 @@ export function ResumePage() {
                   <div className="mt-4 text-body-lg text-fg-muted">
                     {e.points.length > 1 ? <Bullets items={e.points} /> : <p>{e.points[0]}</p>}
                   </div>
+                  {e.link && (
+                    <SiteLink href={e.link.href} className="group mt-4 inline-flex items-center gap-1.5 py-1 text-label caps text-accent-deep">
+                      {e.link.label}
+                      <ArrowUpRight size={12} strokeWidth={2} aria-hidden />
+                    </SiteLink>
+                  )}
                 </li>
               ))}
             </ol>
@@ -176,25 +177,13 @@ export function ResumePage() {
                         <p key={line}>{line}</p>
                       ))}
                     </div>
+                    {e.when && <p className="mt-1 text-small text-fg-subtle">{e.when}</p>}
                   </li>
                 ))}
               </ul>
             </Block>
           </div>
         </div>
-
-        <nav aria-label="Continue" className="mt-(--space-section) flex flex-wrap gap-x-8 gap-y-3 border-t border-line pt-10">
-          {[
-            { label: 'See the work', href: '/#work' },
-            { label: 'Impact', href: '/impact' },
-            { label: 'About', href: '/about' },
-          ].map((l) => (
-            <SiteLink key={l.href} href={l.href} className={heroLink}>
-              {l.label}
-              <ArrowRight size={12} strokeWidth={2} aria-hidden className="transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
-            </SiteLink>
-          ))}
-        </nav>
       </div>
     </PageLayout>
   );
