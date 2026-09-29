@@ -67,7 +67,7 @@ export const PROJECTS: Project[] = [
     title: 'INLINE',
     cardTitle: 'INLINE EXTENSION',
     railTitle: 'INLINE Extension',
-    summary: 'AI browser extension',
+    summary: 'AI annotation chrome extension',
     disciplines: 'Product Design · UI',
     year: '2026',
     description:
