@@ -43,9 +43,9 @@ export const PROJECTS: Project[] = [
     description:
       'A mobile-first platform connecting how people discover exhibitions in Kenya with how they plan and book a visit, with M-Pesa payments built into the flow.',
     cover: { src: unsplash('photo-1774514580599-c3dae376348e'), position: 'center 35%', placeholder: true },
-    accent: '#FF7A00',
-    accentDeep: '#8C3D00',
-    foreground: '#0a0a0b',
+    accent: '#B84300',
+    accentDeep: '#5C2200',
+    foreground: '#ffffff',
   },
   {
     slug: 'kesho-app',
@@ -118,9 +118,9 @@ export const PROJECTS: Project[] = [
     description:
       'A comic-book origin story told through kinetic typography and particle effects, produced with Masachi DC Studios.',
     cover: { src: unsplash('photo-1755811717097-23fba595025d'), position: 'center', placeholder: true },
-    accent: '#17D964',
-    accentDeep: '#087236',
-    foreground: '#0a0a0b',
+    accent: '#0B7A3B',
+    accentDeep: '#03401F',
+    foreground: '#ffffff',
   },
 ];
 
