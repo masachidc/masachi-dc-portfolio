@@ -11,8 +11,11 @@ import { EMAIL } from '../data/site';
 /** Hero link, as in the case-study hero. */
 const heroLink = 'group inline-flex items-center gap-1.5 border-b border-ink pb-1 text-label caps text-ink';
 
-/** One résumé section, headed like a case-study outcomes block (the muted kicker is the h2), over a hairline as in the case-study glance row. */
-function Block({ id, title, children }: { id: string; title: string; children: ReactNode }) {
+/**
+ * One résumé section, headed like a case-study outcomes block (the muted kicker is the h2), over a hairline as in
+ * the case-study glance row. `lead` sections open a column: from lg the grid's full-width rule stands in for theirs.
+ */
+function Block({ id, title, lead = false, children }: { id: string; title: string; lead?: boolean; children: ReactNode }) {
   return (
     <motion.section
       aria-labelledby={id}
@@ -20,7 +23,7 @@ function Block({ id, title, children }: { id: string; title: string; children: R
       whileInView="show"
       viewport={viewportOnce}
       variants={fadeUp}
-      className="border-t border-line pt-6"
+      className={`border-t border-line pt-6 ${lead ? 'lg:border-t-0 lg:pt-0' : ''}`}
     >
       <h2 id={id} className="mb-8 font-display text-kicker text-fg-faint">
         {title}
@@ -87,9 +90,9 @@ export function ResumePage() {
         {/* The case-study section grid, so the left column matches a case study's title column. Source
             order is reading priority (Experience first), which is also the stacked order; from lg the
             supporting column moves to the left. */}
-        <div className="mt-(--space-section) grid grid-cols-1 gap-y-(--space-section) lg:grid-cols-[2fr_3fr] lg:gap-x-16">
+        <div className="mt-(--space-section) grid grid-cols-1 gap-y-(--space-section) lg:grid-cols-[2fr_3fr] lg:gap-x-16 lg:border-t lg:border-line lg:pt-6">
           <div className="flex flex-col gap-(--space-section) lg:col-start-2 lg:row-start-1">
-            <Block id="experience" title="Experience">
+            <Block id="experience" title="Experience" lead>
               <ol className="flex flex-col gap-12">
                 {EXPERIENCE.map((e) => (
                   <li key={`${e.title}-${e.org}`} className="max-w-(--measure)">
@@ -124,7 +127,7 @@ export function ResumePage() {
           </div>
 
           <div className="flex flex-col gap-(--space-section) lg:col-start-1 lg:row-start-1">
-            <Block id="skills" title="Skills">
+            <Block id="skills" title="Skills" lead>
               <dl className="flex max-w-(--measure) flex-col gap-6">
                 {SKILLS.map((s) => (
                   <div key={s.group}>
