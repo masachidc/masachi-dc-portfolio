@@ -35,9 +35,9 @@ export const PROJECTS: Project[] = [
   {
     slug: 'amuse-art-museum',
     title: 'AMUSE',
-    cardTitle: 'AMUSE MUSEUM',
+    cardTitle: 'AMUSE ART MUSEUM',
     railTitle: 'AMUSE Art Museum',
-    summary: 'Museum discovery and booking',
+    summary: 'Museum Discovery and Booking App',
     disciplines: 'Product Design · UX Research',
     year: '2025',
     description:
