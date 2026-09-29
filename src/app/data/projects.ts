@@ -108,10 +108,10 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'the-incredible-hulk',
-    title: 'HULK',
-    cardTitle: 'HULK MOTION',
-    railTitle: 'HULK Motion Design',
-    summary: 'Kinetic type short',
+    title: 'The Incredible Hulk',
+    cardTitle: 'THE INCREDIBLE HULK',
+    railTitle: 'The Incredible Hulk',
+    summary: 'Motion Design and Kinetic Typography',
     disciplines: 'Motion Design',
     year: '2025',
     description:
