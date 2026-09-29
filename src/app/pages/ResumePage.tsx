@@ -124,13 +124,7 @@ export function ResumePage() {
                 {SKILLS.map((s) => (
                   <div key={s.group}>
                     <dt className="text-label caps text-fg-subtle">{s.group}</dt>
-                    <dd className="mt-2">
-                      <ul className="text-body text-fg-muted">
-                        {s.items.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </dd>
+                    <dd className="mt-2 text-body text-fg-muted">{s.items.join(', ')}</dd>
                   </div>
                 ))}
               </dl>
