@@ -52,7 +52,7 @@ export const PROJECTS: Project[] = [
     title: 'KESHO',
     cardTitle: 'KESHO APP',
     railTitle: 'KESHO App',
-    summary: 'Prediction platform',
+    summary: 'Social foresight platform',
     disciplines: 'Product Design · Full Stack',
     year: '2026',
     description:
