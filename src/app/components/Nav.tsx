@@ -134,7 +134,7 @@ export function Nav() {
             className="fixed inset-x-0 top-(--header-h) bottom-0 z-40 flex flex-col justify-between overflow-y-auto bg-bone px-(--gutter) py-10 md:hidden"
           >
             <nav aria-label="Primary" className="flex flex-col">
-              {NAV_LINKS.map((item, i) => {
+              {NAV_LINKS.map((item) => {
                 const current = isCurrent(item);
                 return (
                   <SiteLink
@@ -142,11 +142,10 @@ export function Nav() {
                     href={item.href}
                     ariaCurrent={current ? 'page' : undefined}
                     onNavigate={() => setMenuOpen(false)}
-                    className="group flex items-baseline gap-3 border-b border-line py-4"
+                    className="group block border-b border-line py-5"
                   >
-                    <span className="font-mono text-micro text-accent-deep">0{i + 1}</span>
                     <span
-                      className={`font-display text-3xl font-bold uppercase leading-none tracking-[-0.01em] transition-transform duration-300 ease-out group-active:translate-x-1 ${
+                      className={`block font-display text-title uppercase transition-transform duration-300 ease-out group-active:translate-x-1 ${
                         current ? 'text-accent-deep' : 'text-ink'
                       }`}
                     >
