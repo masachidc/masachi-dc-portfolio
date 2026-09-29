@@ -50,15 +50,13 @@ export function ResumePage() {
         noindex: true,
       }}
       kicker="Resume"
-      title={PROFILE.name}
-      width="reading"
-      lede={
+      title={
         <>
-          <strong className="font-semibold text-ink">{PROFILE.role}</strong> in {PROFILE.location}. Trained in
-          architecture, digital interactive media, and computer science, I take products from research and interface
-          design into working code, and I've shipped to the App Store.
+          {PROFILE.name}
+          <span className="mt-3 block text-title text-fg-muted">{PROFILE.role}</span>
         </>
       }
+      width="reading"
       actions={
         <>
           <SiteLink href={`mailto:${EMAIL}`} className={heroLink}>
@@ -78,11 +76,17 @@ export function ResumePage() {
         </>
       }
     >
-      <div className="container-reading pb-(--space-section) pt-8 lg:pt-12">
+      <div className="container-reading pb-(--space-section)">
+        {/* Summary after the contact links, in the case-study overview style. */}
+        <p className="max-w-[44ch] text-pretty text-lede text-fg-muted">
+          Based in {PROFILE.location}. Trained in architecture, digital interactive media, and computer science, I take
+          products from research and interface design into working code, and I've shipped to the App Store.
+        </p>
+
         {/* The case-study section grid, so the left column matches a case study's title column. Source
             order is reading priority (Experience first), which is also the stacked order; from lg the
             supporting column moves to the left. */}
-        <div className="grid grid-cols-1 gap-y-(--space-section) lg:grid-cols-[2fr_3fr] lg:gap-x-16">
+        <div className="mt-(--space-section) grid grid-cols-1 gap-y-(--space-section) lg:grid-cols-[2fr_3fr] lg:gap-x-16">
           <div className="flex flex-col gap-(--space-section) lg:col-start-2 lg:row-start-1">
             <Block id="experience" title="Experience">
               <ol className="flex flex-col gap-12">
