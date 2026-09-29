@@ -51,14 +51,9 @@ export function ProjectGrid() {
     <section id="work" aria-labelledby="work-title" className="relative bg-bone">
       {/* Hero description → "Selected work" equals nav → hero kicker: both are --space-section. */}
       <div className="container-site pb-(--space-section) pt-(--space-section)">
-        <div className="mb-8 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-          <h2 id="work-title" className="font-display text-kicker text-fg-faint">
-            Selected work
-          </h2>
-          <p className="text-small text-fg-subtle">
-            {PROJECTS.length} projects · product, brand, motion
-          </p>
-        </div>
+        <h2 id="work-title" className="mb-8 font-display text-kicker text-fg-faint">
+          Selected work
+        </h2>
 
         {/* mobile / tablet — simple stacked & 2-col rhythm */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:hidden">
