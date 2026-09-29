@@ -156,8 +156,8 @@ export const SKILLS: { group: string; items: string[] }[] = [
   { group: 'Tools', items: ['Figma', 'Claude Code', 'Adobe Illustrator', 'After Effects', 'Premiere Pro', 'SketchUp'] },
 ];
 
-export const EDUCATION: { field: string; school?: string; note?: string }[] = [
-  { field: 'Digital Interactive Media, minor in Computer Science', school: 'Florida International University' },
+export const EDUCATION: { field: string; minor?: string; school?: string; note?: string }[] = [
+  { field: 'Digital Interactive Media', minor: 'Minor in Computer Science', school: 'Florida International University' },
   { field: 'Architecture', note: 'Studied before moving into digital interactive media.' },
 ];
 

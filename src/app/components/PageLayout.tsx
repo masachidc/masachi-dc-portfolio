@@ -11,12 +11,15 @@ export function PageLayout({
   kicker,
   title,
   lede,
+  actions,
   children,
 }: {
   meta: { title: string; description: string; noindex?: boolean };
   kicker: string;
   title: ReactNode;
   lede?: ReactNode;
+  /** Links under the lede (contact, downloads), in the case-study hero link style. */
+  actions?: ReactNode;
   children: ReactNode;
 }) {
   usePageMeta(meta);
@@ -55,6 +58,16 @@ export function PageLayout({
             >
               {lede}
             </motion.p>
+          )}
+          {actions && (
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: easeOut, delay: 0.4 }}
+              className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4"
+            >
+              {actions}
+            </motion.div>
           )}
         </header>
         {children}
