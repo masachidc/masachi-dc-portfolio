@@ -94,9 +94,9 @@ export const PROJECTS: Project[] = [
   {
     slug: 'project-seeds-branding',
     title: 'Project SEEDS',
-    cardTitle: 'PROJECT SEEDS BRANDING',
-    railTitle: 'Project SEEDS Branding',
-    summary: 'University program identity',
+    cardTitle: 'PROJECT SEEDS',
+    railTitle: 'Project SEEDS',
+    summary: 'Logo and Brand Identity Design',
     disciplines: 'Brand Identity · Web',
     year: '2025',
     description:
