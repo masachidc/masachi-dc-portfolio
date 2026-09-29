@@ -177,6 +177,7 @@ export function ResumePage() {
                         <p key={line}>{line}</p>
                       ))}
                     </div>
+                    {e.when && <p className="mt-1 text-small text-fg-subtle">{e.when}</p>}
                   </li>
                 ))}
               </ul>

@@ -101,7 +101,7 @@ export const EXPERIENCE: ExperienceItem[] = [
   {
     title: 'Founder',
     org: 'Tembo',
-    when: '2026',
+    when: 'Aug 2026 – Present',
     points: [
       'Founded, designed, and shipped Tembo: Storylines, a social iOS app now live on the App Store.',
       'Designed its core model: everyday moments gathered into ongoing Storylines about goals, hobbies, relationships, pets, and trips.',
@@ -176,19 +176,24 @@ export const SKILLS: { group: string; items: string[] }[] = [
   { group: 'Tools', items: ['Figma', 'Adobe Illustrator', 'After Effects', 'Premiere Pro', 'SketchUp'] },
 ];
 
-export const EDUCATION: { field: string; minor?: string; school?: string; note?: string }[] = [
+export const EDUCATION: { field: string; minor?: string; school?: string; note?: string; /** Verified dates only. */ when?: string }[] = [
   { field: 'Digital Interactive Media', minor: 'Minor in Computer Science', school: 'Florida International University' },
-  { field: 'Architecture', note: 'Earlier study, before moving into digital interactive media.' },
+  {
+    field: 'Architecture',
+    school: 'Hillsborough Community College',
+    when: '2021–2024',
+    note: 'Studied before moving into digital interactive media.',
+  },
 ];
 
 /*
  * CONTENT GAPS (internal — never render):
- * - Degree names, graduation dates, and the architecture school's name.
+ * - Degree names, and FIU dates.
  * - Confirm Digital Interactive Media + CS minor were at FIU (inferred from FIU
  *   journalism school / Caplin News and SEEDS "about to graduate").
  *   Resume stays noindex until this is confirmed: education is the one record
  *   section that is still inferred.
- * - Tembo: exact dates (year is 2026), public-safe metrics, and whether to describe the build stack.
+ * - Tembo: public-safe metrics, and whether to describe the build stack.
  * - Employment dates for SEEDS (year only) and STEM Xposure (years).
  * - A current résumé PDF (or hosted link) for PROFILE.resumePdf.
  * - Portrait for About (optional).
