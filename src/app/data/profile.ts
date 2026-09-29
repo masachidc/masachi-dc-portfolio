@@ -166,7 +166,7 @@ export const EDUCATION: { field: string; school?: string; note?: string }[] = [
  * - Degree names, graduation dates, and the architecture school's name.
  * - Confirm Digital Interactive Media + CS minor were at FIU (inferred from FIU
  *   journalism school / Caplin News and SEEDS "about to graduate").
- * - Tembo: dates, public-safe metrics, and whether to describe the build stack.
+ * - Tembo: exact dates (year is 2026), public-safe metrics, and whether to describe the build stack.
  * - Employment dates for SEEDS (year only) and STEM Xposure (years).
  * - A résumé PDF for PROFILE.resumePdf.
  * - Portrait for About (optional).
