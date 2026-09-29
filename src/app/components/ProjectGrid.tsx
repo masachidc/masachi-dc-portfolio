@@ -30,7 +30,7 @@ function MosaicBand({ group, mirrored }: { group: Project[]; mirrored: boolean }
       <div className="grid h-full grid-cols-5 grid-rows-2 gap-6">
         {mirrored ? (
           <>
-            <ProjectCard project={a} className="col-span-2 row-span-2" />
+            <ProjectCard project={a} feature className="col-span-2 row-span-2" />
             <ProjectCard project={b} className="col-span-3 col-start-3 row-span-1" />
             <ProjectCard project={c} className="col-span-3 col-start-3 row-span-1 row-start-2" />
           </>
@@ -38,7 +38,7 @@ function MosaicBand({ group, mirrored }: { group: Project[]; mirrored: boolean }
           <>
             <ProjectCard project={a} className="col-span-3 row-span-1" />
             <ProjectCard project={b} className="col-span-3 row-span-1" />
-            <ProjectCard project={c} className="col-span-2 col-start-4 row-span-2 row-start-1" />
+            <ProjectCard project={c} feature className="col-span-2 col-start-4 row-span-2 row-start-1" />
           </>
         )}
       </div>

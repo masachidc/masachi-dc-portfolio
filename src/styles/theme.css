@@ -76,7 +76,13 @@
   --text-card: clamp(1.5rem, 1.3rem + 0.6vw, 1.875rem);
   --text-card--line-height: 0.95;
   --text-card--letter-spacing: -0.01em;
-  --text-card--font-weight: 700;
+  --text-card--font-weight: 800;
+
+  /* Project name on the tall card in each desktop mosaic band. */
+  --text-card-lg: clamp(1.875rem, 1.2rem + 1.05vw, 2.5rem);
+  --text-card-lg--line-height: 0.95;
+  --text-card-lg--letter-spacing: -0.015em;
+  --text-card-lg--font-weight: 800;
 
   /* Reading copy. */
   --text-body-lg: 1.125rem; /* 18px — case-study prose, hero sub */
