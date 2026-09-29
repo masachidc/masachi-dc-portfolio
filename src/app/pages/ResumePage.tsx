@@ -88,19 +88,19 @@ export function ResumePage() {
             LinkedIn
             <ArrowUpRight size={12} strokeWidth={2} aria-hidden />
           </SiteLink>
-          {/* Hidden until PROFILE.resumePdf is set: a hosted link opens in a new tab, a /public file downloads. */}
-          {PROFILE.resumePdf &&
-            (isExternal(PROFILE.resumePdf) ? (
-              <SiteLink href={PROFILE.resumePdf} className={heroLink}>
-                Download résumé
-                <Download size={12} strokeWidth={2} aria-hidden />
-              </SiteLink>
-            ) : (
-              <a href={PROFILE.resumePdf} download className={heroLink}>
-                Download résumé
-                <Download size={12} strokeWidth={2} aria-hidden />
-              </a>
-            ))}
+          {/* A hosted link opens in a new tab and a /public file downloads. Until PROFILE.resumePdf is set, the
+              option emails a résumé request so it never points nowhere. */}
+          {PROFILE.resumePdf && !isExternal(PROFILE.resumePdf) ? (
+            <a href={PROFILE.resumePdf} download className={heroLink}>
+              Download résumé
+              <Download size={12} strokeWidth={2} aria-hidden />
+            </a>
+          ) : (
+            <SiteLink href={PROFILE.resumePdf ?? `mailto:${EMAIL}?subject=${encodeURIComponent('Résumé request')}`} className={heroLink}>
+              Download résumé
+              <Download size={12} strokeWidth={2} aria-hidden />
+            </SiteLink>
+          )}
         </>
       }
     >

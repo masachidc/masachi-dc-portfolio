@@ -14,7 +14,7 @@ export const PROFILE = {
   linkedin: 'https://www.linkedin.com/in/nathanmasachi/',
   /**
    * Résumé for the Resume page's "Download résumé" link: a hosted URL (opens in a new tab) or a path to a PDF in
-   * /public (downloads). Leave null until a real file exists; the link stays hidden.
+   * /public (downloads). While null, the link emails a résumé request instead.
    */
   resumePdf: null as string | null,
 };
