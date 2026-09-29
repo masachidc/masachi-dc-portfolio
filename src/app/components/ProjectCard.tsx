@@ -74,10 +74,7 @@ function CardInner({ p, imgY, feature }: {
       */}
       <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5 transition-opacity duration-300 sm:p-6 md:group-hover:opacity-0">
         <div className="min-w-0">
-          <p className="mb-3 flex items-center gap-1.5 font-mono text-micro font-medium tracking-[0.1em] text-bone/65">
-            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: p.accent }} />
-            {meta}
-          </p>
+          <p className="mb-3 font-mono text-micro font-medium tracking-[0.1em] text-bone/65">{meta}</p>
           <h3 className={`${titleClass} text-bone`}>{p.cardTitle}</h3>
           <p className="mt-2 max-w-(--measure) text-body font-medium text-bone/90">{p.summary}</p>
           <p className="mt-3 text-micro caps text-bone/65">{p.disciplines}</p>
