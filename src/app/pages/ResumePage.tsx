@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, ArrowUpRight, Download } from 'lucide-react';
+import { ArrowRight, Download, Linkedin, Mail } from 'lucide-react';
 import { PageLayout } from '../components/PageLayout';
 import { SiteLink } from '../components/SiteLink';
 import { Bullets } from '../components/caseStudy';
@@ -8,7 +8,10 @@ import { fadeUp, viewportOnce } from '../lib/motion';
 import { EDUCATION, EXPERIENCE, PROFILE, RESUME_PROJECTS, SKILLS } from '../data/profile';
 import { EMAIL } from '../data/site';
 
-/** Hero link, as in the case-study hero. */
+/** Contact row under the lede: the case-study hero facts' type, one line, icon first. */
+const contactLink = 'inline-flex items-center gap-2 py-1 text-small font-semibold text-ink transition-colors hover:text-accent-deep';
+
+/** Underlined caps link, as in the case-study hero. */
 const heroLink = 'group inline-flex items-center gap-1.5 border-b border-ink pb-1 text-label caps text-ink';
 
 /** One résumé section, headed like a case-study outcomes block: the muted kicker is the h2. */
@@ -61,18 +64,18 @@ export function ResumePage() {
       }
       actions={
         <>
-          <SiteLink href={`mailto:${EMAIL}`} className={heroLink}>
+          <SiteLink href={`mailto:${EMAIL}`} className={contactLink}>
+            <Mail size={16} strokeWidth={1.75} aria-hidden />
             {EMAIL}
-            <ArrowUpRight size={12} strokeWidth={2} aria-hidden />
           </SiteLink>
-          <SiteLink href={PROFILE.linkedin} className={heroLink}>
+          <SiteLink href={PROFILE.linkedin} className={contactLink}>
+            <Linkedin size={16} strokeWidth={1.75} aria-hidden />
             LinkedIn
-            <ArrowUpRight size={12} strokeWidth={2} aria-hidden />
           </SiteLink>
           {PROFILE.resumePdf && (
-            <a href={PROFILE.resumePdf} download className={heroLink}>
-              Download résumé
-              <Download size={12} strokeWidth={2} aria-hidden />
+            <a href={PROFILE.resumePdf} download className={contactLink}>
+              <Download size={16} strokeWidth={1.75} aria-hidden />
+              Download Resume
             </a>
           )}
         </>
