@@ -1,21 +1,13 @@
 import type { CSSProperties } from 'react';
 import { SiteLink } from './SiteLink';
+import wordmarkSvg from '../../../brand/masachi-dc-wordmark.svg?raw';
 
 /**
- * MASACHI DC custom wordmark, one path per glyph, same geometry as
- * brand/masachi-dc-wordmark.svg (viewBox units: cap height 115, overshoot 2).
+ * brand/masachi-dc-wordmark.svg is the single source of the mark: its viewBox and
+ * one path per glyph are read at build time, so editing that file updates the site.
  */
-const GLYPHS = [
-  'M0 2L23 2L68 68L113 2L136 2L136 117L113 117L113 40.7L72.6 100L63.4 100L23 40.7L23 117L0 117Z',
-  'M202 117L263.5 2L281.5 2L343 117L318.2 117L272.5 31.5L226.8 117Z',
-  'M497 30.5C497 15.2 475.6 0 449.5 0C423.4 0 402 14.4 402 32C402 81.8 477.5 60.4 477.5 85.5C477.5 93.8 467 100 453 100C434 100 418.5 88.1 418.5 79.5L398 89C398 100.4 421.8 119 447.5 119C482.3 119 501 107.6 501 86.5C501 39.9 426.5 58.4 426.5 33.5C426.5 26.5 436.8 20 448 20C462 20 476 28.8 476 37.5Z',
-  'M557 117L618.5 2L636.5 2L698 117L673.2 117L627.5 31.5L581.8 117Z',
-  'M881.4 37.5A65.5 59.5 0 1 0 881.4 81.5L858.1 75.5A41 40 0 1 1 858.1 43.5Z',
-  'M950 2L973 2L973 48.5L1035.5 48.5L1035.5 2L1058.5 2L1058.5 117L1035.5 117L1035.5 67.5L973 67.5L973 117L950 117Z',
-  'M1144 2L1167 2L1167 117L1144 117Z',
-  'M1317 2L1373 2C1409.9 2 1434.5 25 1434.5 59.5C1434.5 94 1409.9 117 1373 117L1317 117ZM1340 21L1340 98L1372 98C1392.5 98 1410 80.3 1410 59.5C1410 38.7 1392.5 21 1372 21Z',
-  'M1625.4 37.5A65.5 59.5 0 1 0 1625.4 81.5L1602.1 75.5A41 40 0 1 1 1602.1 43.5Z',
-];
+const VIEW_BOX = wordmarkSvg.match(/viewBox="([^"]+)"/)![1];
+const GLYPHS = Array.from(wordmarkSvg.matchAll(/<path d="([^"]+)"/g), (m) => m[1]);
 
 /**
  * On hover each glyph slides right in proportion to its index, so the mark opens up
@@ -41,7 +33,7 @@ export function Wordmark({
       onNavigate={onNavigate}
       className={`group inline-flex items-center py-2 ${color}`}
     >
-      <svg viewBox="0 0 1625.4 119" aria-hidden className={`${height} w-auto overflow-visible`} fill="currentColor">
+      <svg viewBox={VIEW_BOX} aria-hidden className={`${height} w-auto overflow-visible`} fill="currentColor">
         {GLYPHS.map((d, i) => (
           <path
             key={i}
