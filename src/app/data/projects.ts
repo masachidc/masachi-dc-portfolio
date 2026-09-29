@@ -8,13 +8,13 @@ export interface Project {
   title: string;
   cardTitle: string;
   railTitle: string;
-  /** What it is, in a few words. Always visible on the card. */
+  /** What it is or why it matters, in sentence case. Always visible on the card. */
   summary: string;
   /** What Nathan did, "·"-separated. Always visible on the card. */
   disciplines: string;
   /** Omit until verified. */
   year?: string;
-  /** One or two sentences on why it's interesting. Shown on hover (desktop) and below the card (mobile). */
+  /** Why it's interesting, ~15–28 words; must not repeat `summary`. Shown on hover (desktop) and below the card (mobile). */
   description: string;
   /** Temporary: link out to a case study hosted elsewhere instead of /works/<slug>. */
   externalUrl?: string;
@@ -25,7 +25,6 @@ export interface Project {
   cover: { src: string; position: string; placeholder?: boolean };
   accent: string;
   accentDeep: string;
-  foreground: string;
 }
 
 const unsplash = (id: string) => `https://images.unsplash.com/${id}?w=1600&q=80&auto=format&fit=crop`;
@@ -35,92 +34,86 @@ export const PROJECTS: Project[] = [
   {
     slug: 'tembo-app',
     title: 'TEMBO',
-    cardTitle: 'TEMBO APP',
+    cardTitle: 'TEMBO',
     railTitle: 'TEMBO App',
-    summary: 'Social storytelling app',
+    summary: 'Social sharing built around ongoing life stories',
     disciplines: 'Founder · Product Design',
     year: '2026',
     description:
-      'A social iOS app for turning everyday moments into ongoing Storylines about goals, hobbies, relationships, pets, and trips. Live on the App Store.',
+      'A social iOS app where goals, hobbies, relationships, pets, and trips become ongoing Storylines. Designed and shipped to the App Store.',
     cover: { src: unsplash('photo-1549366021-9f761d450615'), position: 'center', placeholder: true },
     accent: '#00707A',
     accentDeep: '#003A40',
-    foreground: '#ffffff',
   },
   {
     slug: 'kesho-app',
     title: 'KESHO',
-    cardTitle: 'KESHO APP',
+    cardTitle: 'KESHO',
     railTitle: 'KESHO App',
-    summary: 'Social foresight platform',
+    summary: 'Predictions that lock before the outcome',
     disciplines: 'Product Design · Full Stack',
     year: '2026',
     description:
-      'Predictions for sports, entertainment, and politics. Forecasts are sealed at kickoff and revealed once the outcome lands.',
+      'Sports, entertainment, and politics forecasts, sealed and timestamped at kickoff, then scored with points once the result lands.',
     cover: { src: unsplash('photo-1768330187404-59e46cf222c9'), position: 'center', placeholder: true },
     accent: '#0057FF',
     accentDeep: '#00297A',
-    foreground: '#ffffff',
   },
   {
     slug: 'amuse-art-museum',
     title: 'AMUSE',
-    cardTitle: 'AMUSE WEB APP',
+    cardTitle: 'AMUSE',
     railTitle: 'AMUSE Web App',
-    summary: 'Museum Discovery and Booking',
+    summary: 'Discover, plan and book museum visits in Kenya',
     disciplines: 'Product Design · UX Research',
     year: '2025',
     description:
-      'A mobile-first platform connecting how people discover exhibitions in Kenya with how they plan and book a visit, with M-Pesa payments built into the flow.',
+      'Research moved it from a native app to a lightweight web platform with M-Pesa booking; usability testing made My Museum a core feature.',
     cover: { src: unsplash('photo-1774514580599-c3dae376348e'), position: 'center 35%', placeholder: true },
     accent: '#B84300',
     accentDeep: '#5C2200',
-    foreground: '#ffffff',
   },
   {
     slug: 'inline-chrome-extension',
     title: 'INLINE',
-    cardTitle: 'INLINE EXTENSION',
+    cardTitle: 'INLINE',
     railTitle: 'INLINE Extension',
-    summary: 'AI annotation chrome extension',
-    disciplines: 'Product Design · UI',
+    summary: 'Annotate any webpage without leaving the tab',
+    disciplines: 'UI/UX Design',
     year: '2026',
     description:
-      'Turns any webpage into an interactive canvas. Annotate, highlight, draw, and call up AI without leaving the tab.',
+      'Makes the read-only web writable: a floating icon opens notes, drawing, highlights, and AI on any page. Most Unique Project at FIU Blackstone LaunchPad.',
     cover: { src: unsplash('photo-1768638687898-7851d341cb87'), position: 'center', placeholder: true },
     accent: '#7B2FFF',
     accentDeep: '#3E1385',
-    foreground: '#ffffff',
   },
   {
     slug: 'project-seeds-branding',
     title: 'Project SEEDS',
     cardTitle: 'PROJECT SEEDS',
     railTitle: 'Project SEEDS',
-    summary: 'Logo and Brand Identity Design',
+    summary: "A distinct identity within FIU's brand system",
     disciplines: 'Brand Identity · Web',
     year: '2025',
     description:
-      "A distinct identity for FIU's Project SEEDS, built on the university brand system. Enrollment more than doubled during the initiative.",
+      'Gave a program with no consistent look an identity approved by FIU branding, and a site non-technical staff can maintain. Enrollment more than doubled during the initiative.',
     cover: { src: unsplash('photo-1446688568582-55ddb4b37cad'), position: 'center', placeholder: true },
     accent: '#FF2A2A',
     accentDeep: '#8C0F0F',
-    foreground: '#ffffff',
   },
   {
     slug: 'the-incredible-hulk',
     title: 'The Incredible Hulk',
     cardTitle: 'THE INCREDIBLE HULK',
     railTitle: 'The Incredible Hulk',
-    summary: 'Motion Design and Kinetic Typography',
+    summary: 'A comic origin story told through motion',
     disciplines: 'Motion Design',
     year: '2025',
     description:
-      'A comic-book origin story told through kinetic typography and particle effects, produced with Masachi DC Studios.',
+      'Kinetic typography and particle effects carry the story, made in After Effects for Masachi DC Studios with Brandspot Media.',
     cover: { src: unsplash('photo-1755811717097-23fba595025d'), position: 'center', placeholder: true },
     accent: '#0B7A3B',
     accentDeep: '#03401F',
-    foreground: '#ffffff',
   },
 ];
 
@@ -132,17 +125,16 @@ export const OTHER_PROJECTS: Project[] = [
   {
     slug: 'stemxposure',
     title: 'STEM X',
-    cardTitle: 'STEM X CAMP',
+    cardTitle: 'STEM X',
     railTitle: 'STEM X Architecture Camp',
-    summary: 'Architecture education program',
+    summary: 'Architecture and design camp across seven countries',
     disciplines: 'Curriculum · Architecture',
     year: '2026',
     description:
-      'A multi-year program bringing architecture and design to 500+ students across six African nations through hands-on SketchUp workshops.',
+      'A two-week architecture and design camp, run for three years, reaching 500+ high school students in the US and six African countries.',
     cover: { src: unsplash('photo-1598941101837-e3fdd6d94b24'), position: 'center 40%', placeholder: true },
     accent: '#FF2E9A',
     accentDeep: '#8C1050',
-    foreground: '#ffffff',
   },
 ];
 

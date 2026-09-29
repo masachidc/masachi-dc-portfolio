@@ -1,6 +1,6 @@
 import { type MouseEvent, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react';
+import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { projectHref, projectNumber, type Project } from '../data/projects';
 import { easeOut } from '../lib/motion';
@@ -10,6 +10,8 @@ const MotionLink = motion(Link);
 interface ProjectCardProps {
   project: Project;
   className?: string;
+  /** The tall card in a desktop mosaic band: room for a larger title. */
+  feature?: boolean;
 }
 
 function hexToRgba(hex: string, alpha: number) {
@@ -32,7 +34,7 @@ const cardEntrance = {
 
 const cardHover = {
   rest: { y: 0, transition: { duration: 0.4, ease: easeOut } },
-  hover: { y: -8, transition: { duration: 0.5, ease: easeOut } },
+  hover: { y: -4, transition: { duration: 0.5, ease: easeOut } },
 };
 
 const panelStagger = {
@@ -45,15 +47,13 @@ const panelItem = {
   hover: { opacity: 1, y: 0, transition: { duration: 0.32, ease: easeOut } },
 };
 
-function CardInner({ p, imgY, fg, fgSoft, fgFaint, fgBorder, hexToRgbaFn }: {
+function CardInner({ p, imgY, feature }: {
   p: Project;
   imgY: ReturnType<typeof useTransform>;
-  fg: string;
-  fgSoft: string;
-  fgFaint: string;
-  fgBorder: string;
-  hexToRgbaFn: typeof hexToRgba;
+  feature: boolean;
 }) {
+  const titleClass = `font-display uppercase text-balance ${feature ? 'text-card-lg' : 'text-card'}`;
+  const meta = `N°${projectNumber(p)}${p.year ? ` · ${p.year}` : ''}`;
   return (
     <>
       <motion.img
@@ -62,22 +62,25 @@ function CardInner({ p, imgY, fg, fgSoft, fgFaint, fgBorder, hexToRgbaFn }: {
         decoding="async"
         className="absolute inset-0 h-full w-full object-cover"
         style={{ objectPosition: p.cover.position, filter: 'saturate(0.92) brightness(0.88)', y: imgY }}
-        whileHover={{ scale: 1.045 }}
+        whileHover={{ scale: 1.025 }}
         transition={{ duration: 0.9, ease: easeOut }}
       />
 
       <div className="absolute inset-0 bg-gradient-to-t from-ink-deep/90 via-ink-deep/25 to-transparent transition-opacity duration-500 md:group-hover:opacity-0" />
 
-      {/* At rest the card answers: what is it, what did Nathan do, when. No hover required. */}
+      {/*
+        At rest the card answers, in reading order: what it is (title), why it
+        matters (summary), what Nathan did (disciplines). Number and year stay quiet.
+      */}
       <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5 transition-opacity duration-300 sm:p-6 md:group-hover:opacity-0">
         <div className="min-w-0">
-          <p className="mb-2 flex items-center gap-1.5 font-mono text-micro font-medium tracking-[0.1em] text-bone/75">
+          <p className="mb-3 flex items-center gap-1.5 font-mono text-micro font-medium tracking-[0.1em] text-bone/65">
             <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: p.accent }} />
-            N°{projectNumber(p)}{p.year && ` · ${p.year}`}
+            {meta}
           </p>
-          <h3 className="font-display text-card uppercase text-bone">{p.cardTitle}</h3>
-          <p className="mt-2 text-body font-medium text-bone/90">{p.summary}</p>
-          <p className="mt-1 text-micro caps text-bone/70">{p.disciplines}</p>
+          <h3 className={`${titleClass} text-bone`}>{p.cardTitle}</h3>
+          <p className="mt-2 max-w-(--measure) text-body font-medium text-bone/90">{p.summary}</p>
+          <p className="mt-3 text-micro caps text-bone/65">{p.disciplines}</p>
         </div>
         <span
           aria-hidden="true"
@@ -87,72 +90,50 @@ function CardInner({ p, imgY, fg, fgSoft, fgFaint, fgBorder, hexToRgbaFn }: {
         </span>
       </div>
 
-      {/* Hover detail panel: decorative duplicate of the card's content, hidden from assistive tech. */}
+      {/*
+        Hover detail panel: a project-colour wash over the still-visible image,
+        adding the why (description) rather than repeating the resting summary.
+        Decorative duplicate of the card's content, hidden from assistive tech.
+      */}
       <motion.div
         aria-hidden="true"
         variants={panelStagger}
-        className="pointer-events-none absolute inset-0 z-20 hidden flex-col justify-between p-7 opacity-0 transition-opacity duration-[400ms] ease-out md:flex md:group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 z-20 hidden flex-col justify-end p-7 text-white opacity-0 transition-opacity duration-300 ease-out md:flex md:group-hover:opacity-100"
         style={{
-          background: `linear-gradient(155deg, ${p.accent} 0%, ${p.accentDeep} 100%)`,
-          color: fg,
+          background: `linear-gradient(to top, ${hexToRgba(p.accentDeep, 0.96)} 0%, ${hexToRgba(p.accentDeep, 0.86)} 45%, ${hexToRgba(p.accent, 0.5)} 100%)`,
         }}
       >
-        <motion.div variants={panelItem} className="flex items-start justify-between">
-          <span className="font-mono text-label font-medium tracking-normal">N°{projectNumber(p)}</span>
-          <span className="text-micro caps" style={{ color: fgSoft }}>
-            {p.year}
-          </span>
-        </motion.div>
-
-        <div>
-          <motion.p
-            variants={panelItem}
-            className="mb-2 text-micro caps"
-            style={{ color: fgFaint }}
-          >
-            {p.summary} · {p.disciplines}
-          </motion.p>
-          <motion.p
-            variants={panelItem}
-            className="mb-4 font-display text-card uppercase"
-            style={{ textShadow: `0 12px 28px ${hexToRgbaFn(p.accentDeep, 0.55)}` }}
-          >
-            {p.cardTitle}
-          </motion.p>
-          <motion.p
-            variants={panelItem}
-            className="mb-5 max-w-[36ch] text-body"
-            style={{ color: fgSoft }}
-          >
-            {p.description}
-          </motion.p>
-          <motion.span
-            variants={panelItem}
-            className="inline-flex items-center gap-1.5 border-b pb-1 text-label caps"
-            style={{ borderColor: fgBorder }}
-          >
-            View case study <ArrowUpRight size={12} strokeWidth={2.25} />
-          </motion.span>
-        </div>
+        <motion.p variants={panelItem} className="mb-3 font-mono text-micro font-medium tracking-[0.1em] text-white/70">
+          {meta}
+        </motion.p>
+        <motion.p variants={panelItem} className={`mb-3 ${titleClass}`}>
+          {p.cardTitle}
+        </motion.p>
+        <motion.p variants={panelItem} className="mb-5 max-w-[36ch] text-body text-white/85">
+          {p.description}
+        </motion.p>
+        <motion.span
+          variants={panelItem}
+          className="inline-flex items-center gap-1.5 self-start border-b border-white/30 pb-1 text-label caps"
+        >
+          View case study <ArrowUpRight size={12} strokeWidth={2.25} />
+        </motion.span>
       </motion.div>
     </>
   );
 }
 
-export function ProjectCard({ project: p, className = '' }: ProjectCardProps) {
-  const fg = p.foreground;
-  const fgSoft = fg === '#ffffff' ? 'rgba(255,255,255,0.7)' : 'rgba(10,10,11,0.65)';
-  const fgFaint = fg === '#ffffff' ? 'rgba(255,255,255,0.4)' : 'rgba(10,10,11,0.45)';
-  const fgBorder = fg === '#ffffff' ? 'rgba(255,255,255,0.25)' : 'rgba(10,10,11,0.2)';
+export function ProjectCard({ project: p, className = '', feature = false }: ProjectCardProps) {
   const restShadow = '0 1px 2px rgba(10,10,11,0.05), 0 24px 48px -30px rgba(10,10,11,0.22)';
-  const hoverShadow = `0 1px 2px rgba(10,10,11,0.06), 0 40px 70px -20px ${hexToRgba(p.accentDeep, 0.55)}`;
+  const hoverShadow = `0 1px 2px rgba(10,10,11,0.06), 0 32px 60px -24px ${hexToRgba(p.accentDeep, 0.4)}`;
   const href = projectHref(p);
   const isInternal = !p.externalUrl;
-  const linkLabel = `${p.railTitle}: ${p.summary}. ${p.disciplines}${p.year ? `, ${p.year}` : ''}. View case study`;
+  const linkLabel = `${p.railTitle}: ${p.summary}. ${p.disciplines}. View case study`;
 
   const cardRef = useRef<HTMLAnchorElement>(null);
   const { scrollYProgress } = useScroll({ target: cardRef, offset: ['start end', 'end start'] });
-  const imgY = useTransform(scrollYProgress, [0, 1], [-22, 22]);
+  const reduceMotion = useReducedMotion();
+  const imgY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [-22, 22]);
 
   const rotateXRaw = useMotionValue(0);
   const rotateYRaw = useMotionValue(0);
@@ -161,12 +142,12 @@ export function ProjectCard({ project: p, className = '' }: ProjectCardProps) {
 
   function handleTilt(e: MouseEvent<HTMLAnchorElement>) {
     const el = cardRef.current;
-    if (!el) return;
+    if (!el || reduceMotion) return;
     const rect = el.getBoundingClientRect();
     const px = (e.clientX - rect.left) / rect.width - 0.5;
     const py = (e.clientY - rect.top) / rect.height - 0.5;
-    rotateYRaw.set(px * 6);
-    rotateXRaw.set(py * -6);
+    rotateYRaw.set(px * 3);
+    rotateXRaw.set(py * -3);
   }
 
   function resetTilt() {
@@ -192,7 +173,7 @@ export function ProjectCard({ project: p, className = '' }: ProjectCardProps) {
     className: 'group relative block aspect-square w-full overflow-hidden min-[380px]:aspect-[4/3] sm:aspect-[4/5] bg-ink shadow-[var(--rest-shadow)] transition-shadow duration-500 [transform-style:preserve-3d] hover:shadow-[var(--hover-shadow)] lg:aspect-auto lg:h-full',
   };
 
-  const innerProps = { p, imgY, fg, fgSoft, fgFaint, fgBorder, hexToRgbaFn: hexToRgba };
+  const innerProps = { p, imgY, feature };
 
   return (
     <motion.div
