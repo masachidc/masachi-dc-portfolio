@@ -169,13 +169,15 @@ export function Nav() {
               >
                 Get in touch
               </h2>
-              <ul className="flex flex-col items-end">
+              {/* Each link is a full-width, 48px row: a generous target even for short
+                  labels like "X", with no gaps or overlaps between neighbours. */}
+              <ul className="flex flex-col">
                 {CONTACT_LINKS.map((c) => (
                   <li key={c.label}>
                     <SiteLink
                       href={c.href}
                       onNavigate={() => setMenuOpen(false)}
-                      className="flex min-h-11 items-center gap-2 text-body-lg font-medium text-fg-muted transition-colors duration-300 active:text-ink"
+                      className="flex min-h-12 w-full items-center justify-end gap-2 text-body-lg font-medium text-fg-muted transition-colors duration-300 focus-visible:text-accent-deep focus-visible:outline-none active:text-ink"
                     >
                       {c.label}
                       {/* -mr-1 cancels the icon's inner padding so its stroke meets the right edge */}
