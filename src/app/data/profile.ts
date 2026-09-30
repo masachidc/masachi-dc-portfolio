@@ -80,7 +80,7 @@ export const IMPACT: ImpactItem[] = [
 
 /** Resume intro: the positioning paragraph under the contact links (~35–55 words). */
 export const RESUME_INTRO =
-  "A product designer who builds. Trained in architecture, digital interactive media, and computer science, I think in systems and take products from research and interface design into working software. I've shipped one to the App Store. Based in Tampa, Florida.";
+  'A product designer who ships. Trained in architecture, digital media, and computer science, I work across design and development to turn ideas into working products without a traditional handoff. I build with longevity, scale, and depth in mind.';
 
 /**
  * Resume roles, most relevant first. Adding a role is data only: 2–3 points,
