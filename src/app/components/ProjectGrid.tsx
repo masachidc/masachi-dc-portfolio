@@ -58,7 +58,7 @@ export function ProjectGrid() {
         {/* mobile / tablet — simple stacked & 2-col rhythm */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:hidden">
           {PROJECTS.map((p) => (
-            <ProjectCard key={p.slug} project={p} />
+            <ProjectCard key={p.slug} project={p} className={p.hideOnMobile ? 'max-sm:hidden' : ''} />
           ))}
         </div>
 
