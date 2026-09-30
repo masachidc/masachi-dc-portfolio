@@ -25,6 +25,8 @@ export interface Project {
   cover: { src: string; position: string; placeholder?: boolean };
   accent: string;
   accentDeep: string;
+  /** Leave off the phone-width Selected work grid (still shown on tablet and desktop). */
+  hideOnMobile?: boolean;
 }
 
 const unsplash = (id: string) => `https://images.unsplash.com/${id}?w=1600&q=80&auto=format&fit=crop`;
@@ -114,6 +116,7 @@ export const PROJECTS: Project[] = [
     cover: { src: unsplash('photo-1755811717097-23fba595025d'), position: 'center', placeholder: true },
     accent: '#0B7A3B',
     accentDeep: '#03401F',
+    hideOnMobile: true,
   },
 ];
 
