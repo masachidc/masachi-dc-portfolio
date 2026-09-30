@@ -38,7 +38,7 @@ export function usePageMeta({ title, description = DEFAULT_DESCRIPTION, noindex 
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const fullTitle = title ? `${title} — Nathan Masachi` : DEFAULT_TITLE;
+    const fullTitle = title ? `${title} | Nathan Masachi` : DEFAULT_TITLE;
     const url = `${SITE_URL}${pathname === '/' ? '/' : pathname.replace(/\/$/, '')}`;
 
     document.title = fullTitle;

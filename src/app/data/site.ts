@@ -1,7 +1,7 @@
 /** Production origin — canonical URLs and social tags are built from it. */
 export const SITE_URL = 'https://masachidc.com';
 export const SITE_NAME = 'Masachi DC';
-export const DEFAULT_TITLE = 'Nathan Masachi — Product Designer & Design Engineer';
+export const DEFAULT_TITLE = 'Nathan Masachi | Product Designer & Design Engineer';
 export const DEFAULT_DESCRIPTION =
   'Nathan Masachi is a product designer who ships. Selected work in product, brand, and motion design — from research to production.';
 
