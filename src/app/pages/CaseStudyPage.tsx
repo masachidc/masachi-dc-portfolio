@@ -4,10 +4,11 @@ import { motion } from 'motion/react';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
+import { MediaBand } from '../components/MediaBand';
 import { SectionRail, type RailSection } from '../components/SectionRail';
 import { ProjectRail } from '../components/ProjectRail';
 import { SiteLink } from '../components/SiteLink';
-import { findCaseStudy, isPublished, type CaseBlock, type CaseStudy, type Media } from '../data/caseStudies';
+import { findCaseStudy, isPublished, type CaseBlock, type CaseStudy } from '../data/caseStudies';
 import { PROJECTS, projectHref, type Project } from '../data/projects';
 import { EMAIL } from '../data/site';
 import { easeOut, fadeUp, viewportOnce } from '../lib/motion';
@@ -44,70 +45,6 @@ function Kicker({ children }: { children: ReactNode }) {
   return <p className="mb-1 font-display text-kicker text-fg-faint">{children}</p>;
 }
 
-/**
- * One media slot. With `src`: a lazy image in a reserved box (no layout shift).
- * Without: a labelled placeholder in the same box, so dev, preview, and production render identically.
- * `review` adds author-only detail (the reserved ratio) in local dev and draft preview.
- */
-function MediaSlot({ media, review, priority = false }: { media: Media; review: boolean; priority?: boolean }) {
-  if (media.src) {
-    return (
-      <img
-        src={media.src}
-        alt={media.alt ?? ''}
-        loading={priority ? 'eager' : 'lazy'}
-        // Lowercase DOM attribute: React 18 doesn't know the camelCase prop.
-        {...{ fetchpriority: priority ? 'high' : 'auto' }}
-        decoding="async"
-        className="w-full rounded-[6px] bg-bone-deep object-cover shadow-[0_20px_50px_-20px_rgba(10,10,11,0.25)]"
-        style={{ aspectRatio: media.ratio }}
-      />
-    );
-  }
-  return (
-    <div
-      role="img"
-      aria-label={`Image coming soon: ${media.slot}`}
-      className="flex w-full flex-col items-center justify-center gap-2 rounded-[6px] border-2 border-dashed border-ink/15 bg-bone p-6 text-center"
-      style={{ aspectRatio: media.ratio }}
-    >
-      <span className="text-micro caps text-fg-subtle">Image coming soon</span>
-      <span className="max-w-[32ch] text-small text-fg-muted">{media.slot}</span>
-      {review && <span className="font-mono text-micro text-fg-subtle">{media.ratio}</span>}
-    </div>
-  );
-}
-
-/** Full-bleed soft-grey band holding one, two, or three media items. */
-function MediaBand({
-  items,
-  caption,
-  wide = false,
-  review,
-  priority = false,
-}: {
-  items: Media[];
-  caption?: string;
-  wide?: boolean;
-  review: boolean;
-  priority?: boolean;
-}) {
-  if (!items.length) return null;
-  const cols = items.length === 1 ? '' : items.length === 2 ? 'grid gap-4 sm:grid-cols-2 sm:gap-6' : 'grid grid-cols-2 gap-4 md:grid-cols-3';
-  return (
-    <motion.figure {...reveal} variants={fadeUp} className="w-full bg-surface section-y">
-      <div className={wide ? 'container-site' : 'container-reading'}>
-        <div className={cols}>
-          {items.map((m, i) => (
-            <MediaSlot key={`${m.slot}-${i}`} media={m} review={review} priority={priority && i === 0} />
-          ))}
-        </div>
-      </div>
-      {caption && <figcaption className="container-reading mt-6 text-center text-small text-fg-subtle">{caption}</figcaption>}
-    </motion.figure>
-  );
-}
-
 function Section({
   id,
   block,
@@ -117,32 +54,30 @@ function Section({
   block: Extract<CaseBlock, { kind: 'section' }>;
   review: boolean;
 }) {
-  const media = block.media;
   return (
-    <motion.section
-      id={id}
-      aria-labelledby={`${id}-title`}
-      {...reveal}
-      variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
-      className="container-reading section-y"
-    >
-      <div className={`grid grid-cols-1 gap-6 ${block.wide ? 'md:grid-cols-[5fr_7fr]' : 'md:grid-cols-[2fr_3fr]'} md:gap-12 lg:gap-16`}>
-        <motion.div variants={fadeUp}>
-          <Kicker>{block.kicker}</Kicker>
-          <h2 id={`${id}-title`} className="font-display text-title text-ink/85">
-            {block.title}
-          </h2>
-        </motion.div>
-        <motion.div variants={fadeUp} className="max-w-(--measure) space-y-5 text-body-lg text-fg-muted">
-          {block.body}
-        </motion.div>
-      </div>
-      {media && (
-        <motion.div variants={fadeUp} className="mt-12 rounded-[8px] bg-surface p-4 sm:p-8">
-          <MediaSlot media={media} review={review} />
-        </motion.div>
-      )}
-    </motion.section>
+    <>
+      <motion.section
+        id={id}
+        aria-labelledby={`${id}-title`}
+        {...reveal}
+        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
+        className="container-reading section-y"
+      >
+        <div className={`grid grid-cols-1 gap-6 ${block.wide ? 'md:grid-cols-[5fr_7fr]' : 'md:grid-cols-[2fr_3fr]'} md:gap-12 lg:gap-16`}>
+          <motion.div variants={fadeUp}>
+            <Kicker>{block.kicker}</Kicker>
+            <h2 id={`${id}-title`} className="font-display text-title text-ink/85">
+              {block.title}
+            </h2>
+          </motion.div>
+          <motion.div variants={fadeUp} className="max-w-(--measure) space-y-5 text-body-lg text-fg-muted">
+            {block.body}
+          </motion.div>
+        </div>
+      </motion.section>
+      {/* Section media uses the same full-bleed band as media blocks: one grey treatment everywhere. */}
+      {block.media && <MediaBand items={[block.media]} review={review} />}
+    </>
   );
 }
 
