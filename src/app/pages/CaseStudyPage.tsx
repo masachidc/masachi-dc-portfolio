@@ -165,6 +165,8 @@ function Insight({ block }: { block: Extract<CaseBlock, { kind: 'insight' }> }) 
 }
 
 function Outcomes({ id, block }: { id: string; block: Extract<CaseBlock, { kind: 'outcomes' }> }) {
+  // Word values ("Approved") don't fit stat-size columns: give them title size and a wider grid.
+  const words = block.items.some((s) => s.value.length > 4);
   return (
     <motion.section
       id={id}
@@ -176,11 +178,11 @@ function Outcomes({ id, block }: { id: string; block: Extract<CaseBlock, { kind:
       <motion.h2 id={`${id}-title`} variants={fadeUp} className="mb-12 font-display text-kicker text-fg-faint">
         {block.kicker}
       </motion.h2>
-      <dl className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-4">
+      <dl className={`grid gap-x-8 ${words ? 'grid-cols-1 gap-y-10 md:grid-cols-3' : 'grid-cols-2 gap-y-12 md:grid-cols-4'}`}>
         {block.items.map((s, i) => (
           <motion.div key={`${s.label}-${i}`} variants={fadeUp} className="flex flex-col-reverse gap-2">
             <dt className="text-small text-fg-subtle">{s.label}</dt>
-            <dd className="font-display text-stat text-accent">{s.value}</dd>
+            <dd className={`font-display text-accent ${words ? 'text-title' : 'text-stat'}`}>{s.value}</dd>
           </motion.div>
         ))}
       </dl>
@@ -249,9 +251,10 @@ function Overview({ study }: { study: CaseStudy }) {
   return (
     <div className="container-reading section-y">
       {study.overview && (
-        <motion.p {...reveal} variants={fadeUp} className="max-w-[44ch] text-pretty text-lede text-fg-muted">
+        // A div so an overview can be one run of text or several <p>s.
+        <motion.div {...reveal} variants={fadeUp} className="max-w-[44ch] space-y-5 text-pretty text-lede text-fg-muted">
           {study.overview}
-        </motion.p>
+        </motion.div>
       )}
       {study.glance && (
         <motion.dl
