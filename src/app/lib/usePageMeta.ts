@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, SITE_NAME, SITE_URL } from '../data/site';
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, OG_IMAGE, OG_IMAGE_ALT, SITE_NAME, SITE_URL } from '../data/site';
 
 interface PageMeta {
   /** Page-specific title; the site name is appended. Omit on the homepage. */
@@ -51,7 +51,10 @@ export function usePageMeta({ title, description = DEFAULT_DESCRIPTION, noindex 
     setMeta('property', 'og:title', fullTitle);
     setMeta('property', 'og:description', description);
     setMeta('property', 'og:url', url);
-    setMeta('name', 'twitter:card', 'summary');
+    setMeta('property', 'og:image', OG_IMAGE);
+    setMeta('property', 'og:image:alt', OG_IMAGE_ALT);
+    setMeta('name', 'twitter:card', 'summary_large_image');
+    setMeta('name', 'twitter:image', OG_IMAGE);
     setMeta('name', 'twitter:title', fullTitle);
     setMeta('name', 'twitter:description', description);
   }, [title, description, noindex, pathname]);

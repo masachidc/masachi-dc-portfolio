@@ -1,0 +1,46 @@
+<!doctype html>
+<!--
+  Source for public/og-image.png, the 1200×630 link preview (LinkedIn, X, Slack, iMessage).
+  To update: edit this file, screenshot it in headless Chrome at 1200×630 with device scale 2
+  (--virtual-time-budget so the font loads), then downsample to 1200×630 (Lanczos) and save as public/og-image.png.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=block" />
+    <style>
+      html, body { margin: 0; }
+      body {
+        width: 1200px;
+        height: 630px;
+        box-sizing: border-box;
+        padding: 72px 80px 84px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+        text-align: right;
+        color: #ffffff;
+        font-family: 'General Sans', sans-serif;
+        /* Brand teal (--color-accent), with a soft light falling from the top right. */
+        background:
+          radial-gradient(ellipse 70% 80% at 85% 0%, rgba(51, 188, 202, 0.35), transparent 70%),
+          #008c95;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wordmark { height: 22px; display: block; }
+      .kicker { font-size: 26px; font-weight: 400; opacity: 0.8; margin: 0 0 18px; }
+      .headline { font-size: 54px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.1; margin: 0 0 22px; white-space: nowrap; }
+      .services { font-size: 27px; font-weight: 400; opacity: 0.85; margin: 0; white-space: nowrap; }
+      .sep { opacity: 0.6; padding: 0 0.35em; }
+    </style>
+  </head>
+  <body>
+    <img class="wordmark" src="masachi-dc-wordmark-white.svg" alt="Masachi DC" />
+    <div>
+      <p class="kicker">AI-native</p>
+      <p class="headline">Discover → Design → Develop → Deploy</p>
+      <p class="services">Mobile &amp; Web Applications<span class="sep">|</span>Product Strategy<span class="sep">|</span>Brand Identity Design</p>
+    </div>
+  </body>
+</html>
