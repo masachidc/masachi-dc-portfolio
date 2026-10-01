@@ -2,10 +2,10 @@ import { Bullets, Hl, Points } from '../../components/caseStudy';
 import type { CaseStudy } from './types';
 
 // Source: Nathan's published INLINE case study (masachidc.com/works/inline-chrome-extension). Facts match profile.ts.
-// Draft until real product screens replace the media slots (shown only in dev or ?preview).
+// Media slots render as labelled "Image coming soon" placeholders until real product screens replace them.
 export const inline: CaseStudy = {
   slug: 'inline-chrome-extension',
-  status: 'draft',
+  status: 'published',
   title: ['INLINE'],
   tagline: 'A Chrome extension that makes any webpage writable.',
   facts: [
