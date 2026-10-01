@@ -2,10 +2,10 @@ import { Hl } from '../../components/caseStudy';
 import type { CaseStudy } from './types';
 
 // Source: Nathan's Project SEEDS brief. Facts match profile.ts.
-// Draft until real identity, guideline, application, and website assets replace the media slots.
+// Media slots await real identity, guideline, application, and website assets (shown only in dev or ?preview).
 export const projectSeeds: CaseStudy = {
   slug: 'project-seeds-branding',
-  status: 'draft',
+  status: 'published',
   title: ['Project SEEDS'],
   tagline: "A distinct identity inside FIU's established brand system.",
   facts: [
@@ -57,7 +57,10 @@ export const projectSeeds: CaseStudy = {
           </p>
         </>
       ),
-      media: { slot: 'FIU brand system reference and Project SEEDS context', ratio: '16/9' },
+    },
+    {
+      kind: 'media',
+      items: [{ slot: 'FIU brand system reference and Project SEEDS context', ratio: '16/9' }],
     },
     {
       kind: 'insight',
@@ -86,7 +89,10 @@ export const projectSeeds: CaseStudy = {
           </p>
         </>
       ),
-      media: { slot: 'FIU colors, typography, and co-branding references', ratio: '16/9' },
+    },
+    {
+      kind: 'media',
+      items: [{ slot: 'FIU colors, typography, and co-branding references', ratio: '16/9' }],
     },
     {
       kind: 'section',
@@ -167,7 +173,10 @@ export const projectSeeds: CaseStudy = {
           </p>
         </>
       ),
-      media: { slot: 'Project SEEDS typography and color system', ratio: '16/9' },
+    },
+    {
+      kind: 'media',
+      items: [{ slot: 'Project SEEDS typography and color system', ratio: '16/9' }],
     },
     {
       kind: 'section',
@@ -183,7 +192,10 @@ export const projectSeeds: CaseStudy = {
           <p>The guidelines gave the team a repeatable system instead of a folder of disconnected assets.</p>
         </>
       ),
-      media: { slot: 'Project SEEDS brand use guidelines with approved and incorrect examples', ratio: '16/9' },
+    },
+    {
+      kind: 'media',
+      items: [{ slot: 'Project SEEDS brand use guidelines with approved and incorrect examples', ratio: '16/9' }],
     },
     {
       kind: 'insight',
@@ -239,7 +251,6 @@ export const projectSeeds: CaseStudy = {
     },
     {
       kind: 'media',
-      wide: true,
       items: [
         { slot: 'Project SEEDS website: homepage', ratio: '16/9' },
         { slot: 'Project SEEDS website: program information page', ratio: '16/9' },

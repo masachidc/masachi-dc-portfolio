@@ -331,7 +331,8 @@ function CaseStudyView({ study, project }: { study: CaseStudy; project: Project 
   const draft = study.status === 'draft';
   // `?preview` shows a draft in full, with media slots, for review.
   const full = study.blocks.length > 0 && (!draft || new URLSearchParams(search).has('preview'));
-  const showSlots = draft && full;
+  // Empty media slots show while reviewing a draft, and always in local dev so pending assets stay visible.
+  const showSlots = full && (draft || import.meta.env.DEV);
   const title = study.title.join(' ');
 
   usePageMeta({ title, description: study.description ?? project.description, noindex: draft });
@@ -358,7 +359,7 @@ function CaseStudyView({ study, project }: { study: CaseStudy; project: Project 
       <ProjectRail currentSlug={project.slug} />
 
       <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
-        {showSlots && (
+        {showSlots && draft && (
           <p role="status" className="bg-ink px-(--gutter) py-2 text-center text-micro caps text-bone">
             Draft preview · not public · media slots show where real assets go
           </p>
