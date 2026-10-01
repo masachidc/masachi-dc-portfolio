@@ -5,16 +5,13 @@ import { ContactSection } from '../components/ContactSection';
 import { SiteLink } from '../components/SiteLink';
 import { fadeUp, viewportOnce } from '../lib/motion';
 import { IMPACT } from '../data/profile';
+import { PAGE_META } from '../data/pageMeta';
 import { isExternal } from '../data/site';
 
 export function ImpactPage() {
   return (
     <PageLayout
-      meta={{
-        title: 'Impact',
-        description:
-          "Outcomes from Nathan Masachi's work: an app shipped to the App Store, 500+ students reached across seven countries, and program, product, and recognition results.",
-      }}
+      meta={PAGE_META.impact}
       kicker="Impact"
       title="What the work changed."
       lede="Products shipped, programs run, and people reached. Where I was one contributor among many, I say so."

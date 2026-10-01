@@ -4,28 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Defaults for crawlers and link unfurlers that don't run JS; routes refine these at runtime (usePageMeta). -->
+    <!--
+      Homepage defaults for local dev. `npm run build` rewrites everything between the head markers per
+      route from src/app/lib/head.ts (scripts/prerender-head.mjs); usePageMeta keeps it in step at runtime.
+    -->
+    <!-- head:start -->
     <title>Masachi DC | Design. Develop. Deploy.</title>
     <meta name="description" content="Nathan Masachi is a product designer who ships. Selected work in product, brand, and motion design — from research to production." />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://masachidc.com/" />
-
-    <meta property="og:site_name" content="Masachi DC" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Masachi DC | Design. Develop. Deploy." />
-    <meta property="og:description" content="Nathan Masachi is a product designer who ships. Selected work in product, brand, and motion design — from research to production." />
-    <meta property="og:url" content="https://masachidc.com/" />
-    <meta property="og:image" content="https://masachi-dc-portfolio.vercel.app/og-image.png" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Masachi DC: Discover, Design, Develop, Deploy. Mobile &amp; Web Applications, Product Strategy, Brand Identity Design." />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://masachi-dc-portfolio.vercel.app/og-image.png" />
-    <meta name="twitter:site" content="@MasachiDC" />
+    <!-- head:end -->
 
     <meta name="theme-color" content="#fafafb" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
 
     <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
     <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />

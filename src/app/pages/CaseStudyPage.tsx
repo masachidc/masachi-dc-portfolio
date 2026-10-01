@@ -8,7 +8,7 @@ import { MediaBand } from '../components/MediaBand';
 import { SectionRail, type RailSection } from '../components/SectionRail';
 import { ProjectRail } from '../components/ProjectRail';
 import { SiteLink } from '../components/SiteLink';
-import { findCaseStudy, isPublished, type CaseBlock, type CaseStudy } from '../data/caseStudies';
+import { caseStudyMeta, findCaseStudy, isPublished, type CaseBlock, type CaseStudy } from '../data/caseStudies';
 import { PROJECTS, projectHref, type Project } from '../data/projects';
 import { EMAIL } from '../data/site';
 import { easeOut, fadeUp, viewportOnce } from '../lib/motion';
@@ -265,9 +265,8 @@ function CaseStudyView({ study, project }: { study: CaseStudy; project: Project 
   const full = study.blocks.length > 0 && (!draft || new URLSearchParams(search).has('preview'));
   // Author-only slot detail (reserved ratio) shows in local dev and while reviewing a draft.
   const review = full && (draft || import.meta.env.DEV);
-  const title = study.title.join(' ');
 
-  usePageMeta({ title, description: study.description ?? project.description, noindex: draft });
+  usePageMeta(caseStudyMeta(study, project));
 
   useEffect(() => {
     window.scrollTo(0, 0);
