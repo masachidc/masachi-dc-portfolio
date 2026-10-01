@@ -2,12 +2,13 @@ import { OTHER_PROJECTS, PROJECTS, findProject, type Project } from '../projects
 import { amuse } from './amuse';
 import { inline } from './inline';
 import { kesho } from './kesho';
+import { projectSeeds } from './projectSeeds';
 import type { CaseStudy } from './types';
 
 export type { CaseBlock, CaseStudy, Media, MediaRatio } from './types';
 
 /** Authored case studies. To add one: create `<slug>.tsx` beside this file and list it here. */
-const WRITTEN: CaseStudy[] = [amuse, kesho, inline];
+const WRITTEN: CaseStudy[] = [amuse, kesho, inline, projectSeeds];
 
 /**
  * Projects without an authored study still get a real URL: a draft built only
