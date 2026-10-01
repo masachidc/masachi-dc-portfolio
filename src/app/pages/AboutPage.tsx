@@ -6,6 +6,7 @@ import { ContactSection } from '../components/ContactSection';
 import { SiteLink } from '../components/SiteLink';
 import { fadeUp, stagger, viewportOnce } from '../lib/motion';
 import { PROFILE } from '../data/profile';
+import { PAGE_META } from '../data/pageMeta';
 
 const PATH = [
   { stage: 'Drafting', text: "I've been designing since high school, where I learned drafting, assembly drawing, and design thinking." },
@@ -84,11 +85,7 @@ function Band({ id, kicker, title, children }: { id: string; kicker: string; tit
 export function AboutPage() {
   return (
     <PageLayout
-      meta={{
-        title: 'About',
-        description:
-          'Nathan Masachi is a product designer and design engineer trained in architecture, digital interactive media, and computer science, based in Tampa, Florida.',
-      }}
+      meta={PAGE_META.about}
       kicker="About"
       title="I turn ambiguous ideas into clear, useful products."
       lede={

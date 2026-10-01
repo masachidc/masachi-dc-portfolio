@@ -4,6 +4,7 @@ import { Nav } from './Nav';
 import { Footer } from './Footer';
 import { easeOut } from '../lib/motion';
 import { usePageMeta } from '../lib/usePageMeta';
+import type { PageMeta } from '../lib/head';
 
 /** Shell for top-level pages: nav, main landmark, footer, metadata, and an editorial page hero. */
 export function PageLayout({
@@ -15,7 +16,7 @@ export function PageLayout({
   width = 'site',
   children,
 }: {
-  meta: { title: string; description: string; noindex?: boolean };
+  meta: PageMeta & { title: string };
   kicker: string;
   title: ReactNode;
   lede?: ReactNode;

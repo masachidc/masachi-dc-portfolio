@@ -7,6 +7,7 @@ import { Bullets } from '../components/caseStudy';
 import { fadeUp, viewportOnce } from '../lib/motion';
 import { EDUCATION, EXPERIENCE, PROFILE, RESUME_INTRO, RESUME_PROJECTS, SKILLS } from '../data/profile';
 import { EMAIL, isExternal } from '../data/site';
+import { PAGE_META } from '../data/pageMeta';
 
 /** Hero link, as in the case-study hero. */
 const heroLink = 'group inline-flex items-center gap-1.5 border-b border-ink pb-1 text-label caps text-ink';
@@ -64,12 +65,7 @@ function EntryHead({ name, context, when }: { name: ReactNode; context: string; 
 export function ResumePage() {
   return (
     <PageLayout
-      meta={{
-        title: 'Resume',
-        description: `${PROFILE.name}, ${PROFILE.role}: shipped work, experience, selected projects, skills, and education.`,
-        // Indexed (and added to the sitemap) once education is confirmed; see profile.ts CONTENT GAPS. A PDF isn't required.
-        noindex: true,
-      }}
+      meta={PAGE_META.resume}
       kicker="Resume"
       title={
         <>

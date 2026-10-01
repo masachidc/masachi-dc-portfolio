@@ -1,14 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, OG_IMAGE, OG_IMAGE_ALT, SITE_NAME, SITE_URL } from '../data/site';
-
-interface PageMeta {
-  /** Page-specific title; the site name is appended. Omit on the homepage. */
-  title?: string;
-  description?: string;
-  /** Keep the page out of search results (drafts, placeholders, 404). */
-  noindex?: boolean;
-}
+import { buildHead, type PageMeta } from './head';
 
 function setMeta(attr: 'name' | 'property', key: string, content: string) {
   let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);
@@ -31,31 +23,17 @@ function setCanonical(href: string) {
 }
 
 /**
- * Per-route document metadata for this SPA. index.html carries the same
- * defaults statically for crawlers and link unfurlers that don't run JS.
+ * Per-route document metadata for this SPA, kept in step on client-side
+ * navigation. The build writes the same tags into each route's HTML
+ * (buildHead), for crawlers and link unfurlers that don't run JS.
  */
-export function usePageMeta({ title, description = DEFAULT_DESCRIPTION, noindex = false }: PageMeta = {}) {
+export function usePageMeta({ title, description, noindex }: PageMeta = {}) {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const fullTitle = title ? `${title} | Nathan Masachi` : DEFAULT_TITLE;
-    const url = `${SITE_URL}${pathname === '/' ? '/' : pathname.replace(/\/$/, '')}`;
-
-    document.title = fullTitle;
-    setMeta('name', 'description', description);
-    setMeta('name', 'robots', noindex ? 'noindex, follow' : 'index, follow');
-    setCanonical(url);
-
-    setMeta('property', 'og:site_name', SITE_NAME);
-    setMeta('property', 'og:type', pathname.startsWith('/works/') ? 'article' : 'website');
-    setMeta('property', 'og:title', fullTitle);
-    setMeta('property', 'og:description', description);
-    setMeta('property', 'og:url', url);
-    setMeta('property', 'og:image', OG_IMAGE);
-    setMeta('property', 'og:image:alt', OG_IMAGE_ALT);
-    setMeta('name', 'twitter:card', 'summary_large_image');
-    setMeta('name', 'twitter:image', OG_IMAGE);
-    setMeta('name', 'twitter:title', fullTitle);
-    setMeta('name', 'twitter:description', description);
+    const head = buildHead(pathname, { title, description, noindex });
+    document.title = head.title;
+    setCanonical(head.canonical);
+    for (const [attr, key, content] of head.tags) setMeta(attr, key, content);
   }, [title, description, noindex, pathname]);
 }
