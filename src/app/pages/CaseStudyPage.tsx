@@ -46,9 +46,10 @@ function Kicker({ children }: { children: ReactNode }) {
 
 /**
  * One media slot. With `src`: a lazy image in a reserved box (no layout shift).
- * Without: labelled scaffolding in preview, nothing on a public page.
+ * Without: a labelled placeholder in the same box, so dev, preview, and production render identically.
+ * `review` adds author-only detail (the reserved ratio) in local dev and draft preview.
  */
-function MediaSlot({ media, showSlots, priority = false }: { media: Media; showSlots: boolean; priority?: boolean }) {
+function MediaSlot({ media, review, priority = false }: { media: Media; review: boolean; priority?: boolean }) {
   if (media.src) {
     return (
       <img
@@ -63,46 +64,42 @@ function MediaSlot({ media, showSlots, priority = false }: { media: Media; showS
       />
     );
   }
-  if (!showSlots) return null;
   return (
     <div
       role="img"
-      aria-label={`Image placeholder: ${media.slot}`}
+      aria-label={`Image coming soon: ${media.slot}`}
       className="flex w-full flex-col items-center justify-center gap-2 rounded-[6px] border-2 border-dashed border-ink/15 bg-bone p-6 text-center"
       style={{ aspectRatio: media.ratio }}
     >
-      <span className="text-micro caps text-fg-subtle">Asset pending</span>
+      <span className="text-micro caps text-fg-subtle">Image coming soon</span>
       <span className="max-w-[32ch] text-small text-fg-muted">{media.slot}</span>
-      <span className="font-mono text-micro text-fg-subtle">{media.ratio}</span>
+      {review && <span className="font-mono text-micro text-fg-subtle">{media.ratio}</span>}
     </div>
   );
 }
-
-const visible = (items: Media[], showSlots: boolean) => items.filter((m) => m.src || showSlots);
 
 /** Full-bleed soft-grey band holding one, two, or three media items. */
 function MediaBand({
   items,
   caption,
   wide = false,
-  showSlots,
+  review,
   priority = false,
 }: {
   items: Media[];
   caption?: string;
   wide?: boolean;
-  showSlots: boolean;
+  review: boolean;
   priority?: boolean;
 }) {
-  const shown = visible(items, showSlots);
-  if (!shown.length) return null;
-  const cols = shown.length === 1 ? '' : shown.length === 2 ? 'grid gap-4 sm:grid-cols-2 sm:gap-6' : 'grid grid-cols-2 gap-4 md:grid-cols-3';
+  if (!items.length) return null;
+  const cols = items.length === 1 ? '' : items.length === 2 ? 'grid gap-4 sm:grid-cols-2 sm:gap-6' : 'grid grid-cols-2 gap-4 md:grid-cols-3';
   return (
     <motion.figure {...reveal} variants={fadeUp} className="w-full bg-surface section-y">
       <div className={wide ? 'container-site' : 'container-reading'}>
         <div className={cols}>
-          {shown.map((m, i) => (
-            <MediaSlot key={`${m.slot}-${i}`} media={m} showSlots={showSlots} priority={priority && i === 0} />
+          {items.map((m, i) => (
+            <MediaSlot key={`${m.slot}-${i}`} media={m} review={review} priority={priority && i === 0} />
           ))}
         </div>
       </div>
@@ -114,13 +111,13 @@ function MediaBand({
 function Section({
   id,
   block,
-  showSlots,
+  review,
 }: {
   id: string;
   block: Extract<CaseBlock, { kind: 'section' }>;
-  showSlots: boolean;
+  review: boolean;
 }) {
-  const media = block.media && visible([block.media], showSlots).length ? block.media : undefined;
+  const media = block.media;
   return (
     <motion.section
       id={id}
@@ -142,7 +139,7 @@ function Section({
       </div>
       {media && (
         <motion.div variants={fadeUp} className="mt-12 rounded-[8px] bg-surface p-4 sm:p-8">
-          <MediaSlot media={media} showSlots={showSlots} />
+          <MediaSlot media={media} review={review} />
         </motion.div>
       )}
     </motion.section>
@@ -331,8 +328,8 @@ function CaseStudyView({ study, project }: { study: CaseStudy; project: Project 
   const draft = study.status === 'draft';
   // `?preview` shows a draft in full, with media slots, for review.
   const full = study.blocks.length > 0 && (!draft || new URLSearchParams(search).has('preview'));
-  // Empty media slots show while reviewing a draft, and always in local dev so pending assets stay visible.
-  const showSlots = full && (draft || import.meta.env.DEV);
+  // Author-only slot detail (reserved ratio) shows in local dev and while reviewing a draft.
+  const review = full && (draft || import.meta.env.DEV);
   const title = study.title.join(' ');
 
   usePageMeta({ title, description: study.description ?? project.description, noindex: draft });
@@ -359,14 +356,14 @@ function CaseStudyView({ study, project }: { study: CaseStudy; project: Project 
       <ProjectRail currentSlug={project.slug} />
 
       <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
-        {showSlots && draft && (
+        {review && draft && (
           <p role="status" className="bg-ink px-(--gutter) py-2 text-center text-micro caps text-bone">
             Draft preview · not public · media slots show where real assets go
           </p>
         )}
         <article>
           <Hero study={study} project={project} />
-          {study.cover && full && <MediaBand items={[study.cover]} showSlots={showSlots} priority />}
+          {study.cover && full && <MediaBand items={[study.cover]} review={review} priority />}
           <Overview study={study} />
 
           {full ? (
@@ -374,11 +371,11 @@ function CaseStudyView({ study, project }: { study: CaseStudy; project: Project 
               const key = `${study.slug}-${i}`;
               switch (block.kind) {
                 case 'section':
-                  return <Section key={key} id={id!} block={block} showSlots={showSlots} />;
+                  return <Section key={key} id={id!} block={block} review={review} />;
                 case 'insight':
                   return <Insight key={key} block={block} />;
                 case 'media':
-                  return <MediaBand key={key} items={block.items} caption={block.caption} wide={block.wide} showSlots={showSlots} />;
+                  return <MediaBand key={key} items={block.items} caption={block.caption} wide={block.wide} review={review} />;
                 case 'outcomes':
                   return <Outcomes key={key} id={id!} block={block} />;
               }

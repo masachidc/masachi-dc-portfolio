@@ -2,7 +2,7 @@ import { Hl } from '../../components/caseStudy';
 import type { CaseStudy } from './types';
 
 // Source: Nathan's Project SEEDS brief. Facts match profile.ts.
-// Media slots await real identity, guideline, application, and website assets (shown only in dev or ?preview).
+// Media slots await real identity, guideline, application, and website assets (rendered as labelled placeholders until then).
 export const projectSeeds: CaseStudy = {
   slug: 'project-seeds-branding',
   status: 'published',

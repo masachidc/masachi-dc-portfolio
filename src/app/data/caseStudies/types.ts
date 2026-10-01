@@ -4,8 +4,8 @@ import type { ReactNode } from 'react';
 export type MediaRatio = '16/9' | '3/2' | '4/3' | '1/1' | '3/4';
 
 /**
- * One image slot. Omit `src` until the real asset exists: in preview the slot
- * renders as labelled scaffolding; on a published page it is simply left out.
+ * One image slot. Omit `src` until the real asset exists: the slot then renders
+ * as a labelled "Image coming soon" placeholder in its reserved box, in every environment.
  */
 export interface Media {
   /** Author note for the slot: what belongs here. Shown only on unfinished slots. */
