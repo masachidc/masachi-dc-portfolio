@@ -17,7 +17,7 @@ export interface Media {
 }
 
 export type CaseBlock =
-  /** Kicker + title beside prose. Optional media sits under the text at reading width. */
+  /** Kicker + title beside prose. Optional media follows in the same full-bleed grey band as a media block. */
   | { kind: 'section'; kicker: string; title: string; body: ReactNode; id?: string; wide?: boolean; media?: Media }
   /** A turning point: what was learned or decided, stated in one line. */
   | { kind: 'insight'; label: 'Insight' | 'Decision' | 'What changed' | 'Recognition'; statement: string; detail?: ReactNode }

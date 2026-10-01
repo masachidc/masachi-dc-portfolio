@@ -117,32 +117,30 @@ function Section({
   block: Extract<CaseBlock, { kind: 'section' }>;
   review: boolean;
 }) {
-  const media = block.media;
   return (
-    <motion.section
-      id={id}
-      aria-labelledby={`${id}-title`}
-      {...reveal}
-      variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
-      className="container-reading section-y"
-    >
-      <div className={`grid grid-cols-1 gap-6 ${block.wide ? 'md:grid-cols-[5fr_7fr]' : 'md:grid-cols-[2fr_3fr]'} md:gap-12 lg:gap-16`}>
-        <motion.div variants={fadeUp}>
-          <Kicker>{block.kicker}</Kicker>
-          <h2 id={`${id}-title`} className="font-display text-title text-ink/85">
-            {block.title}
-          </h2>
-        </motion.div>
-        <motion.div variants={fadeUp} className="max-w-(--measure) space-y-5 text-body-lg text-fg-muted">
-          {block.body}
-        </motion.div>
-      </div>
-      {media && (
-        <motion.div variants={fadeUp} className="mt-12 rounded-[8px] bg-surface p-4 sm:p-8">
-          <MediaSlot media={media} review={review} />
-        </motion.div>
-      )}
-    </motion.section>
+    <>
+      <motion.section
+        id={id}
+        aria-labelledby={`${id}-title`}
+        {...reveal}
+        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
+        className="container-reading section-y"
+      >
+        <div className={`grid grid-cols-1 gap-6 ${block.wide ? 'md:grid-cols-[5fr_7fr]' : 'md:grid-cols-[2fr_3fr]'} md:gap-12 lg:gap-16`}>
+          <motion.div variants={fadeUp}>
+            <Kicker>{block.kicker}</Kicker>
+            <h2 id={`${id}-title`} className="font-display text-title text-ink/85">
+              {block.title}
+            </h2>
+          </motion.div>
+          <motion.div variants={fadeUp} className="max-w-(--measure) space-y-5 text-body-lg text-fg-muted">
+            {block.body}
+          </motion.div>
+        </div>
+      </motion.section>
+      {/* Section media uses the same full-bleed band as media blocks: one grey treatment everywhere. */}
+      {block.media && <MediaBand items={[block.media]} review={review} />}
+    </>
   );
 }
 
