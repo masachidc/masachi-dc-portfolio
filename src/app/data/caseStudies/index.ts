@@ -5,7 +5,8 @@ import { kesho } from './kesho';
 import { projectSeeds } from './projectSeeds';
 import type { CaseStudy } from './types';
 
-export type { CaseBlock, CaseStudy, Media, MediaRatio } from './types';
+export type { CaseBlock, CaseStudy, DeepDive, Media, MediaRatio } from './types';
+export { DEEP_DIVES, deepDivesFor, findDeepDive } from './deepDives';
 
 /** Authored case studies. To add one: create `<slug>.tsx` beside this file and list it here. */
 const WRITTEN: CaseStudy[] = [amuse, kesho, inline, projectSeeds];

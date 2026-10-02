@@ -1,126 +1,22 @@
-import { useEffect, useMemo, type ReactNode } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Nav } from '../components/Nav';
 import { Footer } from '../components/Footer';
 import { MediaBand } from '../components/MediaBand';
-import { SectionRail, type RailSection } from '../components/SectionRail';
+import { CaseBlocks, railSections, withIds } from '../components/CaseBlocks';
+import { SectionRail } from '../components/SectionRail';
 import { ProjectRail } from '../components/ProjectRail';
 import { SiteLink } from '../components/SiteLink';
-import { findCaseStudy, isPublished, type CaseBlock, type CaseStudy } from '../data/caseStudies';
+import { findCaseStudy, isPublished, type CaseStudy } from '../data/caseStudies';
 import { PROJECTS, projectHref, type Project } from '../data/projects';
 import { EMAIL } from '../data/site';
 import { easeOut, fadeUp, viewportOnce } from '../lib/motion';
 import { usePageMeta } from '../lib/usePageMeta';
 import { NotFoundPage } from './NotFoundPage';
 
-// ── Case-study grammar ──────────────────────────────────────────────────────
-// Widths: prose sits in the reading column at --measure; standard media fills
-// the reading column (960px); `wide` media breaks out to the site container.
-// Five primitives: section, insight, media band, outcomes, next project.
-
 const reveal = { initial: 'hidden', whileInView: 'show', viewport: viewportOnce } as const;
-
-const slugify = (s: string) =>
-  s
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
-
-/** Stable, unique ids for rail targets, derived from kickers unless set explicitly. */
-function withIds(blocks: CaseBlock[]) {
-  const seen = new Map<string, number>();
-  return blocks.map((b) => {
-    if (b.kind !== 'section' && b.kind !== 'outcomes') return { block: b, id: undefined };
-    const base = b.id ?? slugify(b.kicker);
-    const n = seen.get(base) ?? 0;
-    seen.set(base, n + 1);
-    return { block: b, id: n ? `${base}-${n + 1}` : base };
-  });
-}
-
-/** Section lead-in: bold and muted, nearly title-sized. */
-function Kicker({ children }: { children: ReactNode }) {
-  return <p className="mb-1 font-display text-kicker text-fg-faint">{children}</p>;
-}
-
-function Section({
-  id,
-  block,
-  review,
-}: {
-  id: string;
-  block: Extract<CaseBlock, { kind: 'section' }>;
-  review: boolean;
-}) {
-  return (
-    <>
-      <motion.section
-        id={id}
-        aria-labelledby={`${id}-title`}
-        {...reveal}
-        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
-        className="container-reading section-y"
-      >
-        <div className={`grid grid-cols-1 gap-6 ${block.wide ? 'md:grid-cols-[5fr_7fr]' : 'md:grid-cols-[2fr_3fr]'} md:gap-12 lg:gap-16`}>
-          <motion.div variants={fadeUp}>
-            <Kicker>{block.kicker}</Kicker>
-            <h2 id={`${id}-title`} className="font-display text-title text-ink/85">
-              {block.title}
-            </h2>
-          </motion.div>
-          <motion.div variants={fadeUp} className="max-w-(--measure) space-y-5 text-body-lg text-fg-muted">
-            {block.body}
-          </motion.div>
-        </div>
-      </motion.section>
-      {/* Section media uses the same full-bleed band as media blocks: one grey treatment everywhere. */}
-      {block.media && <MediaBand items={[block.media]} review={review} />}
-    </>
-  );
-}
-
-/** A turning point, aligned to the prose column: label, one-line statement, optional support. */
-function Insight({ block }: { block: Extract<CaseBlock, { kind: 'insight' }> }) {
-  return (
-    <motion.aside {...reveal} variants={fadeUp} aria-label={block.label} className="container-reading py-10 md:py-14">
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-[2fr_3fr] md:gap-12 lg:gap-16">
-        <p className="text-label caps text-accent-deep md:pt-2">{block.label}</p>
-        <div className="max-w-(--measure) border-l-2 border-accent pl-5 sm:pl-6">
-          <p className="text-pretty font-display text-title text-ink">{block.statement}</p>
-          {block.detail && <p className="mt-3 text-body-lg text-fg-muted">{block.detail}</p>}
-        </div>
-      </div>
-    </motion.aside>
-  );
-}
-
-function Outcomes({ id, block }: { id: string; block: Extract<CaseBlock, { kind: 'outcomes' }> }) {
-  // Word values ("Approved") don't fit stat-size columns: give them title size and a wider grid.
-  const words = block.items.some((s) => s.value.length > 4);
-  return (
-    <motion.section
-      id={id}
-      aria-labelledby={`${id}-title`}
-      {...reveal}
-      variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12 } } }}
-      className="container-reading section-y"
-    >
-      <motion.h2 id={`${id}-title`} variants={fadeUp} className="mb-12 font-display text-kicker text-fg-faint">
-        {block.kicker}
-      </motion.h2>
-      <dl className={`grid gap-x-8 ${words ? 'grid-cols-1 gap-y-10 md:grid-cols-3' : 'grid-cols-2 gap-y-12 md:grid-cols-4'}`}>
-        {block.items.map((s, i) => (
-          <motion.div key={`${s.label}-${i}`} variants={fadeUp} className="flex flex-col-reverse gap-2">
-            <dt className="text-small text-fg-subtle">{s.label}</dt>
-            <dd className={`font-display text-accent ${words ? 'text-title' : 'text-stat'}`}>{s.value}</dd>
-          </motion.div>
-        ))}
-      </dl>
-    </motion.section>
-  );
-}
 
 // ── Hero ────────────────────────────────────────────────────────────────────
 
@@ -274,15 +170,7 @@ function CaseStudyView({ study, project }: { study: CaseStudy; project: Project 
   }, [study.slug]);
 
   const blocks = useMemo(() => withIds(study.blocks), [study]);
-  const sections = useMemo<RailSection[]>(
-    () =>
-      full
-        ? blocks.flatMap(({ block, id }) =>
-            id && (block.kind === 'section' || block.kind === 'outcomes') ? [{ id, title: block.kicker }] : [],
-          )
-        : [],
-    [blocks, full],
-  );
+  const sections = useMemo(() => (full ? railSections(blocks) : []), [blocks, full]);
 
   return (
     <div className="relative flex min-h-screen flex-col bg-bone font-sans">
@@ -302,19 +190,7 @@ function CaseStudyView({ study, project }: { study: CaseStudy; project: Project 
           <Overview study={study} />
 
           {full ? (
-            blocks.map(({ block, id }, i) => {
-              const key = `${study.slug}-${i}`;
-              switch (block.kind) {
-                case 'section':
-                  return <Section key={key} id={id!} block={block} review={review} />;
-                case 'insight':
-                  return <Insight key={key} block={block} />;
-                case 'media':
-                  return <MediaBand key={key} items={block.items} caption={block.caption} wide={block.wide} review={review} />;
-                case 'outcomes':
-                  return <Outcomes key={key} id={id!} block={block} />;
-              }
-            })
+            <CaseBlocks blocks={blocks} keyPrefix={study.slug} review={review} />
           ) : (
             <InProgress title={study.title[0]} />
           )}

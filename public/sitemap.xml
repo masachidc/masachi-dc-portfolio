@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Indexable pages only. Add /works/<slug> when a case study stops being a draft; add /resume once it is indexed. -->
+<!-- Indexable pages only. Add /works/<slug> (and its deep dives) when a case study stops being a draft; add /resume once it is indexed. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://masachidc.com/</loc></url>
   <url><loc>https://masachidc.com/works/amuse-art-museum</loc></url>
   <url><loc>https://masachidc.com/works/project-seeds-branding</loc></url>
   <url><loc>https://masachidc.com/works/inline-chrome-extension</loc></url>
+  <url><loc>https://masachidc.com/works/kesho-app</loc></url>
+  <url><loc>https://masachidc.com/works/kesho-app/beta-testing</loc></url>
+  <url><loc>https://masachidc.com/works/kesho-app/making-sealed-true</loc></url>
+  <url><loc>https://masachidc.com/works/kesho-app/shipping-with-capacitor</loc></url>
   <url><loc>https://masachidc.com/about</loc></url>
   <url><loc>https://masachidc.com/impact</loc></url>
 </urlset>

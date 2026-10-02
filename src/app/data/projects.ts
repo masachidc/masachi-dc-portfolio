@@ -56,7 +56,7 @@ export const PROJECTS: Project[] = [
     disciplines: 'Product Design · Full Stack',
     year: '2026',
     description:
-      'Sports, entertainment, and politics forecasts, sealed and timestamped at kickoff, then scored with points once the result lands.',
+      'A social prediction product for football fans: Calls sealed before kickoff, graded after the whistle. Designed, built, deployed, tested, and decommissioned.',
     cover: { src: unsplash('photo-1768330187404-59e46cf222c9'), position: 'center', placeholder: true },
     accent: '#0057FF',
     accentDeep: '#00297A',
