@@ -99,7 +99,38 @@ export function Table({ head, rows, note }: { head: string[]; rows: ReactNode[][
   );
 }
 
-export const deepDiveHref = (d: Pick<DeepDive, 'parent' | 'slug'>) => `/works/${d.parent}/${d.slug}`;
+/**
+ * Labelled rows of short tokens, for orderings and chains that are clearer drawn than described
+ * (e.g. a feed before and after, or a hierarchy). `arrow` joins tokens with arrows instead of dots.
+ * Tokens with the same text get the same shade, so repeats read at a glance.
+ */
+export function Sequence({ rows, arrow = false, note }: { rows: { label: string; items: string[] }[]; arrow?: boolean; note?: ReactNode }) {
+  const shades = ['bg-ink text-paper', 'bg-accent-deep text-paper', 'bg-paper text-ink ring-1 ring-inset ring-ink/40', 'bg-fg-subtle text-paper'];
+  const order = [...new Set(rows.flatMap((r) => r.items))];
+  const shade = (t: string) => (arrow ? 'bg-paper text-ink ring-1 ring-inset ring-ink/20' : shades[order.indexOf(t) % shades.length]);
+  return (
+    <figure className="space-y-4 pt-2">
+      {rows.map(({ label, items }) => (
+        <div key={label} className={`flex flex-col gap-2 ${arrow ? '' : 'sm:flex-row sm:items-center sm:gap-4'}`}>
+          <p className={`text-small font-semibold text-ink ${arrow ? '' : 'sm:w-32 sm:shrink-0'}`}>{label}</p>
+          <ol aria-label={`${label}: ${items.join(arrow ? ', then ' : ', ')}`} className="flex flex-wrap items-center gap-1.5">
+            {items.map((t, i) => (
+              <li key={i} aria-hidden="true" className="flex items-center gap-1.5">
+                {arrow && i > 0 && <span className="text-small text-fg-subtle">→</span>}
+                <span className={`inline-flex h-8 min-w-8 items-center justify-center rounded-[4px] px-2.5 text-small font-semibold ${shade(t)}`}>
+                  {t}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+      {note && <figcaption className="text-small text-fg-subtle">{note}</figcaption>}
+    </figure>
+  );
+}
+
+export const deepDiveHref =(d: Pick<DeepDive, 'parent' | 'slug'>) => `/works/${d.parent}/${d.slug}`;
 
 /** Hand-off to a deep dive. Takes the deep dive itself, so it can never point at a page that doesn't exist. */
 export function DeepLink({ to }: { to: DeepDive }) {

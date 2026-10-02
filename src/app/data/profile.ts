@@ -193,7 +193,7 @@ export const EDUCATION: { field: string; minor?: string; school?: string; note?:
  *   journalism school / Caplin News and SEEDS "about to graduate").
  *   Resume stays noindex until this is confirmed: education is the one record
  *   section that is still inferred.
- * - Tembo: public-safe metrics, and whether to describe the build stack.
+ * - Tembo: public-safe usage metrics (none verified; the case study claims none).
  * - Employment dates for SEEDS (year only) and STEM Xposure (years).
  * - A current résumé PDF (or hosted link) for PROFILE.resumePdf.
  * - Portrait for About (optional).
