@@ -2,6 +2,9 @@
 <!-- Indexable pages only. Add /works/<slug> (and its deep dives) when a case study stops being a draft; add /resume once it is indexed. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://masachidc.com/</loc></url>
+  <url><loc>https://masachidc.com/works/tembo-app</loc></url>
+  <url><loc>https://masachidc.com/works/tembo-app/home-without-ranking</loc></url>
+  <url><loc>https://masachidc.com/works/tembo-app/privacy-as-inheritance</loc></url>
   <url><loc>https://masachidc.com/works/amuse-art-museum</loc></url>
   <url><loc>https://masachidc.com/works/project-seeds-branding</loc></url>
   <url><loc>https://masachidc.com/works/inline-chrome-extension</loc></url>
