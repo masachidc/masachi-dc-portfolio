@@ -27,7 +27,7 @@ const PRINCIPLES = [
   },
   {
     title: 'Design far enough to meet the code.',
-    text: 'On KESHO I carried the design into the codebase and built the design system there, where real constraints like time zones and translation live.',
+    text: 'On KESHO a sealed Call was a design promise. Keeping it meant building the server-side kickoff gate, the locks, and the all-or-nothing reveal myself.',
     link: { label: 'KESHO', href: '/works/kesho-app' },
   },
   {

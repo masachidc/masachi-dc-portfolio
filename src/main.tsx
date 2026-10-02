@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useParams } from 'react-router-
 import { MotionConfig } from 'motion/react';
 import App from './app/App.tsx';
 import { CaseStudyPage } from './app/pages/CaseStudyPage.tsx';
+import { DeepDivePage } from './app/pages/DeepDivePage.tsx';
 import { AboutPage } from './app/pages/AboutPage.tsx';
 import { ImpactPage } from './app/pages/ImpactPage.tsx';
 import { ResumePage } from './app/pages/ResumePage.tsx';
@@ -11,7 +12,7 @@ import './styles/index.css';
 
 /**
  * Case studies live at /works/<slug>, matching the existing public URLs on
- * masachidc.com. Short /projects/<slug> URLs from earlier builds redirect.
+ * masachidc.com, with deep dives at /works/<slug>/<article>. Short /projects/<slug> URLs from earlier builds redirect.
  */
 const LEGACY_PROJECT_SLUGS: Record<string, string> = {
   amuse: 'amuse-art-museum',
@@ -35,6 +36,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<App />} />
         <Route path="/works" element={<Navigate to="/#work" replace />} />
         <Route path="/works/:slug" element={<CaseStudyPage />} />
+        <Route path="/works/:slug/:article" element={<DeepDivePage />} />
         <Route path="/projects/:slug" element={<LegacyProjectRedirect />} />
         <Route path="/impact" element={<ImpactPage />} />
         <Route path="/about" element={<AboutPage />} />

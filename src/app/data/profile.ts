@@ -56,11 +56,11 @@ export const IMPACT: ImpactItem[] = [
     link: { label: 'Project SEEDS', href: '/works/project-seeds-branding' },
   },
   {
-    headline: 'A production system, built end to end',
+    headline: 'Designed, shipped, tested, and stopped',
     subject: 'KESHO',
     context:
-      'A sealed prediction platform with write-once, server-timestamped predictions, a points and XP scoring system, and an interface translated into up to 7 languages at deploy time. Live as a web app.',
-    role: 'Product designer and full-stack developer: research, specification, interface, database, and deployment.',
+      'A social prediction product for football fans: Calls sealed before kickoff with a server timestamp, then graded after the result. Deployed to production on the web and tested in an invite-only beta of 92 people, then decommissioned when complexity outgrew the evidence.',
+    role: 'Product design and engineering: interaction design, system design, the full-stack build, release, and beta analysis.',
     link: { label: 'KESHO case study', href: '/works/kesho-app' },
   },
   {
@@ -144,7 +144,7 @@ export const RESUME_PROJECTS: ProjectLine[] = [
     role: 'Product designer & full-stack developer',
     when: '2026',
     summary:
-      'Designed and built a sealed prediction platform end to end, from research and interface through database and deployment. Next.js, TypeScript, and Postgres.',
+      'Designed, built, and shipped a social prediction product for football fans, ran an invite-only beta of 92 people, and decided to stop when complexity outgrew the evidence. Next.js, TypeScript, Postgres.',
     href: '/works/kesho-app',
   },
   {

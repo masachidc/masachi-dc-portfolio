@@ -17,6 +17,11 @@ export interface Media {
 }
 
 export type CaseBlock =
+  /**
+   * Opens a chapter of a long, phased story (e.g. Designed / Built / Shipped). The sections that follow belong
+   * to it. When a story has chapters, the "On this page" rail lists chapters only.
+   */
+  | { kind: 'chapter'; label: string; title: string; lede?: ReactNode; id?: string }
   /** Kicker + title beside prose. Optional media follows in the same full-bleed grey band as a media block. */
   | { kind: 'section'; kicker: string; title: string; body: ReactNode; id?: string; wide?: boolean; media?: Media }
   /** A turning point: what was learned or decided, stated in one line. */
@@ -51,4 +56,20 @@ export interface CaseStudy {
   blocks: CaseBlock[];
   /** Search/social description. Falls back to the project description. */
   description?: string;
+}
+
+/**
+ * A long-form companion to a case study, for readers who want the detail the main story leaves out.
+ * Served at /works/<parent>/<slug>; shares the case study's blocks and its publishing status.
+ */
+export interface DeepDive {
+  /** The case study's slug. */
+  parent: string;
+  slug: string;
+  title: string;
+  /** Standfirst under the title: what the piece covers, in one or two sentences. */
+  dek: string;
+  /** Search/social description. */
+  description: string;
+  blocks: CaseBlock[];
 }
