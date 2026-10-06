@@ -12,6 +12,8 @@ function groupsOfThree(items: Project[]) {
  * One desktop mosaic band. Full groups of three alternate between
  * "two wide + one tall" (tall on the right) and its mirror, so any number of
  * projects keeps the asymmetric rhythm. A trailing 1 or 2 fill a simple row.
+ * One column tall + two columns wide at 3:2 makes the tall card ~768x1564 and
+ * the wide cards ~1564x768 in shape, so covers made at those sizes barely crop.
  */
 function MosaicBand({ group, mirrored }: { group: Project[]; mirrored: boolean }) {
   if (group.length < 3) {
@@ -26,19 +28,19 @@ function MosaicBand({ group, mirrored }: { group: Project[]; mirrored: boolean }
 
   const [a, b, c] = group;
   return (
-    <div className="aspect-[5/3] w-full">
-      <div className="grid h-full grid-cols-5 grid-rows-2 gap-6">
+    <div className="aspect-[3/2] w-full">
+      <div className="grid h-full grid-cols-3 grid-rows-2 gap-6">
         {mirrored ? (
           <>
-            <ProjectCard project={a} feature className="col-span-2 row-span-2" />
-            <ProjectCard project={b} className="col-span-3 col-start-3 row-span-1" />
-            <ProjectCard project={c} className="col-span-3 col-start-3 row-span-1 row-start-2" />
+            <ProjectCard project={a} feature className="col-span-1 row-span-2" />
+            <ProjectCard project={b} className="col-span-2 col-start-2 row-span-1" />
+            <ProjectCard project={c} className="col-span-2 col-start-2 row-span-1 row-start-2" />
           </>
         ) : (
           <>
-            <ProjectCard project={a} className="col-span-3 row-span-1" />
-            <ProjectCard project={b} className="col-span-3 row-span-1" />
-            <ProjectCard project={c} feature className="col-span-2 col-start-4 row-span-2 row-start-1" />
+            <ProjectCard project={a} className="col-span-2 row-span-1" />
+            <ProjectCard project={b} className="col-span-2 row-span-1" />
+            <ProjectCard project={c} feature className="col-span-1 col-start-3 row-span-2 row-start-1" />
           </>
         )}
       </div>
