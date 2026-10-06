@@ -22,6 +22,17 @@ function hexToRgba(hex: string, alpha: number) {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
+/** Light project colours (e.g. TEMBO yellow) need ink text on the hover wash, not white. */
+function isLight(hex: string) {
+  const n = parseInt(hex.replace('#', ''), 16);
+  const lin = (c: number) => {
+    const s = c / 255;
+    return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+  };
+  const luminance = 0.2126 * lin((n >> 16) & 255) + 0.7152 * lin((n >> 8) & 255) + 0.0722 * lin(n & 255);
+  return luminance > 0.4;
+}
+
 // Cards reveal as soon as any part is on screen (or about to be), so the ones
 // peeking above the fold on first load animate in immediately instead of
 // waiting for a scroll. The shared viewportOnce inset would hold them back.
@@ -54,6 +65,8 @@ function CardInner({ p, imgY, feature }: {
 }) {
   const titleClass = `font-display uppercase text-balance ${feature ? 'text-card-lg' : 'text-card'}`;
   const meta = `N°${projectNumber(p)}${p.year ? ` · ${p.year}` : ''}`;
+  const deep = p.accentDeep ?? p.accent;
+  const light = isLight(deep);
   return (
     <>
       <motion.img
@@ -95,23 +108,23 @@ function CardInner({ p, imgY, feature }: {
       <motion.div
         aria-hidden="true"
         variants={panelStagger}
-        className="pointer-events-none absolute inset-0 z-20 hidden flex-col justify-end p-7 text-white opacity-0 transition-opacity duration-300 ease-out md:flex md:group-hover:opacity-100"
+        className={`pointer-events-none absolute inset-0 z-20 hidden flex-col justify-end p-7 opacity-0 transition-opacity duration-300 ease-out md:flex md:group-hover:opacity-100 ${light ? 'text-ink' : 'text-white'}`}
         style={{
-          background: `linear-gradient(to top, ${hexToRgba(p.accentDeep, 0.96)} 0%, ${hexToRgba(p.accentDeep, 0.86)} 45%, ${hexToRgba(p.accent, 0.5)} 100%)`,
+          background: `linear-gradient(to top, ${hexToRgba(deep, 0.96)} 0%, ${hexToRgba(deep, 0.86)} 45%, ${hexToRgba(p.accent, 0.5)} 100%)`,
         }}
       >
-        <motion.p variants={panelItem} className="mb-3 font-mono text-micro font-medium tracking-[0.1em] text-white/70">
+        <motion.p variants={panelItem} className={`mb-3 font-mono text-micro font-medium tracking-[0.1em] ${light ? 'text-ink/70' : 'text-white/70'}`}>
           {meta}
         </motion.p>
         <motion.p variants={panelItem} className={`mb-3 ${titleClass}`}>
           {p.cardTitle}
         </motion.p>
-        <motion.p variants={panelItem} className="mb-5 max-w-[36ch] text-body text-white/85">
+        <motion.p variants={panelItem} className={`mb-5 max-w-[36ch] text-body ${light ? 'text-ink/85' : 'text-white/85'}`}>
           {p.description}
         </motion.p>
         <motion.span
           variants={panelItem}
-          className="inline-flex items-center gap-1.5 self-start border-b border-white/30 pb-1 text-label caps"
+          className={`inline-flex items-center gap-1.5 self-start border-b pb-1 text-label caps ${light ? 'border-ink/30' : 'border-white/30'}`}
         >
           View case study <ArrowUpRight size={12} strokeWidth={2.25} />
         </motion.span>
@@ -122,7 +135,7 @@ function CardInner({ p, imgY, feature }: {
 
 export function ProjectCard({ project: p, className = '', feature = false }: ProjectCardProps) {
   const restShadow = '0 1px 2px rgba(10,10,11,0.05), 0 24px 48px -30px rgba(10,10,11,0.22)';
-  const hoverShadow = `0 1px 2px rgba(10,10,11,0.06), 0 32px 60px -24px ${hexToRgba(p.accentDeep, 0.4)}`;
+  const hoverShadow = `0 1px 2px rgba(10,10,11,0.06), 0 32px 60px -24px ${hexToRgba(p.accentDeep ?? p.accent, 0.4)}`;
   const href = projectHref(p);
   const isInternal = !p.externalUrl;
   const linkLabel = `${p.railTitle}: ${p.summary}. ${p.disciplines}. View case study`;

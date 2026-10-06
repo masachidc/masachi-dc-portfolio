@@ -23,8 +23,10 @@ export interface Project {
    * project cover — swap `src` (and drop the flag) when artwork exists.
    */
   cover: { src: string; position: string; placeholder?: boolean };
+  /** The project's primary colour: the card's hover wash and rail highlights. */
   accent: string;
-  accentDeep: string;
+  /** Optional darker base for the hover wash; omit to wash in `accent` alone. */
+  accentDeep?: string;
   /** Leave off the phone-width Selected work grid (still shown on tablet and desktop). */
   hideOnMobile?: boolean;
 }
@@ -44,8 +46,7 @@ export const PROJECTS: Project[] = [
     description:
       'Goals, hobbies, relationships, pets, and trips become ongoing Storylines that grow through Moments. Designed, engineered, and shipped to the App Store.',
     cover: { src: unsplash('photo-1549366021-9f761d450615'), position: 'center', placeholder: true },
-    accent: '#00707A',
-    accentDeep: '#003A40',
+    accent: '#FFC829',
   },
   {
     slug: 'kesho-app',
@@ -72,8 +73,7 @@ export const PROJECTS: Project[] = [
     description:
       'Research moved it from a native app to a lightweight web platform with M-Pesa booking; usability testing made My Museum a core feature.',
     cover: { src: unsplash('photo-1774514580599-c3dae376348e'), position: 'center 35%', placeholder: true },
-    accent: '#B84300',
-    accentDeep: '#5C2200',
+    accent: '#260101',
   },
   {
     slug: 'inline-chrome-extension',
@@ -86,8 +86,7 @@ export const PROJECTS: Project[] = [
     description:
       'Makes the read-only web writable: a floating icon opens notes, drawing, highlights, and AI on any page. Most Unique Project at FIU Blackstone LaunchPad.',
     cover: { src: unsplash('photo-1768638687898-7851d341cb87'), position: 'center', placeholder: true },
-    accent: '#7B2FFF',
-    accentDeep: '#3E1385',
+    accent: '#007BA8',
   },
   {
     slug: 'project-seeds-branding',
@@ -100,8 +99,8 @@ export const PROJECTS: Project[] = [
     description:
       'Gave a program with no consistent look an identity approved by FIU branding, and a site non-technical staff can maintain. Enrollment more than doubled during the initiative.',
     cover: { src: unsplash('photo-1446688568582-55ddb4b37cad'), position: 'center', placeholder: true },
-    accent: '#FF2A2A',
-    accentDeep: '#8C0F0F',
+    // CMYK 100/87/42/52
+    accent: '#001047',
   },
   {
     slug: 'the-incredible-hulk',
