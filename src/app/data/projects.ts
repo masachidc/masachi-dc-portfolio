@@ -84,7 +84,7 @@ export const PROJECTS: Project[] = [
     year: '2026',
     description:
       'Makes the read-only web writable: a floating icon opens notes, drawing, highlights, and AI on any page. Most Unique Project at FIU Blackstone LaunchPad.',
-    cover: { src: unsplash('photo-1768638687898-7851d341cb87'), position: 'center', placeholder: true },
+    cover: { src: '/img/works/inline-chrome-extension.webp', position: 'center' },
     brand: BRANDS['inline-chrome-extension'],
   },
   {
