@@ -97,7 +97,7 @@ export const PROJECTS: Project[] = [
     year: '2025',
     description:
       'Gave a program with no consistent look an identity approved by FIU branding, and a site non-technical staff can maintain. Enrollment more than doubled during the initiative.',
-    cover: { src: unsplash('photo-1446688568582-55ddb4b37cad'), position: 'center', placeholder: true },
+    cover: { src: '/img/works/project-seeds-brand-guidelines.webp', position: 'center 35%' },
     brand: BRANDS['project-seeds-branding'],
   },
   {

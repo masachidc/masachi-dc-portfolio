@@ -22,7 +22,13 @@ export const projectSeeds: CaseStudy = {
       text: 'An identity approved by FIU, a website staff could maintain, and enrollment that more than doubled during the initiative.',
     },
   ],
-  cover: { slot: 'Project SEEDS brand guidelines overview', ratio: '16/9' },
+  cover: {
+    slot: 'Project SEEDS brand guidelines overview',
+    // the cover's own proportions, so the FIU and SEEDS lockups at the bottom aren't cropped
+    ratio: '1920/1408',
+    src: '/img/works/project-seeds-brand-guidelines.webp',
+    alt: 'Cover of the Project SEEDS brand guidelines: gold "Brand Guidelines" title over a navy-tinted photo of an FIU building, with the FIU Arts, Sciences & Education and Project SEEDS logos.',
+  },
   overview: (
     <>
       <p>Project SEEDS needed a more consistent way to show up across recruitment, digital, and program communications.</p>
