@@ -58,7 +58,7 @@ function RailItem({
       className="flex w-full items-center justify-end gap-2.5"
     >
       <motion.span
-        style={{ opacity: titleAmount, width: titleWidth, color: hovered ? project.accent : 'rgba(10,10,11,0.6)' }}
+        style={{ opacity: titleAmount, width: titleWidth, color: hovered ? project.brand.primary : 'rgba(10,10,11,0.6)' }}
         className="overflow-hidden whitespace-nowrap text-right font-display text-small font-bold tracking-[-0.01em] transition-colors duration-300"
       >
         {collapsed ? project.title : project.railTitle}
@@ -66,7 +66,7 @@ function RailItem({
       <span
         className="h-1.5 w-1.5 shrink-0 rounded-full transition-all duration-300 ease-out"
         style={{
-          backgroundColor: hovered ? project.accent : 'rgba(10,10,11,0.15)',
+          backgroundColor: hovered ? project.brand.primary : 'rgba(10,10,11,0.15)',
           transform: hovered ? 'scale(1.5)' : 'scale(1)',
         }}
       />
