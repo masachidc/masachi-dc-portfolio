@@ -48,7 +48,7 @@ function ProjectItem({ project, current }: { project: Project; current: boolean 
         {/* Titles stay in the accessibility tree; only visually collapsed at rest. */}
         <span
           className="max-w-0 overflow-hidden whitespace-nowrap text-right font-display text-small font-bold tracking-[-0.01em] opacity-0 transition-[opacity,color] duration-300 group-hover/rail:max-w-full group-hover/rail:opacity-100 group-focus-within/rail:max-w-full group-focus-within/rail:opacity-100"
-          style={{ color: hovered ? project.accent : current ? 'var(--color-ink)' : 'var(--color-fg-subtle)' }}
+          style={{ color: hovered ? project.brand.primary : current ? 'var(--color-ink)' : 'var(--color-fg-subtle)' }}
         >
           {project.railTitle}
         </span>
@@ -56,7 +56,7 @@ function ProjectItem({ project, current }: { project: Project; current: boolean 
           aria-hidden="true"
           className="h-1.5 w-1.5 shrink-0 rounded-full transition-all duration-300 ease-out"
           style={{
-            backgroundColor: hovered ? project.accent : current ? 'rgba(10,10,11,0.5)' : 'rgba(10,10,11,0.15)',
+            backgroundColor: hovered ? project.brand.primary : current ? 'rgba(10,10,11,0.5)' : 'rgba(10,10,11,0.15)',
             transform: hovered ? 'scale(1.5)' : 'scale(1)',
           }}
         />

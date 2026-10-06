@@ -1,3 +1,5 @@
+import { BRANDS, type Brand } from './brands';
+
 /**
  * A portfolio project. Order in PROJECTS is display order — numbering, the
  * homepage mosaic, and the rails all follow the array, so reordering is safe.
@@ -23,10 +25,8 @@ export interface Project {
    * project cover — swap `src` (and drop the flag) when artwork exists.
    */
   cover: { src: string; position: string; placeholder?: boolean };
-  /** The project's primary colour: the card's hover wash and rail highlights. */
-  accent: string;
-  /** Optional darker base for the hover wash; omit to wash in `accent` alone. */
-  accentDeep?: string;
+  /** The project's brand system (see brands.ts): card hover wash, rail highlights, case study. */
+  brand: Brand;
   /** Leave off the phone-width Selected work grid (still shown on tablet and desktop). */
   hideOnMobile?: boolean;
 }
@@ -46,7 +46,7 @@ export const PROJECTS: Project[] = [
     description:
       'Goals, hobbies, relationships, pets, and trips become ongoing Storylines that grow through Moments. Designed, engineered, and shipped to the App Store.',
     cover: { src: unsplash('photo-1549366021-9f761d450615'), position: 'center', placeholder: true },
-    accent: '#FFC829',
+    brand: BRANDS['tembo-app'],
   },
   {
     slug: 'kesho-app',
@@ -59,8 +59,7 @@ export const PROJECTS: Project[] = [
     description:
       'A social prediction product for football fans: Calls sealed before kickoff, graded after the whistle. Designed, built, deployed, tested, and decommissioned.',
     cover: { src: unsplash('photo-1768330187404-59e46cf222c9'), position: 'center', placeholder: true },
-    accent: '#0057FF',
-    accentDeep: '#00297A',
+    brand: BRANDS['kesho-app'],
   },
   {
     slug: 'amuse-art-museum',
@@ -73,7 +72,7 @@ export const PROJECTS: Project[] = [
     description:
       'Research moved it from a native app to a lightweight web platform with M-Pesa booking; usability testing made My Museum a core feature.',
     cover: { src: unsplash('photo-1774514580599-c3dae376348e'), position: 'center 35%', placeholder: true },
-    accent: '#260101',
+    brand: BRANDS['amuse-art-museum'],
   },
   {
     slug: 'inline-chrome-extension',
@@ -86,7 +85,7 @@ export const PROJECTS: Project[] = [
     description:
       'Makes the read-only web writable: a floating icon opens notes, drawing, highlights, and AI on any page. Most Unique Project at FIU Blackstone LaunchPad.',
     cover: { src: unsplash('photo-1768638687898-7851d341cb87'), position: 'center', placeholder: true },
-    accent: '#007BA8',
+    brand: BRANDS['inline-chrome-extension'],
   },
   {
     slug: 'project-seeds-branding',
@@ -99,8 +98,7 @@ export const PROJECTS: Project[] = [
     description:
       'Gave a program with no consistent look an identity approved by FIU branding, and a site non-technical staff can maintain. Enrollment more than doubled during the initiative.',
     cover: { src: unsplash('photo-1446688568582-55ddb4b37cad'), position: 'center', placeholder: true },
-    // CMYK 100/87/42/52
-    accent: '#001047',
+    brand: BRANDS['project-seeds-branding'],
   },
   {
     slug: 'the-incredible-hulk',
@@ -113,8 +111,7 @@ export const PROJECTS: Project[] = [
     description:
       'Kinetic typography and particle effects carry the story, made in After Effects for Masachi DC Studios with Brandspot Media.',
     cover: { src: unsplash('photo-1755811717097-23fba595025d'), position: 'center', placeholder: true },
-    accent: '#0B7A3B',
-    accentDeep: '#03401F',
+    brand: BRANDS['the-incredible-hulk'],
     hideOnMobile: true,
   },
 ];
@@ -135,8 +132,7 @@ export const OTHER_PROJECTS: Project[] = [
     description:
       'A two-week architecture and design camp, run for three years, reaching 500+ high school students in the US and six African countries.',
     cover: { src: unsplash('photo-1598941101837-e3fdd6d94b24'), position: 'center 40%', placeholder: true },
-    accent: '#FF2E9A',
-    accentDeep: '#8C1050',
+    brand: BRANDS.stemxposure,
   },
 ];
 
