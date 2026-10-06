@@ -110,7 +110,7 @@ export const PROJECTS: Project[] = [
     year: '2025',
     description:
       'Kinetic typography and particle effects carry the story, made in After Effects for Masachi DC Studios with Brandspot Media.',
-    cover: { src: unsplash('photo-1755811717097-23fba595025d'), position: 'center', placeholder: true },
+    cover: { src: '/img/works/the-incredible-hulk.webp', position: 'center' },
     brand: BRANDS['the-incredible-hulk'],
     hideOnMobile: true,
   },
