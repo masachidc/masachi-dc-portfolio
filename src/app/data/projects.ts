@@ -93,7 +93,7 @@ export const PROJECTS: Project[] = [
     cardTitle: 'PROJECT SEEDS',
     railTitle: 'Project SEEDS',
     summary: "A distinct identity within FIU's brand system",
-    disciplines: 'Brand Identity Design · Logo Design · Marketing',
+    disciplines: 'Brand Identity Design · Logo Design',
     year: '2025',
     description:
       'Gave a program with no consistent look an identity approved by FIU branding, and a site non-technical staff can maintain. Enrollment more than doubled during the initiative.',
