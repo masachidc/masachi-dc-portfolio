@@ -71,7 +71,7 @@ export const PROJECTS: Project[] = [
     year: '2025',
     description:
       'Research moved it from a native app to a lightweight web platform with M-Pesa booking; usability testing made My Museum a core feature.',
-    cover: { src: unsplash('photo-1774514580599-c3dae376348e'), position: 'center 35%', placeholder: true },
+    cover: { src: '/img/works/amuse-art-museum.webp', position: 'center' },
     brand: BRANDS['amuse-art-museum'],
   },
   {
