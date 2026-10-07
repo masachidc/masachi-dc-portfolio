@@ -70,7 +70,7 @@ function CardInner({ p, imgY, feature }: {
         transition={{ duration: 0.9, ease: easeOut }}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-ink-deep/90 via-ink-deep/40 to-transparent transition-opacity duration-500 md:group-hover:opacity-0" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink-deep/90 from-0% via-ink-deep/50 via-30% to-transparent to-60% transition-opacity duration-500 md:group-hover:opacity-0" />
 
       {/*
         At rest the card answers, in reading order: what it is (title), why it
