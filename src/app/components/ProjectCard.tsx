@@ -58,9 +58,6 @@ function CardInner({ p, imgY, feature }: {
   const deep = p.brand.primaryDeep ?? primary;
   // light brand colours (e.g. TEMBO yellow) need ink text on the wash, not white
   const light = isLightColor(deep);
-  // resting scrim in the project's colour, deepened toward ink so the white
-  // text stays legible even on light brands like TEMBO gold
-  const scrim = `color-mix(in srgb, ${deep} 60%, var(--color-ink-deep))`;
   return (
     <>
       <motion.img
@@ -77,7 +74,8 @@ function CardInner({ p, imgY, feature }: {
       <div
         className="absolute inset-0 transition-opacity duration-500 md:group-hover:opacity-0"
         style={{
-          background: `radial-gradient(ellipse 95% 70% at 0% 100%, color-mix(in srgb, ${scrim} 95%, transparent) 0%, color-mix(in srgb, ${scrim} 68%, transparent) 45%, transparent 100%)`,
+          background:
+            'radial-gradient(ellipse 95% 70% at 0% 100%, color-mix(in srgb, var(--color-ink-deep) 90%, transparent) 0%, color-mix(in srgb, var(--color-ink-deep) 55%, transparent) 45%, transparent 100%)',
         }}
       />
 
