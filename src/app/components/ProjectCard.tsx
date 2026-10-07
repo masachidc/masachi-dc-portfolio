@@ -75,7 +75,7 @@ function CardInner({ p, imgY, feature }: {
         className="absolute inset-0 transition-opacity duration-500 md:group-hover:opacity-0"
         style={{
           background:
-            'radial-gradient(ellipse 95% 70% at 0% 100%, color-mix(in srgb, var(--color-ink-deep) 90%, transparent) 0%, color-mix(in srgb, var(--color-ink-deep) 55%, transparent) 45%, transparent 100%)',
+            'radial-gradient(ellipse 95% 70% at 0% 100%, color-mix(in srgb, var(--color-ink-deep) 93%, transparent) 0%, color-mix(in srgb, var(--color-ink-deep) 60%, transparent) 45%, transparent 100%)',
         }}
       />
 
