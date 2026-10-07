@@ -41,7 +41,7 @@ export const PROJECTS: Project[] = [
     cardTitle: 'TEMBO',
     railTitle: 'TEMBO App',
     summary: 'Social sharing built around ongoing life stories',
-    disciplines: 'Founder · Product Design · Design Engineering',
+    disciplines: 'Shipping · Product Design · Design Engineering',
     year: '2026',
     description:
       'Goals, hobbies, relationships, pets, and trips become ongoing Storylines that grow through Moments. Designed, engineered, and shipped to the App Store.',
