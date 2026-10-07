@@ -24,10 +24,10 @@ export const projectSeeds: CaseStudy = {
   ],
   cover: {
     slot: 'Project SEEDS brand guidelines overview',
-    // the cover's own proportions, so the FIU and SEEDS lockups at the bottom aren't cropped
-    ratio: '1920/1408',
+    // the cover's own proportions, so nothing is cropped
+    ratio: '2000/982',
     src: '/img/works/project-seeds-brand-guidelines.webp',
-    alt: 'Cover of the Project SEEDS brand guidelines: gold "Brand Guidelines" title over a navy-tinted photo of an FIU building, with the FIU Arts, Sciences & Education and Project SEEDS logos.',
+    alt: 'The Project SEEDS logo, a navy seed mark beside the gold and navy wordmark, with the FIU Arts, Sciences & Education lockup and gold and navy colour swatches.',
   },
   overview: (
     <>
