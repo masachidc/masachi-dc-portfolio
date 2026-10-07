@@ -80,7 +80,7 @@ export const PROJECTS: Project[] = [
     cardTitle: 'INLINE',
     railTitle: 'INLINE Extension',
     summary: 'Annotate any webpage without leaving the tab',
-    disciplines: 'UI/UX Design',
+    disciplines: 'UI/UX Design · Technical Collaboration',
     year: '2026',
     description:
       'Makes the read-only web writable: a floating icon opens notes, drawing, highlights, and AI on any page. Most Unique Project at FIU Blackstone LaunchPad.',
