@@ -54,7 +54,7 @@ export const PROJECTS: Project[] = [
     cardTitle: 'KESHO',
     railTitle: 'KESHO App',
     summary: 'Predictions that lock before the outcome',
-    disciplines: 'Product Design · Full Stack · Closed Testing',
+    disciplines: 'Full-Stack Development · Closed Testing',
     year: '2026',
     description:
       'A social prediction product for football fans: Calls sealed before kickoff, graded after the whistle. Designed, built, deployed, tested, and decommissioned.',
