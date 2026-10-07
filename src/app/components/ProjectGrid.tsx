@@ -14,6 +14,8 @@ function groupsOfThree(items: Project[]) {
  * projects keeps the asymmetric rhythm. A trailing 1 or 2 fill a simple row.
  * One column tall + two columns wide at 3:2 makes the tall card ~768x1564 and
  * the wide cards ~1564x768 in shape, so covers made at those sizes barely crop.
+ * Slots follow reading order (top-left, top-right, then below), so array
+ * order is the order a visitor reads the cards.
  */
 function MosaicBand({ group, mirrored }: { group: Project[]; mirrored: boolean }) {
   if (group.length < 3) {
@@ -39,8 +41,8 @@ function MosaicBand({ group, mirrored }: { group: Project[]; mirrored: boolean }
         ) : (
           <>
             <ProjectCard project={a} className="col-span-2 row-span-1" />
-            <ProjectCard project={b} className="col-span-2 row-span-1" />
-            <ProjectCard project={c} feature className="col-span-1 col-start-3 row-span-2 row-start-1" />
+            <ProjectCard project={b} feature className="col-span-1 col-start-3 row-span-2 row-start-1" />
+            <ProjectCard project={c} className="col-span-2 row-span-1 row-start-2" />
           </>
         )}
       </div>
