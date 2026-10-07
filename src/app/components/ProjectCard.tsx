@@ -8,6 +8,10 @@ import { easeOut } from '../lib/motion';
 
 const MotionLink = motion(Link);
 
+// Off for now: the covers carry their own titles. Set true to bring back the
+// resting title, summary and disciplines (and the scrim behind them).
+const SHOW_RESTING_TEXT = false;
+
 interface ProjectCardProps {
   project: Project;
   className?: string;
@@ -70,33 +74,37 @@ function CardInner({ p, imgY, feature }: {
         transition={{ duration: 0.9, ease: easeOut }}
       />
 
-      {/* scrim only in the bottom-left corner, behind the text */}
-      <div
-        className="absolute inset-0 transition-opacity duration-500 md:group-hover:opacity-0"
-        style={{
-          background:
-            'radial-gradient(ellipse 95% 70% at 0% 100%, color-mix(in srgb, var(--color-ink-deep) 93%, transparent) 0%, color-mix(in srgb, var(--color-ink-deep) 60%, transparent) 45%, transparent 100%)',
-        }}
-      />
+      {SHOW_RESTING_TEXT && (
+        <>
+        {/* scrim only in the bottom-left corner, behind the text */}
+        <div
+          className="absolute inset-0 transition-opacity duration-500 md:group-hover:opacity-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 95% 70% at 0% 100%, color-mix(in srgb, var(--color-ink-deep) 93%, transparent) 0%, color-mix(in srgb, var(--color-ink-deep) 60%, transparent) 45%, transparent 100%)',
+          }}
+        />
 
-      {/*
-        At rest the card answers, in reading order: what it is (title), why it
-        matters (summary), what Nathan did (disciplines). Number and year stay quiet.
-      */}
-      <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5 transition-opacity duration-300 sm:p-6 md:group-hover:opacity-0">
-        <div className="min-w-0">
-          <p className="mb-3 font-mono text-micro font-medium tracking-[0.1em] text-bone/65">{meta}</p>
-          <h3 className={`${titleClass} text-bone`}>{p.cardTitle}</h3>
-          <p className="mt-2 max-w-(--measure) text-body font-medium text-bone/90">{p.summary}</p>
-          <p className="mt-3 text-micro caps text-bone/65">{p.disciplines}</p>
+        {/*
+          At rest the card answers, in reading order: what it is (title), why it
+          matters (summary), what Nathan did (disciplines). Number and year stay quiet.
+        */}
+        <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5 transition-opacity duration-300 sm:p-6 md:group-hover:opacity-0">
+          <div className="min-w-0">
+            <p className="mb-3 font-mono text-micro font-medium tracking-[0.1em] text-bone/65">{meta}</p>
+            <h3 className={`${titleClass} text-bone`}>{p.cardTitle}</h3>
+            <p className="mt-2 max-w-(--measure) text-body font-medium text-bone/90">{p.summary}</p>
+            <p className="mt-3 text-micro caps text-bone/65">{p.disciplines}</p>
+          </div>
+          <span
+            aria-hidden="true"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-bone/30 text-bone"
+          >
+            <ArrowUpRight size={15} strokeWidth={2} />
+          </span>
         </div>
-        <span
-          aria-hidden="true"
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-bone/30 text-bone"
-        >
-          <ArrowUpRight size={15} strokeWidth={2} />
-        </span>
-      </div>
+        </>
+      )}
 
       {/*
         Hover detail panel: a project-colour wash over the still-visible image,
