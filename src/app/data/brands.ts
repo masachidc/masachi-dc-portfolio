@@ -24,7 +24,7 @@ export const BRANDS = {
   // Interim: the original card green, kept until the Hulk's brand colours are set.
   'the-incredible-hulk': { primary: '#0B7A3B', primaryDeep: '#03401F' },
   // The red of the "Global STEM Summer Camp" logo ribbon, picked by Nathan.
-  stemxposure: { primary: '#E30613' },
+  stemxposure: { primary: '#E4010D' },
 } satisfies Record<string, Brand>;
 
 /** True for light colours (e.g. TEMBO yellow) that need ink text on top, not white. */
