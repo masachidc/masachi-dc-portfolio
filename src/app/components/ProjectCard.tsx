@@ -70,7 +70,14 @@ function CardInner({ p, imgY, feature }: {
         transition={{ duration: 0.9, ease: easeOut }}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-ink-deep/90 from-0% via-ink-deep/50 via-30% to-transparent to-60% transition-opacity duration-500 md:group-hover:opacity-0" />
+      {/* scrim only in the bottom-left corner, behind the text */}
+      <div
+        className="absolute inset-0 transition-opacity duration-500 md:group-hover:opacity-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 95% 70% at 0% 100%, color-mix(in srgb, var(--color-ink-deep) 90%, transparent) 0%, color-mix(in srgb, var(--color-ink-deep) 55%, transparent) 45%, transparent 100%)',
+        }}
+      />
 
       {/*
         At rest the card answers, in reading order: what it is (title), why it
