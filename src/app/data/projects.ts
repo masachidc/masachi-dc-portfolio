@@ -67,7 +67,7 @@ export const PROJECTS: Project[] = [
     cardTitle: 'AMUSE',
     railTitle: 'AMUSE Web App',
     summary: 'Discover, plan and book museum visits in Kenya',
-    disciplines: 'Product Design · UX Research',
+    disciplines: 'Product Design · UX Research · Usability Testing',
     year: '2025',
     description:
       'Research moved it from a native app to a lightweight web platform with M-Pesa booking; usability testing made My Museum a core feature.',
