@@ -101,6 +101,26 @@ export const PROJECTS: Project[] = [
     brand: BRANDS['project-seeds-branding'],
   },
   {
+    slug: 'stemxposure',
+    title: 'STEM Xposure',
+    cardTitle: 'STEM XPOSURE',
+    railTitle: 'STEM Xposure',
+    summary: 'A two-week architecture and design program across seven countries',
+    disciplines: 'Curriculum Design · Program Leadership',
+    year: '2026',
+    description:
+      'I designed the curriculum, recruited and onboarded 14 volunteer instructors, and helped deliver three years of programming to 500+ high school students.',
+    cover: { src: unsplash('photo-1598941101837-e3fdd6d94b24'), position: 'center 40%', placeholder: true },
+    brand: BRANDS.stemxposure,
+  },
+];
+
+/**
+ * Work kept out of Selected work but still routable at /works/<slug>, since
+ * existing links point to it.
+ */
+export const OTHER_PROJECTS: Project[] = [
+  {
     slug: 'the-incredible-hulk',
     title: 'The Incredible Hulk',
     cardTitle: 'THE INCREDIBLE HULK',
@@ -113,26 +133,6 @@ export const PROJECTS: Project[] = [
     cover: { src: '/img/works/the-incredible-hulk.webp', position: 'center' },
     brand: BRANDS['the-incredible-hulk'],
     hideOnMobile: true,
-  },
-];
-
-/**
- * Work kept out of Selected work but still routable at /works/<slug>, since
- * About and Impact link to it. STEM X moves to its own category later.
- */
-export const OTHER_PROJECTS: Project[] = [
-  {
-    slug: 'stemxposure',
-    title: 'STEM X',
-    cardTitle: 'STEM X',
-    railTitle: 'STEM X Architecture Camp',
-    summary: 'Architecture and design camp across seven countries',
-    disciplines: 'Curriculum · Architecture',
-    year: '2026',
-    description:
-      'A two-week architecture and design camp, run for three years, reaching 500+ high school students in the US and six African countries.',
-    cover: { src: unsplash('photo-1598941101837-e3fdd6d94b24'), position: 'center 40%', placeholder: true },
-    brand: BRANDS.stemxposure,
   },
 ];
 
