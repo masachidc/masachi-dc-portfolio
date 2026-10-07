@@ -110,7 +110,7 @@ export const PROJECTS: Project[] = [
     year: '2026',
     description:
       'I designed the curriculum, recruited and onboarded 14 volunteer instructors, and helped deliver three years of programming to 500+ high school students.',
-    cover: { src: unsplash('photo-1598941101837-e3fdd6d94b24'), position: 'center 40%', placeholder: true },
+    cover: { src: '/img/works/stemxposure.webp', position: 'center' },
     brand: BRANDS.stemxposure,
   },
 ];
