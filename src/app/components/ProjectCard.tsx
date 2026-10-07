@@ -15,13 +15,6 @@ interface ProjectCardProps {
   feature?: boolean;
 }
 
-// Feathers the resting scrim's top and right edges over exactly its bleed
-// (6rem up, 8rem right) with an eased falloff, so there's no visible edge and
-// the area behind the text stays fully covered.
-const fade = (dir: string, d: number) =>
-  `linear-gradient(to ${dir}, #000 calc(100% - ${d}rem), rgba(0,0,0,0.72) calc(100% - ${d * 0.7}rem), rgba(0,0,0,0.38) calc(100% - ${d * 0.4}rem), rgba(0,0,0,0.12) calc(100% - ${d * 0.15}rem), transparent)`;
-const SCRIM_MASK = `${fade('right', 8)}, ${fade('top', 6)}`;
-
 function hexToRgba(hex: string, alpha: number) {
   const n = parseInt(hex.replace('#', ''), 16);
   const r = (n >> 16) & 255;
@@ -71,10 +64,19 @@ function CardInner({ p, imgY, feature }: {
         src={p.cover.src}
         alt=""
         decoding="async"
-        className="absolute inset-x-0 -top-3 h-[calc(100%+1.5rem)] w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover"
         style={{ objectPosition: p.cover.position, filter: 'saturate(0.92) brightness(0.88)', y: imgY }}
         whileHover={{ scale: 1.025 }}
         transition={{ duration: 0.9, ease: easeOut }}
+      />
+
+      {/* scrim only in the bottom-left corner, behind the text */}
+      <div
+        className="absolute inset-0 transition-opacity duration-500 md:group-hover:opacity-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 95% 70% at 0% 100%, color-mix(in srgb, var(--color-ink-deep) 90%, transparent) 0%, color-mix(in srgb, var(--color-ink-deep) 55%, transparent) 45%, transparent 100%)',
+        }}
       />
 
       {/*
@@ -82,26 +84,7 @@ function CardInner({ p, imgY, feature }: {
         matters (summary), what Nathan did (disciplines). Number and year stay quiet.
       */}
       <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5 transition-opacity duration-300 sm:p-6 md:group-hover:opacity-0">
-        <div className="relative isolate min-w-0">
-          {/*
-            Scrim sized to the text block, not the card, so tall and wide cards
-            get the same coverage. It runs to the card's bottom-left edges and
-            feathers out over a fixed distance above and to the right.
-          */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -bottom-5 -left-5 -right-32 -top-24 -z-10 sm:-bottom-6 sm:-left-6"
-            style={{
-              background:
-                'linear-gradient(to top, color-mix(in srgb, var(--color-ink-deep) 88%, transparent), color-mix(in srgb, var(--color-ink-deep) 80%, transparent))',
-              backdropFilter: 'blur(3px)',
-              WebkitBackdropFilter: 'blur(3px)',
-              maskImage: SCRIM_MASK,
-              WebkitMaskImage: SCRIM_MASK,
-              maskComposite: 'intersect',
-              WebkitMaskComposite: 'source-in',
-            }}
-          />
+        <div className="min-w-0">
           <p className="mb-3 font-mono text-micro font-medium tracking-[0.1em] text-bone/65">{meta}</p>
           <h3 className={`${titleClass} text-bone`}>{p.cardTitle}</h3>
           <p className="mt-2 max-w-(--measure) text-body font-medium text-bone/90">{p.summary}</p>
@@ -109,7 +92,7 @@ function CardInner({ p, imgY, feature }: {
         </div>
         <span
           aria-hidden="true"
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-bone/30 bg-ink-deep/45 text-bone backdrop-blur-sm"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-bone/30 text-bone"
         >
           <ArrowUpRight size={15} strokeWidth={2} />
         </span>
@@ -159,7 +142,7 @@ export function ProjectCard({ project: p, className = '', feature = false }: Pro
   const cardRef = useRef<HTMLAnchorElement>(null);
   const { scrollYProgress } = useScroll({ target: cardRef, offset: ['start end', 'end start'] });
   const reduceMotion = useReducedMotion();
-  const imgY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [-12, 12]);
+  const imgY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [-22, 22]);
 
   const rotateXRaw = useMotionValue(0);
   const rotateYRaw = useMotionValue(0);
