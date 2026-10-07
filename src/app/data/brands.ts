@@ -23,8 +23,8 @@ export const BRANDS = {
   'project-seeds-branding': { primary: '#001047', source: 'CMYK 100/87/42/52' },
   // Interim: the original card green, kept until the Hulk's brand colours are set.
   'the-incredible-hulk': { primary: '#0B7A3B', primaryDeep: '#03401F' },
-  // Interim: the original card pink.
-  stemxposure: { primary: '#FF2E9A', primaryDeep: '#8C1050' },
+  // The red of the "Global STEM Summer Camp" logo ribbon, picked by Nathan.
+  stemxposure: { primary: '#E30613' },
 } satisfies Record<string, Brand>;
 
 /** True for light colours (e.g. TEMBO yellow) that need ink text on top, not white. */
