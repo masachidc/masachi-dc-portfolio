@@ -8,10 +8,6 @@ import { easeOut } from '../lib/motion';
 
 const MotionLink = motion(Link);
 
-// Off for now: the covers carry their own titles. Set true to bring back the
-// resting title, summary and disciplines (and the scrim behind them).
-const SHOW_RESTING_TEXT = false;
-
 interface ProjectCardProps {
   project: Project;
   className?: string;
@@ -74,8 +70,6 @@ function CardInner({ p, imgY, feature }: {
         transition={{ duration: 0.9, ease: easeOut }}
       />
 
-      {SHOW_RESTING_TEXT && (
-      <>
       <div className="absolute inset-0 bg-gradient-to-t from-ink-deep/90 from-0% via-ink-deep/50 via-30% to-transparent to-60% transition-opacity duration-500 md:group-hover:opacity-0" />
 
       {/*
@@ -96,8 +90,6 @@ function CardInner({ p, imgY, feature }: {
           <ArrowUpRight size={15} strokeWidth={2} />
         </span>
       </div>
-      </>
-      )}
 
       {/*
         Hover detail panel: a project-colour wash over the still-visible image,
