@@ -70,7 +70,7 @@ function CardInner({ p, imgY, feature }: {
         transition={{ duration: 0.9, ease: easeOut }}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-ink-deep/90 via-ink-deep/25 to-transparent transition-opacity duration-500 md:group-hover:opacity-0" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink-deep/90 via-ink-deep/40 to-transparent transition-opacity duration-500 md:group-hover:opacity-0" />
 
       {/*
         At rest the card answers, in reading order: what it is (title), why it
@@ -101,7 +101,8 @@ function CardInner({ p, imgY, feature }: {
         variants={panelStagger}
         className={`pointer-events-none absolute inset-0 z-20 hidden flex-col justify-end p-7 opacity-0 transition-opacity duration-300 ease-out md:flex md:group-hover:opacity-100 ${light ? 'text-ink' : 'text-white'}`}
         style={{
-          background: `linear-gradient(to top, ${hexToRgba(deep, 0.96)} 0%, ${hexToRgba(deep, 0.86)} 45%, ${hexToRgba(primary, 0.5)} 100%)`,
+          // densest behind the text (bottom-left), lighter toward the image's far corner
+          background: `linear-gradient(to right, ${hexToRgba(deep, 0.4)} 0%, ${hexToRgba(deep, 0)} 70%), linear-gradient(to top, ${hexToRgba(deep, 0.97)} 0%, ${hexToRgba(deep, 0.9)} 50%, ${hexToRgba(primary, 0.55)} 100%)`,
         }}
       >
         <motion.p variants={panelItem} className={`mb-3 font-mono text-micro font-medium tracking-[0.1em] ${light ? 'text-ink/70' : 'text-white/70'}`}>
