@@ -27,7 +27,7 @@ export const projectSeeds: CaseStudy = {
     // the cover's own proportions, so nothing is cropped
     ratio: '2000/982',
     src: '/img/works/project-seeds-brand-guidelines.webp',
-    alt: 'The Project SEEDS logo, a navy seed mark beside the gold and navy wordmark, with the FIU Arts, Sciences & Education lockup and gold and navy colour swatches.',
+    alt: 'The Project SEEDS logo, a navy seed mark beside the gold and navy wordmark, with the FIU Arts, Sciences & Education lockup, the line "A university approved brand identity system", and gold and navy colour swatches.',
   },
   overview: (
     <>
