@@ -156,15 +156,15 @@ export const EXPERIENCE: ExperienceItem[] = [
  */
 export const RESUME_DISCIPLINES = ['Product Design', 'Design Engineering', 'Visual Design'] as const;
 
-/** Capabilities first, tools last. Keep each group short: signal, not keyword density. */
+/** Four groups, mirroring the disciplines plus how Nathan works. Keep each group to four: signal, not keyword density. */
 export const SKILLS: { group: string; items: string[] }[] = [
-  { group: 'Product', items: ['User research', 'Product strategy', 'Information architecture', 'Interaction design', 'Usability testing'] },
-  { group: 'Design', items: ['Interface design', 'Design systems', 'Prototyping', 'Brand identity', 'Motion design'] },
+  { group: 'Product Design', items: ['Product strategy', 'UX research', 'Interaction design', 'Prototyping & testing'] },
+  { group: 'Design Engineering', items: ['React & React Native', 'TypeScript', 'Design systems', 'Full-stack development'] },
+  { group: 'Visual Design', items: ['Brand identity', 'Art direction', 'Typography & layout', 'Motion design'] },
   {
-    group: 'Engineering',
-    items: ['TypeScript', 'React', 'React Native', 'Next.js', 'PostgreSQL', 'Tailwind CSS', 'CI/CD with GitHub Actions and Vercel', 'AI-assisted development'],
+    group: 'Thinking & Leadership',
+    items: ['Systems thinking', 'Problem-solving', 'Cross-functional collaboration', 'End-to-end ownership'],
   },
-  { group: 'Tools', items: ['Figma', 'Adobe Illustrator', 'After Effects', 'Premiere Pro', 'SketchUp'] },
 ];
 
 /** Facts only: no explanatory notes. The field is the headline; degree, minor, school and dates support it. */
