@@ -38,7 +38,7 @@ export const tembo: CaseStudy = {
     slot: 'Home, a Storyline, and Persona on three phones',
     ratio: '2000/982',
     src: '/img/works/tembo-app.webp',
-    alt: 'TEMBO, "Share ongoing life in chapters", live on Google Play and the App Store: three phones showing the Discover feed, a Persona with The 30 Mile Target Storyline, and Your Circle of shared Storylines.',
+    alt: 'TEMBO, "Share ongoing life in chapters", live on Google Play and the App Store: three phones showing Your Circle of shared Storylines, a Persona with The 30 Mile Target Storyline, and the Discover feed.',
   },
   overview: (
     <>
