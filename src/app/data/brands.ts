@@ -17,8 +17,8 @@ export interface Brand {
 export const BRANDS = {
   // TEMBO and INLINE deep: same hue as the brand colour, darkened at Nathan's request.
   'tembo-app': { primary: '#FFC829', primaryDeep: '#E0A800' },
-  // Interim: the original card blue, kept until KESHO's brand colours are set.
-  'kesho-app': { primary: '#0057FF', primaryDeep: '#00297A' },
+  // Same green as the Hulk's, at Nathan's request.
+  'kesho-app': { primary: '#0B7A3B', primaryDeep: '#03401F' },
   'amuse-art-museum': { primary: '#260101' },
   'inline-chrome-extension': { primary: '#007BA8', primaryDeep: '#004B66' },
   'project-seeds-branding': { primary: '#001047', source: 'CMYK 100/87/42/52' },
