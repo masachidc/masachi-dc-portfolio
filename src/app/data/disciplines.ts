@@ -14,9 +14,9 @@ import { RESUME_DISCIPLINES } from './profile';
 export interface DisciplineWork {
   /** A slug from PROJECTS or OTHER_PROJECTS. */
   slug: string;
-  /** What the project shows about this discipline, in one or two sentences. */
+  /** What the project shows about this discipline: the card's hover (and mobile) description, ~15–28 words. */
   summary: string;
-  /** Nathan's part, "·"-separated, as in projects.ts `disciplines`. */
+  /** Nathan's part, "·"-separated: replaces the card's `disciplines` line. */
   contribution: string;
 }
 
@@ -26,10 +26,10 @@ export interface Discipline {
   /** Matches RESUME_DISCIPLINES, so the Resume card and its page can't drift apart. */
   name: (typeof RESUME_DISCIPLINES)[number];
   meta: { title: string; description: string };
-  /** Headline lines; the last takes the teal accent, as on the homepage. */
+  /** Headline under "Meet Nathan Masachi,"; the last line takes the teal accent, as on the homepage. */
   headline: string[];
   intro: string;
-  /** Exactly three, in display order. */
+  /** Exactly three, in display order: one homepage mosaic band (the second is the tall card on desktop). */
   work: [DisciplineWork, DisciplineWork, DisciplineWork];
   /** Exactly five. */
   skills: [string, string, string, string, string];
@@ -44,26 +44,26 @@ export const DISCIPLINES: Discipline[] = [
       description:
         'Product design by Nathan Masachi: Tembo, AMUSE and INLINE, from understanding the problem to defining the experience.',
     },
-    headline: ['Ideas shaped into', 'useful products.'],
+    headline: ['A product', 'designer.'],
     intro:
       'From understanding the problem to defining the experience, I design digital products around real people and clear decisions.',
     work: [
       {
         slug: 'tembo-app',
         summary:
-          'A social app where the ongoing chapter of a life, not the single post, is the social object. I kept the first version deliberately small and gave Home bounded diversity instead of engagement ranking.',
+          'The ongoing chapter of a life, not the single post, is the social object. A deliberately small first version, and a Home feed without engagement ranking.',
         contribution: 'Founder · Product strategy · Interaction design',
       },
       {
         slug: 'amuse-art-museum',
         summary:
-          'Research moved a museum app to a lightweight, mobile-first web platform with M-Pesa in the booking flow. Usability testing with five participants made My Museum a core feature.',
+          'Research moved it from a native app to a mobile-first web platform with M-Pesa booking; testing with five participants made My Museum a core feature.',
         contribution: 'Lead Product Designer · UX research · Usability testing',
       },
       {
         slug: 'inline-chrome-extension',
         summary:
-          'A Chrome extension that brings notes, drawing, highlights and AI to any webpage. I owned the UI/UX, from the floating entry point to tool interactions and feature states.',
+          'I owned the UI/UX in a five-person team, from the floating entry point to tool interactions, the visual system and feature states.',
         contribution: 'UI/UX Designer · 5-person product team',
       },
     ],
@@ -77,26 +77,26 @@ export const DISCIPLINES: Discipline[] = [
       description:
         'Design engineering by Nathan Masachi: Tembo, KESHO and INLINE, taking interaction design into production code.',
     },
-    headline: ['Designed with intent.', 'Built to work.'],
+    headline: ['A design', 'engineer.'],
     intro:
       'I bring design into production code, combining interaction design, frontend engineering, and systems thinking to ship working products.',
     work: [
       {
         slug: 'tembo-app',
         summary:
-          'Designed and engineered end to end in React Native, Expo and TypeScript on Supabase. Every change runs typecheck, lint and tests before it merges. Live on the App Store; Android is in closed testing.',
+          'Designed and engineered end to end in React Native, Expo and TypeScript on Supabase. Live on the App Store; Android is in closed testing.',
         contribution: 'Founder · Design engineering · Full-stack development',
       },
       {
         slug: 'kesho-app',
         summary:
-          'A sealed Call was a design promise. Keeping it meant building the server-side kickoff gate, the locks and the all-or-nothing reveal myself. Tested in an invite-only beta, then decommissioned.',
+          'A sealed Call was a design promise. I built the server-side kickoff gate, locks and all-or-nothing reveal to keep it. Invite-only beta, then decommissioned.',
         contribution: 'Product design · Engineering · Closed testing',
       },
       {
         slug: 'inline-chrome-extension',
         summary:
-          'Designing for the build: I owned the extension’s interactions, visual system and feature states, working alongside a front-end developer, a backend developer and a database designer.',
+          'Designed for the build: interactions, visual system and feature states, made alongside a front-end developer, a backend developer and a database designer.',
         contribution: 'UI/UX Designer · Technical collaboration',
       },
     ],
@@ -110,26 +110,26 @@ export const DISCIPLINES: Discipline[] = [
       description:
         'Visual design by Nathan Masachi: Project SEEDS, The Incredible Hulk and Tembo, through identity, typography, composition and motion.',
     },
-    headline: ['Making ideas', 'visible.'],
+    headline: ['A visual', 'designer.'],
     intro:
       'I build visual identities and experiences through typography, composition, motion, and cohesive design systems.',
     work: [
       {
         slug: 'project-seeds-branding',
         summary:
-          'A distinct identity inside FIU’s established brand system: a seed mark and a gold and navy wordmark, approved by FIU branding and the SEEDS team, carried across campaign materials and the website.',
+          'A seed mark and a gold and navy wordmark inside FIU’s brand system, approved by FIU branding and carried across campaign materials and the website.',
         contribution: 'Brand identity · Logo design · Web design',
       },
       {
         slug: 'the-incredible-hulk',
         summary:
-          'A comic origin story told through motion. Kinetic typography and particle effects carry the story, made in After Effects for Masachi DC Studios with Brandspot Media.',
+          'Kinetic typography and particle effects carry the story, made in After Effects for Masachi DC Studios with Brandspot Media.',
         contribution: 'Motion design · Kinetic typography',
       },
       {
         slug: 'tembo-app',
         summary:
-          'The visual language of an app I founded, designed and shipped: interface composition and TEMBO yellow, carried through Storylines and the Moments that grow inside them.',
+          'The visual language of an app I founded, designed and shipped: interface composition and TEMBO yellow, carried through Storylines and their Moments.',
         contribution: 'Founder · Interface design · Brand',
       },
     ],
@@ -146,11 +146,15 @@ export function findDiscipline(name: Discipline['name']) {
   return d;
 }
 
-/** A discipline's three projects, resolved from projects.ts. Throws at load if a slug is wrong, so a typo can't ship a broken row. */
-export function disciplineWork(d: Discipline): (DisciplineWork & { project: Project })[] {
+/**
+ * A discipline's three projects, resolved from projects.ts with this page's description and contribution line.
+ * Throws at load if a slug is wrong, so a typo can't ship a broken card. Every card shows on phones here, since a
+ * band of three has none to spare.
+ */
+export function disciplineProjects(d: Discipline): Project[] {
   return d.work.map((w) => {
     const project = findProject(w.slug);
     if (!project) throw new Error(`Discipline "${d.name}": unknown project slug "${w.slug}"`);
-    return { ...w, project };
+    return { ...project, description: w.summary, disciplines: w.contribution, hideOnMobile: false };
   });
 }
