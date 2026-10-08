@@ -65,7 +65,7 @@ function ExperienceAccordion() {
   const baseId = useId();
 
   return (
-    <ol className="border-b border-line">
+    <ol>
       {EXPERIENCE.map((item, index) => {
         const isOpen = openIndex === index;
         const triggerId = `${baseId}-trigger-${index}`;
@@ -241,7 +241,7 @@ export function ResumePage() {
               </dl>
             </Block>
 
-            <Block id="education" title="Education" rule="none">
+            <Block id="education" title="Education" rule="under" headingClassName="mb-8">
               <ul className="flex max-w-(--measure) flex-col gap-6">
                 {EDUCATION.map((item) => (
                   <li key={item.field}>
