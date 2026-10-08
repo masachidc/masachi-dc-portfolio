@@ -29,12 +29,15 @@ export interface Project {
   brand: Brand;
   /** Leave off the phone-width Selected work grid (still shown on tablet and desktop). */
   hideOnMobile?: boolean;
+  /** Status stamp on the card: SHIPPED (released) or BUILD. */
+  mark: 'SHIPPED' | 'BUILD';
 }
 
 // Order: Selected work on the homepage, as Nathan ranks it.
 export const PROJECTS: Project[] = [
   {
     slug: 'tembo-app',
+    mark: 'SHIPPED',
     title: 'TEMBO',
     cardTitle: 'TEMBO',
     railTitle: 'TEMBO App',
@@ -48,6 +51,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'kesho-app',
+    mark: 'SHIPPED',
     title: 'KESHO',
     cardTitle: 'KESHO',
     railTitle: 'KESHO App',
@@ -61,6 +65,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'amuse-art-museum',
+    mark: 'BUILD',
     title: 'AMUSE',
     cardTitle: 'AMUSE',
     railTitle: 'AMUSE Web App',
@@ -74,6 +79,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'inline-chrome-extension',
+    mark: 'BUILD',
     title: 'INLINE',
     cardTitle: 'INLINE',
     railTitle: 'INLINE Extension',
@@ -87,6 +93,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'project-seeds-branding',
+    mark: 'SHIPPED',
     title: 'Project SEEDS',
     cardTitle: 'PROJECT SEEDS',
     railTitle: 'Project SEEDS',
@@ -100,6 +107,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'stemxposure',
+    mark: 'BUILD',
     title: 'STEM Xposure',
     cardTitle: 'STEM XPOSURE',
     railTitle: 'STEM Xposure',
@@ -120,6 +128,7 @@ export const PROJECTS: Project[] = [
 export const OTHER_PROJECTS: Project[] = [
   {
     slug: 'the-incredible-hulk',
+    mark: 'BUILD',
     title: 'The Incredible Hulk',
     cardTitle: 'THE INCREDIBLE HULK',
     railTitle: 'The Incredible Hulk',

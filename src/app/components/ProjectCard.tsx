@@ -1,4 +1,4 @@
-import { type MouseEvent, useRef } from 'react';
+import { type MouseEvent, useId, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
@@ -51,6 +51,48 @@ const panelItem = {
   hover: { opacity: 1, y: 0, transition: { duration: 0.32, ease: easeOut } },
 };
 
+/**
+ * The card's status stamp (SHIPPED / BUILD): a solid tag with the word cut
+ * out of it, so the cover shows through the letters. Sized from the label, so
+ * it hugs the text like an auto-layout frame.
+ */
+function StatusMark({ label }: { label: string }) {
+  const maskId = `mark-${useId().replace(/:/g, '')}`;
+  const padX = 10;
+  const charW = 8.6;
+  const textW = label.length * charW;
+  const w = Math.round(textW + padX * 2);
+  const h = 26;
+  return (
+    <svg
+      aria-hidden="true"
+      width={w}
+      height={h}
+      viewBox={`0 0 ${w} ${h}`}
+      className="shrink-0"
+    >
+      <mask id={maskId}>
+        <rect width={w} height={h} rx={4} fill="white" />
+        <text
+          x={padX}
+          y={h / 2}
+          dominantBaseline="central"
+          textLength={textW}
+          lengthAdjust="spacingAndGlyphs"
+          fill="black"
+          className="font-display"
+          style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.06em' }}
+        >
+          {label}
+        </text>
+      </mask>
+      {/* tint seen only through the letters, so the cutout reads on light covers too */}
+      <rect width={w} height={h} rx={4} fill="var(--color-ink-deep)" fillOpacity={0.8} />
+      <rect width={w} height={h} rx={4} fill="var(--color-accent)" mask={`url(#${maskId})`} />
+    </svg>
+  );
+}
+
 function CardInner({ p, imgY, feature }: {
   p: Project;
   imgY: ReturnType<typeof useTransform>;
@@ -96,12 +138,7 @@ function CardInner({ p, imgY, feature }: {
             <p className="mt-2 max-w-(--measure) text-body font-medium text-bone/90">{p.summary}</p>
             <p className="mt-3 text-micro caps text-bone/65">{p.disciplines}</p>
           </div>
-          <span
-            aria-hidden="true"
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-bone/30 text-bone"
-          >
-            <ArrowUpRight size={15} strokeWidth={2} />
-          </span>
+          <StatusMark label={p.mark} />
         </div>
         </>
       )}
@@ -145,7 +182,7 @@ export function ProjectCard({ project: p, className = '', feature = false }: Pro
   const hoverShadow = `0 1px 2px rgba(10,10,11,0.06), 0 32px 60px -24px ${hexToRgba(p.brand.primaryDeep ?? p.brand.primary, 0.4)}`;
   const href = projectHref(p);
   const isInternal = !p.externalUrl;
-  const linkLabel = `${p.railTitle}: ${p.summary}. ${p.disciplines}. View case study`;
+  const linkLabel = `${p.railTitle} (${p.mark.toLowerCase()}): ${p.summary}. ${p.disciplines}. View case study`;
 
   const cardRef = useRef<HTMLAnchorElement>(null);
   const { scrollYProgress } = useScroll({ target: cardRef, offset: ['start end', 'end start'] });
