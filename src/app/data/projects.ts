@@ -23,8 +23,9 @@ export interface Project {
   /**
    * Card image. `placeholder: true` marks generic stock imagery awaiting a real
    * project cover — swap `src` (and drop the flag) when artwork exists.
+   * `portrait: true` marks tall (768 × 1564) art, so wide frames show it whole instead of cropping it.
    */
-  cover: { src: string; position: string; placeholder?: boolean };
+  cover: { src: string; position: string; placeholder?: boolean; portrait?: boolean };
   /** The project's brand system (see brands.ts): card hover wash, rail highlights, case study. */
   brand: Brand;
   /** Leave off the phone-width Selected work grid (still shown on tablet and desktop). */
@@ -60,7 +61,7 @@ export const PROJECTS: Project[] = [
     year: '2026',
     description:
       'A prediction product for football fans. Predictions are made before kickoff, scored and revealed after the whistle. Designed, built, deployed, tested, and decommissioned.',
-    cover: { src: '/img/works/kesho-app.webp', position: 'center' },
+    cover: { src: '/img/works/kesho-app.webp', position: 'center', portrait: true },
     brand: BRANDS['kesho-app'],
   },
   {
@@ -88,7 +89,7 @@ export const PROJECTS: Project[] = [
     year: '2026',
     description:
       'Makes the read-only web writable: a floating icon opens notes, drawing, highlights, and AI on any page. Most Unique Project at FIU Blackstone LaunchPad.',
-    cover: { src: '/img/works/inline-chrome-extension.webp', position: 'center' },
+    cover: { src: '/img/works/inline-chrome-extension.webp', position: 'center', portrait: true },
     brand: BRANDS['inline-chrome-extension'],
   },
   {

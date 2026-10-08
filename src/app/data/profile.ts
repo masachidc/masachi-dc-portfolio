@@ -142,17 +142,16 @@ export const EXPERIENCE: ExperienceItem[] = [
     when: 'May 2021 – May 2024',
     // No link until /works/stemxposure has a case study: a résumé shouldn't point to an in-progress page.
     points: [
-      'Designed a two-week architecture and design curriculum that reached 500+ high school students in the U.S. and six African countries.',
-      'Recruited and coordinated 14 volunteer instructors; the program ran for three consecutive years.',
-      'Took part in the negotiations that secured a SketchUp licensing partnership, giving every student a free one-year professional license.',
+      'Co-led the planning, execution, and annual improvement of an international architecture and design program, reaching 500+ high school students across the U.S. and six African countries over three years.',
+      'Designed the two-week curriculum, recruited students, and coordinated 14 volunteer instructors to deliver the program across multiple countries.',
+      'Evaluated each camp to improve future sessions and helped negotiate a SketchUp partnership that provided every student with a free one-year professional license.',
     ],
   },
 ];
 
 /**
- * Resume disciplines, in display order (N°01, N°02, …, as on the homepage cards). Plain text until each
- * discipline has a real project grouping to open; never ship dead buttons or
- * placeholder links.
+ * Resume disciplines, in display order (N°01, N°02, …, as on the homepage cards). Each card links to its discipline
+ * page (see disciplines.ts).
  */
 export const RESUME_DISCIPLINES = ['Product Design', 'Design Engineering', 'Visual Design'] as const;
 
