@@ -170,7 +170,11 @@ function Disciplines() {
           className="flex min-h-44 flex-col justify-between border border-line bg-paper p-6 transition-colors duration-300 hover:border-ink/20 motion-reduce:transition-none md:aspect-[4/5] md:min-h-0 lg:p-8"
         >
           <div className="flex items-start justify-between gap-4">
-            <span className="font-mono text-small tabular-nums text-fg-subtle">/{String(index + 1).padStart(3, '0')}</span>
+            {/* The homepage card's number (N°01, as projectNumber() formats it) and type; text-fg-subtle instead of
+                bone because these cards are light. */}
+            <span className="font-mono text-micro font-medium tracking-[0.1em] text-fg-subtle">
+              N°{String(index + 1).padStart(2, '0')}
+            </span>
             <ArrowUpRight aria-hidden size={18} strokeWidth={1.5} className="shrink-0 text-fg-faint" />
           </div>
           {/* One word per line on every card, so the three titles share a shape whatever the card width. The space

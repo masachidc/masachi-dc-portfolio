@@ -150,7 +150,7 @@ export const EXPERIENCE: ExperienceItem[] = [
 ];
 
 /**
- * Resume disciplines, in display order (/001, /002, …). Plain text until each
+ * Resume disciplines, in display order (N°01, N°02, …, as on the homepage cards). Plain text until each
  * discipline has a real project grouping to open; never ship dead buttons or
  * placeholder links.
  */
