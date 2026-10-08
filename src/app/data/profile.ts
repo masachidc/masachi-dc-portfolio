@@ -178,20 +178,21 @@ export interface EducationItem {
   when?: string;
 }
 
+// Display order: Architecture first, then Digital Interactive Media (Nathan's choice).
 export const EDUCATION: EducationItem[] = [
-  {
-    field: 'Digital Interactive Media',
-    degree: 'Bachelor of Science (B.S.)',
-    minor: 'Minor in Computer Science',
-    school: 'Florida International University',
-    when: 'Graduated April 2026',
-  },
   {
     // Completed: Associate of Arts, May 2024 (Nathan's résumé records).
     field: 'Architecture',
     degree: 'Associate of Arts (A.A.)',
     school: 'Hillsborough Community College',
     when: '2021–2024',
+  },
+  {
+    field: 'Digital Interactive Media',
+    degree: 'Bachelor of Science (B.S.)',
+    minor: 'Minor in Computer Science',
+    school: 'Florida International University',
+    when: 'Graduated April 2026',
   },
 ];
 
