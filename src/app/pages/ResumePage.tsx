@@ -70,7 +70,7 @@ function ExperienceAccordion() {
         const meta = [item.title, item.role, item.when].filter(Boolean);
 
         return (
-          <li key={`${item.title}-${item.org}`} className="border-t border-line">
+          <li key={`${item.title}-${item.org}`} className="border-t border-line first:border-t-0">
             <h3>
               <button
                 id={triggerId}
