@@ -149,12 +149,6 @@ export const EXPERIENCE: ExperienceItem[] = [
   },
 ];
 
-/**
- * Resume disciplines, in display order (N°01, N°02, …, as on the homepage cards). Each card links to its discipline
- * page (see disciplines.ts).
- */
-export const RESUME_DISCIPLINES = ['Product Design', 'Design Engineering', 'Visual Design'] as const;
-
 /** Four groups, mirroring the disciplines plus how Nathan works. Keep each group short: signal, not keyword density. */
 export const SKILLS: { group: string; items: string[] }[] = [
   { group: 'Product Design', items: ['Product strategy', 'UX research', 'Interaction design', 'Rapid prototyping', 'Shipping', 'Figma'] },

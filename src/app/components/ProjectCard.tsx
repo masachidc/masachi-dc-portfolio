@@ -19,8 +19,6 @@ interface ProjectCardProps {
   className?: string;
   /** The tall card in a desktop mosaic band: room for a larger title. */
   feature?: boolean;
-  /** Display number ("01"); defaults to the project's place in Selected work. */
-  number?: string;
 }
 
 function hexToRgba(hex: string, alpha: number) {
@@ -55,14 +53,13 @@ const panelItem = {
   hover: { opacity: 1, y: 0, transition: { duration: 0.32, ease: easeOut } },
 };
 
-function CardInner({ p, imgY, feature, number }: {
+function CardInner({ p, imgY, feature }: {
   p: Project;
   imgY: ReturnType<typeof useTransform>;
   feature: boolean;
-  number: string;
 }) {
   const titleClass = `font-display uppercase text-balance ${feature ? 'text-card-lg' : 'text-card'}`;
-  const meta = `N°${number}${p.year ? ` · ${p.year}` : ''}`;
+  const meta = `N°${projectNumber(p)}${p.year ? ` · ${p.year}` : ''}`;
   const { primary } = p.brand;
   const deep = p.brand.primaryDeep ?? primary;
   // light brand colours (e.g. TEMBO yellow) need ink text on the wash, not white
@@ -144,7 +141,7 @@ function CardInner({ p, imgY, feature, number }: {
   );
 }
 
-export function ProjectCard({ project: p, className = '', feature = false, number = projectNumber(p) }: ProjectCardProps) {
+export function ProjectCard({ project: p, className = '', feature = false }: ProjectCardProps) {
   const restShadow = '0 1px 2px rgba(10,10,11,0.05), 0 24px 48px -30px rgba(10,10,11,0.22)';
   const hoverShadow = `0 1px 2px rgba(10,10,11,0.06), 0 32px 60px -24px ${hexToRgba(p.brand.primaryDeep ?? p.brand.primary, 0.4)}`;
   const href = projectHref(p);
@@ -194,7 +191,7 @@ export function ProjectCard({ project: p, className = '', feature = false, numbe
     className: 'group relative block aspect-square w-full overflow-hidden min-[380px]:aspect-[4/3] sm:aspect-[4/5] bg-ink shadow-[var(--rest-shadow)] transition-shadow duration-500 [transform-style:preserve-3d] hover:shadow-[var(--hover-shadow)] lg:aspect-auto lg:h-full',
   };
 
-  const innerProps = { p, imgY, feature, number };
+  const innerProps = { p, imgY, feature };
 
   return (
     <motion.div

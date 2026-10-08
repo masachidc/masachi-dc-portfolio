@@ -1,211 +1,240 @@
 import { findProject, type Project } from './projects';
-import { RESUME_DISCIPLINES } from './profile';
 
 /**
  * The three discipline pages (/product-design, /design-engineering, /visual-design), linked from the Resume's
- * Disciplines cards. One config per page; DisciplinePage renders them all from the same template.
+ * "Explore work" cards. One config per page; DisciplinePage renders them all from the same template. Array order is the
+ * order of the Resume cards.
  *
  * Projects are referenced by slug, never copied, so title, year, cover and case-study route always come from
- * projects.ts. Each page only rewrites the summary and contribution line for the discipline it demonstrates.
+ * projects.ts. Each page only adds what the project shows about that discipline: a description and a focus line.
  * Same rules as the case studies: verified facts only, and release language exact (Tembo's Android build is in closed
- * testing, KESHO was an invite-only beta and is decommissioned, INLINE was a team project in which Nathan owned the
- * UI/UX, not the code).
+ * testing, KESHO was an invite-only beta and is decommissioned, INLINE was a five-person team project in which Nathan
+ * owned the UI/UX, not the engineering).
  */
 export interface DisciplineWork {
   /** A slug from PROJECTS or OTHER_PROJECTS. */
   slug: string;
-  /** What the project shows about this discipline: the card's hover (and mobile) description, ~15–28 words. */
-  summary: string;
-  /** Nathan's part, "·"-separated: replaces the card's `disciplines` line. */
-  contribution: string;
+  /** Why the project matters for this discipline, in Nathan's voice: one or two sentences. */
+  description: string;
+  /** What the project demonstrates here, "·"-separated. */
+  focus: string;
 }
 
-export interface Principle {
+/** One numbered row of the Approach section: how Nathan works, not a tool. */
+export interface ApproachItem {
   title: string;
   text: string;
 }
 
 export interface Discipline {
-  /** Route: /<slug>. */
+  /** Route: /<slug> (see disciplineHref). */
   slug: string;
-  /** Matches RESUME_DISCIPLINES, so the Resume card and its page can't drift apart. */
-  name: (typeof RESUME_DISCIPLINES)[number];
-  meta: { title: string; description: string };
-  /** Headline under the discipline name; the last line takes the teal accent, as on the homepage. */
-  headline: string[];
-  intro: string;
-  /** Exactly three, in display order: one homepage mosaic band (the second is the tall card on desktop). */
-  work: [DisciplineWork, DisciplineWork, DisciplineWork];
-  /**
-   * The capabilities section after Selected work: a label and statement on the left, exactly four numbered principles
-   * (title + one line) on the right. Principles describe how Nathan works, not tools.
-   */
+  /** The discipline's name: hero kicker, page title and Resume card. */
+  title: string;
+  /** Meta description (the title comes from `title`). */
+  description: string;
+  hero: {
+    /** Headline lines; the last takes the teal accent, as on the homepage. */
+    lines: string[];
+    lede: string;
+  };
+  /** Selected work: a headline under the "Selected work" kicker, then exactly three projects in display order. */
+  work: {
+    headline: string;
+    projects: [DisciplineWork, DisciplineWork, DisciplineWork];
+  };
+  /** Approach: headline (one sentence per line) and description on the left, five numbered items on the right. */
   approach: {
-    /** Section heading, e.g. "How I design". */
-    label: string;
-    /** One sentence per line. */
     headline: string[];
     description: string;
-    principles: [Principle, Principle, Principle, Principle];
+    items: [ApproachItem, ApproachItem, ApproachItem, ApproachItem, ApproachItem];
   };
 }
 
 export const DISCIPLINES: Discipline[] = [
   {
     slug: 'product-design',
-    name: 'Product Design',
-    meta: {
-      title: 'Product Design',
-      description:
-        'Product design by Nathan Masachi: Tembo, INLINE and AMUSE, from understanding the problem to defining the experience.',
+    title: 'Product Design',
+    description:
+      'Product design by Nathan Masachi: Tembo, AMUSE and INLINE, from research and product strategy to interaction design and tested interfaces.',
+    hero: {
+      lines: ['I turn ideas into', 'useful products.'],
+      lede: 'With a bias toward shipping, I move from research and product strategy into interaction design, rapid prototypes, and tested interfaces—balancing user needs, product goals, and technical constraints.',
     },
-    headline: ['I turn ideas into', 'useful products'],
-    intro:
-      'With a bias toward shipping, I move quickly from ideas to prototypes and working products, balancing user needs, thoughtful design, and technical feasibility.',
-    approach: {
-      label: 'How I design products',
-      headline: ['Understand the problem.', 'Shape the solution.'],
-      description:
-        'I work from discovery through delivery, using research, experimentation, and technical understanding to make ideas useful.',
-      principles: [
-        { title: 'Product strategy', text: 'Defining the problem, product direction, priorities, and tradeoffs before committing to a solution.' },
-        { title: 'Research & validation', text: 'Using research and usability testing to challenge assumptions and improve decisions.' },
-        { title: 'Interaction & experience', text: 'Designing clear flows, intuitive interfaces, and coherent experiences across a product.' },
-        { title: 'Rapid prototyping', text: 'Turning ideas into interactive prototypes and working experiences to test and refine quickly.' },
+    work: {
+      headline: 'From first question to working experience.',
+      projects: [
+        {
+          slug: 'tembo-app',
+          description:
+            'I defined the core product model around Storylines and Moments, then designed the end-to-end mobile experience across creation, discovery, following, and privacy.',
+          focus: 'Product strategy · Interaction design · Mobile UX',
+        },
+        {
+          slug: 'amuse-art-museum',
+          description:
+            'Research challenged the original native-app direction and moved AMUSE to a mobile-first web platform; usability testing then reshaped search, navigation, and My Museum.',
+          focus: 'UX research · Product strategy · Usability testing',
+        },
+        {
+          slug: 'inline-chrome-extension',
+          description:
+            'I designed a lightweight interaction model that lets notes, drawing, highlights, and contextual AI live directly on any webpage without taking it over.',
+          focus: 'Interaction design · UI/UX · Team collaboration',
+        },
       ],
     },
-    work: [
-      {
-        slug: 'tembo-app',
-        summary:
-          'The ongoing chapter of a life, not the single post, is the social object. A deliberately small first version, and a Home feed without engagement ranking.',
-        contribution: 'Founder · Product strategy · Interaction design',
-      },
-      {
-        slug: 'inline-chrome-extension',
-        summary:
-          'I owned the UI/UX in a five-person team, from the floating entry point to tool interactions, the visual system and feature states.',
-        contribution: 'UI/UX Designer · 5-person product team',
-      },
-      {
-        slug: 'amuse-art-museum',
-        summary:
-          'Research moved it from a native app to a mobile-first web platform with M-Pesa booking; testing with five participants made My Museum a core feature.',
-        contribution: 'Lead Product Designer · UX research · Usability testing',
-      },
-    ],
+    approach: {
+      headline: ['Understand the problem.', 'Shape the product.'],
+      description:
+        'I don’t start with screens. I start by clarifying what needs to change, what evidence exists, and what the product has to make easier. The interface comes after the structure.',
+      items: [
+        { title: 'Product strategy', text: 'Turn ambiguous ideas into a clear product direction, scope, and set of priorities.' },
+        { title: 'UX research', text: 'Use interviews, observation, competitive research, and testing to replace assumptions with evidence.' },
+        {
+          title: 'Information architecture',
+          text: 'Organize flows, content, states, and hierarchy so the product makes sense before visual polish.',
+        },
+        {
+          title: 'Interaction design',
+          text: 'Design behaviors, feedback, and edge cases that make the experience predictable and easy to use.',
+        },
+        { title: 'Prototyping & testing', text: 'Make ideas tangible early, test what matters, and iterate before complexity hardens.' },
+      ],
+    },
   },
   {
     slug: 'design-engineering',
-    name: 'Design Engineering',
-    meta: {
-      title: 'Design Engineering',
-      description:
-        'Design engineering by Nathan Masachi: Tembo, KESHO and INLINE, taking interaction design into production code.',
+    title: 'Design Engineering',
+    description:
+      'Design engineering by Nathan Masachi: Tembo, KESHO and INLINE, carrying interface decisions into working software with AI-assisted development.',
+    hero: {
+      lines: ['Designed with intent.', 'Built to work.'],
+      lede: 'I bridge design and implementation, using AI-assisted development and a computer science foundation to turn interface decisions into working software without losing the design intent.',
     },
-    headline: ['Turning ideas into', 'shipped work'],
-    intro:
-      'With a background in architecture, digital media, and computer science, I work across design and development to turn ideas into working products with little to no traditional handoff.',
-    approach: {
-      label: 'How I build',
-      headline: ['From design intent', 'to working software.'],
-      description:
-        'I combine design judgment, computer science fundamentals, and AI-assisted development to build products that work beyond the prototype.',
-      principles: [
-        { title: 'Interface engineering', text: 'Building responsive, interactive experiences with React, React Native, and TypeScript.' },
-        { title: 'Systems & architecture', text: 'Structuring components, data, and application behavior for maintainability and scale.' },
+    work: {
+      headline: 'Interfaces carried into working software.',
+      projects: [
         {
-          title: 'AI-assisted development',
-          text: 'Using AI coding agents to accelerate implementation, while directing architecture, evaluating outputs, and validating correctness.',
+          slug: 'tembo-app',
+          description:
+            'I built the production React Native and Expo app in TypeScript with Supabase, including authentication, photo publishing, privacy, moderation, analytics, testing, CI, and observability.',
+          focus: 'React Native · TypeScript · Supabase',
         },
-        { title: 'Production & quality', text: 'Taking products through testing, performance optimization, deployment, and release.' },
+        {
+          slug: 'kesho-app',
+          description:
+            'I carried KESHO from product and interaction design into a production web app and mobile closed testing, including server-enforced prediction integrity and release infrastructure.',
+          focus: 'Full-stack development · Product systems · Release',
+        },
+        {
+          slug: 'inline-chrome-extension',
+          description:
+            'On a five-person team, I designed the extension around real browser and implementation constraints, working closely with front-end, backend, and database collaborators.',
+          focus: 'Interaction engineering · Browser extension · Technical collaboration',
+        },
       ],
     },
-    work: [
-      {
-        slug: 'tembo-app',
-        summary:
-          'Designed and engineered end to end in React Native, Expo and TypeScript on Supabase. Live on the App Store; Android is in closed testing.',
-        contribution: 'Founder · Design engineering · Full-stack development',
-      },
-      {
-        slug: 'kesho-app',
-        summary:
-          'A sealed Call was a design promise. I built the server-side kickoff gate, locks and all-or-nothing reveal to keep it. Invite-only beta, then decommissioned.',
-        contribution: 'Product design · Engineering · Closed testing',
-      },
-      {
-        slug: 'inline-chrome-extension',
-        summary:
-          'Designed for the build: interactions, visual system and feature states, made alongside a front-end developer, a backend developer and a database designer.',
-        contribution: 'UI/UX Designer · Technical collaboration',
-      },
-    ],
+    approach: {
+      headline: ['Carry the design', 'all the way through.'],
+      description:
+        'I use AI heavily for implementation, but not as a substitute for reasoning. My computer science background helps me evaluate architecture, state, data, failure modes, and tradeoffs while using AI to move faster.',
+      items: [
+        {
+          title: 'React & TypeScript',
+          text: 'Build production interfaces in React, React Native, and TypeScript, using AI to accelerate implementation while I reason through structure, state, and behavior.',
+        },
+        {
+          title: 'Design systems',
+          text: 'Translate visual and interaction decisions into reusable components, tokens, and patterns that stay coherent as a product grows.',
+        },
+        {
+          title: 'Interaction engineering',
+          text: 'Preserve states, transitions, responsive behavior, accessibility, and edge cases beyond the static mockup.',
+        },
+        {
+          title: 'Full-stack product development',
+          text: 'Connect the interface to authentication, data, APIs, storage, analytics, and backend rules so the product works end to end.',
+        },
+        {
+          title: 'Testing & performance',
+          text: 'Use automated tests, CI, observability, and performance work to make what ships more dependable.',
+        },
+      ],
+    },
   },
   {
     slug: 'visual-design',
-    name: 'Visual Design',
-    meta: {
-      title: 'Visual Design',
-      description:
-        'Visual design by Nathan Masachi: Project SEEDS, Tembo and The Incredible Hulk, through identity, typography, composition and motion.',
+    title: 'Visual Design',
+    description:
+      'Visual design by Nathan Masachi: Project SEEDS, The Incredible Hulk and Tembo, across identity, typography, composition, motion and product UI.',
+    hero: {
+      lines: ['Making ideas', 'visible.'],
+      lede: 'I build visual systems that make ideas easier to recognize, understand, and remember—across identity, typography, composition, motion, and digital products.',
     },
-    headline: ['Making ideas', 'visible'],
-    intro:
-      'I turn ideas into distinctive visual experiences, combining identity, typography, and motion to create work that feels cohesive, purposeful, and memorable.',
+    work: {
+      headline: 'Visual systems with a point of view.',
+      projects: [
+        {
+          slug: 'project-seeds-branding',
+          description:
+            'I extended FIU’s established brand language into a distinct identity for Project SEEDS, then carried it across the website, recruitment materials, social content, and presentations.',
+          focus: 'Brand identity · Typography · Web',
+        },
+        {
+          slug: 'the-incredible-hulk',
+          description:
+            'I used kinetic typography, compositing, particle effects, and pacing to turn a comic origin story into a motion piece.',
+          focus: 'Motion design · Kinetic typography · Compositing',
+        },
+        {
+          slug: 'tembo-app',
+          description:
+            'I shaped Tembo’s product expression around a restrained dark/light system, a bold yellow signal, editorial hierarchy, and interface surfaces that stay recognizably Tembo.',
+          focus: 'Visual systems · Product UI · Brand expression',
+        },
+      ],
+    },
     approach: {
-      label: 'How I design',
       headline: ['A clear idea.', 'A distinctive expression.'],
       description:
         'Good visual design starts with understanding what needs to be communicated, then finding the right form to make it recognizable, consistent, and memorable.',
-      principles: [
-        { title: 'Identity & systems', text: 'Building cohesive visual languages that work across brands, products, and touchpoints.' },
-        { title: 'Typography & composition', text: 'Using type, hierarchy, color, and layout to give ideas structure and clarity.' },
-        { title: 'Motion & storytelling', text: 'Bringing concepts to life through movement, pacing, and visual narrative.' },
-        { title: 'Design craft', text: 'Refining the details that make an experience feel intentional, polished, and complete.' },
+      items: [
+        { title: 'Identity & systems', text: 'Build cohesive visual languages that work across brands, products, and touchpoints.' },
+        { title: 'Typography & composition', text: 'Use type, hierarchy, color, and layout to give ideas structure and clarity.' },
+        {
+          title: 'Visual direction',
+          text: 'Choose imagery, references, color, and composition that give a project a coherent point of view.',
+        },
+        {
+          title: 'Motion & storytelling',
+          text: 'Use movement, pacing, and sequence to bring concepts to life without letting motion become decoration.',
+        },
+        {
+          title: 'Craft & polish',
+          text: 'Refine spacing, rhythm, alignment, and detail until the system feels intentional at every scale.',
+        },
       ],
     },
-    work: [
-      {
-        slug: 'project-seeds-branding',
-        summary:
-          'A seed mark and a gold and navy wordmark inside FIU’s brand system, approved by FIU branding and carried across campaign materials and the website.',
-        contribution: 'Brand identity · Logo design · Web design',
-      },
-      {
-        slug: 'tembo-app',
-        summary:
-          'The visual language of an app I founded, designed and shipped: interface composition and TEMBO yellow, carried through Storylines and their Moments.',
-        contribution: 'Founder · Interface design · Brand',
-      },
-      {
-        slug: 'the-incredible-hulk',
-        summary:
-          'Kinetic typography and particle effects carry the story, made in After Effects for Masachi DC Studios with Brandspot Media.',
-        contribution: 'Motion design · Kinetic typography',
-      },
-    ],
   },
 ];
 
 export const disciplineHref = (d: Discipline) => `/${d.slug}`;
 
-/** The page for a Resume discipline. Throws at load if one is missing, so a Resume card can never link nowhere. */
-export function findDiscipline(name: Discipline['name']) {
-  const d = DISCIPLINES.find((x) => x.name === name);
-  if (!d) throw new Error(`No discipline page for "${name}"`);
-  return d;
+export interface DisciplineProject extends DisciplineWork {
+  project: Project;
 }
 
 /**
- * A discipline's three projects, resolved from projects.ts with this page's description and contribution line.
- * Throws at load if a slug is wrong, so a typo can't ship a broken card. Every card shows on phones here, since a
- * band of three has none to spare.
+ * A discipline's three projects, each resolved from projects.ts alongside this page's description and focus line.
+ * Throws if a slug is wrong; every discipline is checked once at load (below), so a typo can't ship a broken row.
  */
-export function disciplineProjects(d: Discipline): Project[] {
-  return d.work.map((w) => {
+export function disciplineProjects(d: Discipline): DisciplineProject[] {
+  return d.work.projects.map((w) => {
     const project = findProject(w.slug);
-    if (!project) throw new Error(`Discipline "${d.name}": unknown project slug "${w.slug}"`);
-    return { ...project, description: w.summary, disciplines: w.contribution, hideOnMobile: false };
+    if (!project) throw new Error(`Discipline "${d.title}": unknown project slug "${w.slug}"`);
+    return { ...w, project };
   });
 }
+
+DISCIPLINES.forEach(disciplineProjects);

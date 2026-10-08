@@ -1,4 +1,4 @@
-import { useRef, type ReactNode } from 'react';
+import { Fragment, useRef, type ReactNode } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { easeOut } from '../lib/motion';
 import { RevealLine } from './RevealLine';
@@ -53,10 +53,14 @@ export function Hero({
         </motion.p>
 
         <h1 className="font-display text-display text-ink">
+          {/* The space keeps the spoken heading "ideas into useful", not "intouseful". */}
           {lines.map((line, i) => (
-            <RevealLine key={line} delay={0.15 + i * 0.13} className={i === lines.length - 1 ? 'text-accent' : ''}>
-              {line}
-            </RevealLine>
+            <Fragment key={line}>
+              {i > 0 && ' '}
+              <RevealLine delay={0.15 + i * 0.13} className={i === lines.length - 1 ? 'text-accent' : ''}>
+                {line}
+              </RevealLine>
+            </Fragment>
           ))}
         </h1>
 

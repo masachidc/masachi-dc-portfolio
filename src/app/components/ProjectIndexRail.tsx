@@ -74,8 +74,7 @@ function RailItem({
   );
 }
 
-/** Dots on the right that jump to each card in Selected work: every project on the homepage, a discipline page's three on it. */
-export function ProjectIndexRail({ projects = PROJECTS }: { projects?: Project[] } = {}) {
+export function ProjectIndexRail() {
   const { scrollY } = useScroll();
   const loadAmount = useTransform(scrollY, [0, 260], [1, 0]);
   const [collapsed, setCollapsed] = useState(false);
@@ -92,7 +91,7 @@ export function ProjectIndexRail({ projects = PROJECTS }: { projects?: Project[]
       className="fixed right-8 top-[calc(50%-39px)] z-30 hidden w-[290px] -translate-y-1/2 flex-col gap-4 xl:flex"
       aria-label="Jump to project"
     >
-      {projects.map((p) => (
+      {PROJECTS.map((p) => (
         <RailItem key={p.slug} project={p} loadAmount={loadAmount} collapsed={collapsed} />
       ))}
     </motion.nav>

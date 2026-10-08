@@ -17,12 +17,12 @@ function groupsOfThree(items: Project[]) {
  * Slots follow reading order (top-left, top-right, then below), so array
  * order is the order a visitor reads the cards.
  */
-function MosaicBand({ group, mirrored, number }: { group: Project[]; mirrored: boolean; number: (p: Project) => string }) {
+function MosaicBand({ group, mirrored }: { group: Project[]; mirrored: boolean }) {
   if (group.length < 3) {
     return (
       <div className={`grid gap-6 ${group.length === 2 ? 'aspect-[5/2] grid-cols-2' : 'aspect-[5/2] grid-cols-1'}`}>
         {group.map((p) => (
-          <ProjectCard key={p.slug} project={p} number={number(p)} />
+          <ProjectCard key={p.slug} project={p} />
         ))}
       </div>
     );
@@ -34,15 +34,15 @@ function MosaicBand({ group, mirrored, number }: { group: Project[]; mirrored: b
       <div className="grid h-full grid-cols-3 grid-rows-2 gap-6">
         {mirrored ? (
           <>
-            <ProjectCard project={a} number={number(a)} feature className="col-span-1 row-span-2" />
-            <ProjectCard project={b} number={number(b)} className="col-span-2 col-start-2 row-span-1" />
-            <ProjectCard project={c} number={number(c)} className="col-span-2 col-start-2 row-span-1 row-start-2" />
+            <ProjectCard project={a} feature className="col-span-1 row-span-2" />
+            <ProjectCard project={b} className="col-span-2 col-start-2 row-span-1" />
+            <ProjectCard project={c} className="col-span-2 col-start-2 row-span-1 row-start-2" />
           </>
         ) : (
           <>
-            <ProjectCard project={a} number={number(a)} className="col-span-2 row-span-1" />
-            <ProjectCard project={b} number={number(b)} feature className="col-span-1 col-start-3 row-span-2 row-start-1" />
-            <ProjectCard project={c} number={number(c)} className="col-span-2 row-span-1 row-start-2" />
+            <ProjectCard project={a} className="col-span-2 row-span-1" />
+            <ProjectCard project={b} feature className="col-span-1 col-start-3 row-span-2 row-start-1" />
+            <ProjectCard project={c} className="col-span-2 row-span-1 row-start-2" />
           </>
         )}
       </div>
@@ -50,31 +50,27 @@ function MosaicBand({ group, mirrored, number }: { group: Project[]; mirrored: b
   );
 }
 
-/**
- * Selected work. The homepage shows every project in PROJECTS; a discipline page passes its own three, numbered by
- * their place on that page.
- */
-export function ProjectGrid({ projects = PROJECTS }: { projects?: Project[] } = {}) {
-  const number = (p: Project) => String(projects.indexOf(p) + 1).padStart(2, '0');
+export function ProjectGrid() {
   return (
     <section id="work" aria-labelledby="work-title" className="relative bg-bone">
       {/* Hero description → "Selected work" equals nav → hero kicker: both are --space-section. */}
       <div className="container-site pb-(--space-section) pt-(--space-section)">
-        <h2 id="work-title" className="mb-8 font-display text-kicker uppercase text-ink">
+        {/* The editorial section kicker: muted and sentence case, like every other section (caps are for UI labels). */}
+        <h2 id="work-title" className="mb-8 font-display text-kicker text-fg-faint">
           Selected work
         </h2>
 
         {/* mobile / tablet — simple stacked & 2-col rhythm */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:hidden">
-          {projects.map((p) => (
-            <ProjectCard key={p.slug} project={p} number={number(p)} className={p.hideOnMobile ? 'max-sm:hidden' : ''} />
+          {PROJECTS.map((p) => (
+            <ProjectCard key={p.slug} project={p} className={p.hideOnMobile ? 'max-sm:hidden' : ''} />
           ))}
         </div>
 
         {/* desktop — asymmetric editorial mosaic */}
         <div className="hidden lg:flex lg:flex-col lg:gap-6">
-          {groupsOfThree(projects).map((group, i) => (
-            <MosaicBand key={group[0].slug} group={group} mirrored={i % 2 === 1} number={number} />
+          {groupsOfThree(PROJECTS).map((group, i) => (
+            <MosaicBand key={group[0].slug} group={group} mirrored={i % 2 === 1} />
           ))}
         </div>
       </div>
