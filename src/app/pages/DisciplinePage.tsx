@@ -28,7 +28,7 @@ function Approach({ discipline }: { discipline: Discipline }) {
       className="container-site section-y grid grid-cols-1 gap-10 border-t border-line md:grid-cols-[5fr_7fr] md:gap-16"
     >
       <motion.div variants={fadeUp}>
-        <h2 id={id} className="font-display text-kicker uppercase text-ink">
+        <h2 id={id} className="font-display text-kicker text-fg-faint">
           {approach.label}
         </h2>
         <p className="mt-6 text-balance font-display text-headline text-ink">
