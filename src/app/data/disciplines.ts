@@ -42,7 +42,7 @@ export const DISCIPLINES: Discipline[] = [
     meta: {
       title: 'Product Design',
       description:
-        'Product design by Nathan Masachi: Tembo, AMUSE and INLINE, from understanding the problem to defining the experience.',
+        'Product design by Nathan Masachi: Tembo, INLINE and AMUSE, from understanding the problem to defining the experience.',
     },
     headline: ['A product', 'designer.'],
     intro:
@@ -55,16 +55,16 @@ export const DISCIPLINES: Discipline[] = [
         contribution: 'Founder · Product strategy · Interaction design',
       },
       {
-        slug: 'amuse-art-museum',
-        summary:
-          'Research moved it from a native app to a mobile-first web platform with M-Pesa booking; testing with five participants made My Museum a core feature.',
-        contribution: 'Lead Product Designer · UX research · Usability testing',
-      },
-      {
         slug: 'inline-chrome-extension',
         summary:
           'I owned the UI/UX in a five-person team, from the floating entry point to tool interactions, the visual system and feature states.',
         contribution: 'UI/UX Designer · 5-person product team',
+      },
+      {
+        slug: 'amuse-art-museum',
+        summary:
+          'Research moved it from a native app to a mobile-first web platform with M-Pesa booking; testing with five participants made My Museum a core feature.',
+        contribution: 'Lead Product Designer · UX research · Usability testing',
       },
     ],
     skills: ['Product strategy', 'UX research', 'Interaction design', 'Prototyping & testing', 'Information architecture'],
