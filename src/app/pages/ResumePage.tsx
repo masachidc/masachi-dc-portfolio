@@ -13,10 +13,10 @@ const heroLink = 'group inline-flex items-center gap-1.5 border-b border-ink pb-
 
 const RULE = {
   /** Hairline above the section, as in the case-study glance row. */
-  always: 'border-t border-line pt-6',
-  /** Opens a column: stacked it keeps its rule; from lg the grid's full-width rule stands in for it. */
-  lead: 'border-t border-line pt-6 lg:border-t-0 lg:pt-0',
-  none: '',
+  always: { section: 'border-t border-line pt-6', heading: 'mb-8' },
+  /** Hairline under the heading: the heading sits above the divider. Caller sets the space below (headingClassName). */
+  under: { section: '', heading: 'border-b border-line pb-6' },
+  none: { section: '', heading: 'mb-8' },
 };
 
 /** One résumé section, headed like a case-study outcomes block: the muted kicker is the h2. */
@@ -25,12 +25,15 @@ function Block({
   title,
   rule = 'always',
   className = '',
+  headingClassName = '',
   children,
 }: {
   id: string;
   title: string;
   rule?: keyof typeof RULE;
   className?: string;
+  /** Extra heading classes, e.g. to run the left column's rule across the gutter. */
+  headingClassName?: string;
   children: ReactNode;
 }) {
   return (
@@ -40,9 +43,9 @@ function Block({
       whileInView="show"
       viewport={viewportOnce}
       variants={fadeUp}
-      className={`${RULE[rule]} ${className}`}
+      className={`${RULE[rule].section} ${className}`}
     >
-      <h2 id={id} className="mb-8 font-display text-kicker text-fg-faint">
+      <h2 id={id} className={`font-display text-kicker text-fg-faint ${RULE[rule].heading} ${headingClassName}`}>
         {title}
       </h2>
       {children}
@@ -217,13 +220,17 @@ export function ResumePage() {
       }
     >
       <div className="container-reading pb-(--space-section)">
-        <div className="mt-4 grid grid-cols-1 gap-y-(--space-section) lg:mt-8 lg:grid-cols-[2fr_3fr] lg:gap-x-16 lg:border-t lg:border-line lg:pt-6">
-          <Block id="experience" title="Experience" rule="lead" className="lg:col-start-2 lg:row-start-1">
+        {/* Skills and Experience headings sit above one divider: each heading carries the rule, and from lg the
+            Skills rule runs across the gutter (-mr-16 = gap-x-16) to meet Experience's. The Experience heading keeps
+            less space below it because each accordion row has its own top padding, so Tembo lines up with the first
+            skill group. */}
+        <div className="mt-4 grid grid-cols-1 gap-y-(--space-section) lg:mt-8 lg:grid-cols-[2fr_3fr] lg:gap-x-16">
+          <Block id="experience" title="Experience" rule="under" headingClassName="mb-2" className="lg:col-start-2 lg:row-start-1">
             <ExperienceAccordion />
           </Block>
 
           <div className="flex flex-col gap-(--space-section) lg:col-start-1 lg:row-start-1">
-            <Block id="skills" title="Skills" rule="lead">
+            <Block id="skills" title="Skills" rule="under" headingClassName="mb-8 lg:-mr-16">
               <dl className="flex max-w-(--measure) flex-col gap-6">
                 {SKILLS.map((skill) => (
                   <div key={skill.group}>
