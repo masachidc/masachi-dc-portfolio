@@ -7,7 +7,7 @@ import { ContactRail } from '../components/ContactRail';
 import { Bullets } from '../components/caseStudy';
 import { fadeUp, viewportOnce } from '../lib/motion';
 import { EDUCATION, EXPERIENCE, PROFILE, RESUME_DISCIPLINES, RESUME_INTRO, SKILLS } from '../data/profile';
-import { EMAIL, isExternal } from '../data/site';
+import { isExternal } from '../data/site';
 
 /** Hero link, as in the case-study hero. */
 const heroLink = 'group inline-flex items-center gap-1.5 border-b border-ink pb-1 text-label caps text-ink';
@@ -216,30 +216,22 @@ export function ResumePage() {
       width="reading"
       titleSize="headline"
       lede={RESUME_INTRO}
+      // Email, LinkedIn and X live in the contact rail (and the footer). The hero only carries a download link, and only
+      // once a real résumé exists: a /public PDF downloads, a hosted link opens in a new tab.
       actions={
-        <>
-          <SiteLink href={`mailto:${EMAIL}`} className={heroLink}>
-            {EMAIL}
-            <ArrowUpRight size={12} strokeWidth={2} aria-hidden />
-          </SiteLink>
-          <SiteLink href={PROFILE.linkedin} className={heroLink}>
-            LinkedIn
-            <ArrowUpRight size={12} strokeWidth={2} aria-hidden />
-          </SiteLink>
-          {/* Only once a real résumé exists: a /public PDF downloads, a hosted link opens in a new tab. */}
-          {PROFILE.resumePdf &&
-            (isExternal(PROFILE.resumePdf) ? (
-              <SiteLink href={PROFILE.resumePdf} className={heroLink}>
-                Download résumé
-                <Download size={12} strokeWidth={2} aria-hidden />
-              </SiteLink>
-            ) : (
-              <a href={PROFILE.resumePdf} download className={heroLink}>
-                Download résumé
-                <Download size={12} strokeWidth={2} aria-hidden />
-              </a>
-            ))}
-        </>
+        PROFILE.resumePdf ? (
+          isExternal(PROFILE.resumePdf) ? (
+            <SiteLink href={PROFILE.resumePdf} className={heroLink}>
+              Download résumé
+              <Download size={12} strokeWidth={2} aria-hidden />
+            </SiteLink>
+          ) : (
+            <a href={PROFILE.resumePdf} download className={heroLink}>
+              Download résumé
+              <Download size={12} strokeWidth={2} aria-hidden />
+            </a>
+          )
+        ) : undefined
       }
     >
       <ContactRail />
