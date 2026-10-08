@@ -97,8 +97,9 @@ function CardInner({ p, imgY, feature, number }: {
         <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5 pr-32 transition-opacity duration-300 sm:p-6 sm:pr-32 md:group-hover:opacity-0">
           <div className="min-w-0">
             <p className="mb-3 font-mono text-micro font-medium tracking-[0.1em] text-bone/65">{meta}</p>
-            <h3 className={`${titleClass} text-bone`}>{p.cardTitle}</h3>
-            <p className="mt-2 max-w-(--measure) text-body font-medium text-bone/90">{p.summary}</p>
+            {/* Title and summary drop out inside a [data-bare] grid (discipline pages); the link's aria-label keeps both. */}
+            <h3 className={`${titleClass} text-bone in-data-bare:hidden`}>{p.cardTitle}</h3>
+            <p className="mt-2 max-w-(--measure) text-body font-medium text-bone/90 in-data-bare:hidden">{p.summary}</p>
             <p className="mt-3 text-micro caps text-bone/65">{p.disciplines}</p>
           </div>
         </div>

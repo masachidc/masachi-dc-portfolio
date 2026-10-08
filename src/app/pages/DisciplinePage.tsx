@@ -88,7 +88,7 @@ export function DisciplinePage({ discipline }: { discipline: Discipline }) {
       <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
         {/* key: replay the entrance when moving between discipline pages */}
         <Hero key={discipline.slug} kicker={discipline.name} lines={discipline.headline} intro={discipline.intro} />
-        <ProjectGrid projects={projects} />
+        <ProjectGrid projects={projects} bare />
         <Approach discipline={discipline} />
 
         <HomeAbout />
