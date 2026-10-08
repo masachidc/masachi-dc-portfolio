@@ -229,37 +229,37 @@ export function ResumePage() {
             <ExperienceAccordion />
           </Block>
 
-          <div className="flex flex-col gap-(--space-section) lg:col-start-1 lg:row-start-1">
-            <Block id="skills" title="Skills" rule="under" headingClassName="mb-8 lg:-mr-16">
-              <dl className="flex max-w-(--measure) flex-col gap-6">
-                {SKILLS.map((skill) => (
-                  <div key={skill.group}>
-                    <dt className="text-label caps text-fg-subtle">{skill.group}</dt>
-                    <dd className="mt-2 text-body text-fg-muted">{skill.items.join(', ')}</dd>
-                  </div>
-                ))}
-              </dl>
-            </Block>
+          <Block id="skills" title="Skills" rule="under" headingClassName="mb-8 lg:-mr-16" className="lg:col-start-1 lg:row-start-1">
+            <dl className="flex max-w-(--measure) flex-col gap-6">
+              {SKILLS.map((skill) => (
+                <div key={skill.group}>
+                  <dt className="text-label caps text-fg-subtle">{skill.group}</dt>
+                  <dd className="mt-2 text-body text-fg-muted">{skill.items.join(', ')}</dd>
+                </div>
+              ))}
+            </dl>
+          </Block>
 
-            <Block id="education" title="Education" rule="under" headingClassName="mb-8">
-              <ul className="flex max-w-(--measure) flex-col gap-6">
-                {EDUCATION.map((item) => (
-                  <li key={item.field}>
-                    <p className="text-label caps text-fg-subtle">{item.field}</p>
-                    <div className="mt-2 text-body text-fg-muted">
-                      {[item.minor, item.school, item.note].filter(Boolean).map((line) => (
-                        <p key={line}>{line}</p>
-                      ))}
-                    </div>
-                    {item.when && <p className="mt-1 text-small text-fg-subtle">{item.when}</p>}
-                  </li>
-                ))}
-              </ul>
-            </Block>
-          </div>
+          {/* Full width, heading above the divider; the schools sit side by side on the same 2fr/3fr grid, so the
+              second lines up with the Experience column. Stacked on phones. */}
+          <Block id="education" title="Education" rule="under" headingClassName="mb-8" className="lg:col-span-2 lg:row-start-2">
+            <ul className="grid grid-cols-1 gap-x-16 gap-y-8 sm:grid-cols-2 lg:grid-cols-[2fr_3fr]">
+              {EDUCATION.map((item) => (
+                <li key={item.field} className="max-w-(--measure)">
+                  <p className="text-label caps text-fg-subtle">{item.field}</p>
+                  <div className="mt-2 text-body text-fg-muted">
+                    {[item.minor, item.school, item.note].filter(Boolean).map((line) => (
+                      <p key={line}>{line}</p>
+                    ))}
+                  </div>
+                  {item.when && <p className="mt-1 text-small text-fg-subtle">{item.when}</p>}
+                </li>
+              ))}
+            </ul>
+          </Block>
 
           {/* Full width under its own rule; the list's grid lines the names up with the Experience column. */}
-          <Block id="disciplines" title="Disciplines" className="lg:col-span-2 lg:row-start-2">
+          <Block id="disciplines" title="Disciplines" className="lg:col-span-2 lg:row-start-3">
             <Disciplines />
           </Block>
         </div>
