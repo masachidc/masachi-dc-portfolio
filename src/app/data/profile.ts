@@ -21,6 +21,11 @@ export const PROFILE = {
 };
 
 export const TEMBO_APP_STORE = 'https://apps.apple.com/us/app/tembo-storylines/id6804888179';
+/**
+ * Tembo's Google Play listing. Null while the production release is in review (applied early Oct 2026); set it to
+ * the live listing URL and the Resume switches to "App Store and Google Play release" and links to the listing.
+ */
+export const TEMBO_GOOGLE_PLAY: string | null = null;
 
 /** Evidence of consequence. Headlines are plain statements, not vanity metrics. */
 export interface ImpactItem {
@@ -96,7 +101,7 @@ export interface ExperienceItem {
   when?: string;
   points: string[];
   /** Public proof of the work, shown under the points. */
-  link?: { label: string; href: string };
+  links?: { label: string; href: string }[];
 }
 
 export const EXPERIENCE: ExperienceItem[] = [
@@ -106,12 +111,17 @@ export const EXPERIENCE: ExperienceItem[] = [
     role: 'Product Designer & Design Engineer',
     when: 'Aug 2026 – Present',
     points: [
-      'Founded, designed, and shipped Tembo: Storylines, a social iOS app that organizes ongoing life experiences into Storylines made of Moments, from product concept through App Store release.',
+      `Founded, designed, and shipped Tembo: Storylines, a social iOS and Android app that organizes ongoing life experiences into Storylines made of Moments, from product concept through ${
+        TEMBO_GOOGLE_PLAY ? 'App Store and Google Play release' : 'App Store release and Google Play submission'
+      }.`,
       'Defined the core product model and end-to-end experience for creating, adding to, discovering, and following Storylines, with privacy controls at both the account and Storyline level.',
       'Built the production mobile stack in React Native, Expo, TypeScript, and Supabase, including authentication, photo publishing, moderation, privacy-aware media delivery, analytics, and observability.',
       'Established production engineering practices across database authorization, forward-only migrations, automated app, database, and function tests, CI gates, and staged releases.',
     ],
-    link: { label: 'View on the App Store', href: TEMBO_APP_STORE },
+    links: [
+      { label: 'View on the App Store', href: TEMBO_APP_STORE },
+      ...(TEMBO_GOOGLE_PLAY ? [{ label: 'View on Google Play', href: TEMBO_GOOGLE_PLAY }] : []),
+    ],
   },
   {
     title: 'Marketing Officer',
@@ -123,7 +133,7 @@ export const EXPERIENCE: ExperienceItem[] = [
       'Designed and built a program website non-technical staff can maintain, and carried the identity across recruitment, social, and presentation materials.',
       'Enrollment more than doubled during the initiative.',
     ],
-    link: { label: 'View Project SEEDS', href: '/works/project-seeds-branding' },
+    links: [{ label: 'View Project SEEDS', href: '/works/project-seeds-branding' }],
   },
   {
     title: 'Lead Instructor & Curriculum Designer',

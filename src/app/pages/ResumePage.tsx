@@ -128,14 +128,19 @@ function ExperienceAccordion() {
                   <div className="text-body-lg text-fg-muted">
                     <Bullets items={item.points} />
                   </div>
-                  {item.link && (
-                    <SiteLink
-                      href={item.link.href}
-                      className="group mt-6 inline-flex items-center gap-1.5 border-b border-ink pb-1 text-label caps text-ink"
-                    >
-                      {item.link.label}
-                      <ArrowUpRight size={12} strokeWidth={2} aria-hidden />
-                    </SiteLink>
+                  {item.links && (
+                    <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
+                      {item.links.map((link) => (
+                        <SiteLink
+                          key={link.href}
+                          href={link.href}
+                          className="group inline-flex items-center gap-1.5 border-b border-ink pb-1 text-label caps text-ink"
+                        >
+                          {link.label}
+                          <ArrowUpRight size={12} strokeWidth={2} aria-hidden />
+                        </SiteLink>
+                      ))}
+                    </div>
                   )}
                 </div>
               </div>
