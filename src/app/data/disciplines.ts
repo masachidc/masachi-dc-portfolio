@@ -37,7 +37,7 @@ export interface Discipline {
   /** Exactly three, in display order: one homepage mosaic band (the second is the tall card on desktop). */
   work: [DisciplineWork, DisciplineWork, DisciplineWork];
   /**
-   * The capabilities section after Selected work: a label and statement on the left, exactly five principles
+   * The capabilities section after Selected work: a label and statement on the left, four or five principles
    * (title + one line) on the right. Principles describe how Nathan works, not tools.
    */
   approach: {
@@ -46,7 +46,7 @@ export interface Discipline {
     /** One sentence per line. */
     headline: string[];
     description: string;
-    principles: [Principle, Principle, Principle, Principle, Principle];
+    principles: Principle[];
   };
 }
 
@@ -64,15 +64,13 @@ export const DISCIPLINES: Discipline[] = [
       'With a bias toward shipping, I move quickly from ideas to prototypes and working products, balancing user needs, thoughtful design, and technical feasibility.',
     approach: {
       label: 'How I work',
-      headline: ['Understand the problem.', 'Shape the product.'],
-      description:
-        'I don’t start with screens. I start by clarifying what needs to change, what evidence exists, and what the product has to make easier. The interface comes after the structure.',
+      headline: ['Understand the problem.', 'Shape the solution.'],
+      description: 'I move from discovery to delivery, using evidence and iteration to make ideas useful.',
       principles: [
-        { title: 'Product strategy', text: 'Turn ambiguous ideas into a clear product direction, scope, and set of priorities.' },
-        { title: 'UX research', text: 'Use interviews, observation, competitive research, and testing to replace assumptions with evidence.' },
-        { title: 'Information architecture', text: 'Organize flows, content, states, and hierarchy so the product makes sense before visual polish.' },
-        { title: 'Interaction design', text: 'Design behaviors, feedback, and edge cases that make the experience predictable and easy to use.' },
-        { title: 'Prototyping & testing', text: 'Make ideas tangible early, test what matters, and iterate before complexity hardens.' },
+        { title: 'Product strategy', text: 'Define the problem, direction, priorities, and tradeoffs.' },
+        { title: 'Research & validation', text: 'Use research and testing to challenge assumptions.' },
+        { title: 'Interaction & experience', text: 'Design clear flows, interfaces, and product behavior.' },
+        { title: 'Rapid prototyping', text: 'Make ideas tangible early so they can be tested and improved.' },
       ],
     },
     work: [
@@ -110,26 +108,13 @@ export const DISCIPLINES: Discipline[] = [
     approach: {
       label: 'How I work',
       headline: ['Carry the design', 'all the way through.'],
-      description:
-        'I use AI heavily for implementation, but not as a substitute for reasoning. My computer science background helps me evaluate architecture, state, data, failure modes, and tradeoffs while using AI to move faster.',
+      description: 'I use AI to move faster, backed by enough technical depth to make sound product and engineering decisions.',
       principles: [
-        {
-          title: 'React & TypeScript',
-          text: 'Build production interfaces in React, React Native, and TypeScript, using AI to accelerate implementation while I reason through structure, state, and behavior.',
-        },
-        {
-          title: 'Design systems',
-          text: 'Translate visual and interaction decisions into reusable components, tokens, and patterns that stay coherent as a product grows.',
-        },
-        {
-          title: 'Interaction engineering',
-          text: 'Preserve states, transitions, responsive behavior, accessibility, and edge cases beyond the static mockup.',
-        },
-        {
-          title: 'Full-stack product development',
-          text: 'Connect the interface to authentication, data, APIs, storage, analytics, and backend rules so the product works end to end.',
-        },
-        { title: 'Testing & performance', text: 'Use automated tests, CI, observability, and performance work to make what ships more dependable.' },
+        { title: 'React & TypeScript', text: 'Build production interfaces across web and mobile.' },
+        { title: 'Design systems', text: 'Turn design decisions into reusable components and patterns.' },
+        { title: 'Interaction engineering', text: 'Carry states, motion, responsiveness, and accessibility into code.' },
+        { title: 'Full-stack development', text: 'Connect interfaces to data, APIs, authentication, and backend logic.' },
+        { title: 'Testing & performance', text: 'Make what ships more reliable, observable, and fast.' },
       ],
     },
     work: [
@@ -167,17 +152,13 @@ export const DISCIPLINES: Discipline[] = [
     approach: {
       label: 'How I work',
       headline: ['A clear idea.', 'A distinctive expression.'],
-      description:
-        'Good visual design starts with understanding what needs to be communicated, then finding the right form to make it recognizable, consistent, and memorable.',
+      description: 'I turn ideas into visual systems that feel clear, recognizable, and intentional.',
       principles: [
-        { title: 'Identity & systems', text: 'Build cohesive visual languages that work across brands, products, and touchpoints.' },
-        { title: 'Typography & composition', text: 'Use type, hierarchy, color, and layout to give ideas structure and clarity.' },
-        { title: 'Visual direction', text: 'Choose imagery, references, color, and composition that give a project a coherent point of view.' },
-        {
-          title: 'Motion & storytelling',
-          text: 'Use movement, pacing, and sequence to bring concepts to life without letting motion become decoration.',
-        },
-        { title: 'Craft & polish', text: 'Refine spacing, rhythm, alignment, and detail until the system feels intentional at every scale.' },
+        { title: 'Identity & systems', text: 'Build cohesive visual languages across products and brands.' },
+        { title: 'Typography & composition', text: 'Use type, hierarchy, color, and layout to create clarity.' },
+        { title: 'Visual direction', text: 'Define the imagery, color, and composition that shape a point of view.' },
+        { title: 'Motion & storytelling', text: 'Use movement and pacing to give ideas life.' },
+        { title: 'Craft & polish', text: 'Refine the details until the whole system feels resolved.' },
       ],
     },
     work: [
