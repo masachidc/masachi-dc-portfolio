@@ -88,7 +88,7 @@ function StatusMark({ label }: { label: string }) {
       </mask>
       {/* tint seen only through the letters, so the cutout reads on light covers too */}
       <rect width={w} height={h} rx={4} fill="var(--color-ink-deep)" fillOpacity={0.8} />
-      <rect width={w} height={h} rx={4} fill="var(--color-accent)" mask={`url(#${maskId})`} />
+      <rect width={w} height={h} rx={4} fill="var(--color-bone)" fillOpacity={0.9} mask={`url(#${maskId})`} />
     </svg>
   );
 }
