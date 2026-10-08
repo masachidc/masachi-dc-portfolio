@@ -45,7 +45,7 @@ export const PROJECTS: Project[] = [
     year: '2026',
     description:
       'Goals, hobbies, relationships, pets, and trips become ongoing Storylines that grow through Moments. Designed, engineered, and shipped to the App Store.',
-    cover: { src: unsplash('photo-1549366021-9f761d450615'), position: 'center', placeholder: true },
+    cover: { src: '/img/works/tembo-app.webp', position: 'center' },
     brand: BRANDS['tembo-app'],
   },
   {
