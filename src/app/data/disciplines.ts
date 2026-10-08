@@ -41,7 +41,7 @@ export interface Discipline {
    * (title + one line) on the right. Principles describe how Nathan works, not tools.
    */
   approach: {
-    /** Section heading, e.g. "Approach". */
+    /** Section heading, e.g. "How I work". */
     label: string;
     /** One sentence per line. */
     headline: string[];
@@ -63,7 +63,7 @@ export const DISCIPLINES: Discipline[] = [
     intro:
       'With a bias toward shipping, I move quickly from ideas to prototypes and working products, balancing user needs, thoughtful design, and technical feasibility.',
     approach: {
-      label: 'Approach',
+      label: 'How I work',
       headline: ['Understand the problem.', 'Shape the product.'],
       description:
         'I don’t start with screens. I start by clarifying what needs to change, what evidence exists, and what the product has to make easier. The interface comes after the structure.',
@@ -108,7 +108,7 @@ export const DISCIPLINES: Discipline[] = [
     intro:
       'With a background in architecture, digital media, and computer science, I work across design and development to turn ideas into working products with little to no traditional handoff.',
     approach: {
-      label: 'Approach',
+      label: 'How I work',
       headline: ['Carry the design', 'all the way through.'],
       description:
         'I use AI heavily for implementation, but not as a substitute for reasoning. My computer science background helps me evaluate architecture, state, data, failure modes, and tradeoffs while using AI to move faster.',
@@ -165,7 +165,7 @@ export const DISCIPLINES: Discipline[] = [
     intro:
       'I turn ideas into distinctive visual experiences, combining identity, typography, and motion to create work that feels cohesive, purposeful, and memorable.',
     approach: {
-      label: 'Approach',
+      label: 'How I work',
       headline: ['A clear idea.', 'A distinctive expression.'],
       description:
         'Good visual design starts with understanding what needs to be communicated, then finding the right form to make it recognizable, consistent, and memorable.',
