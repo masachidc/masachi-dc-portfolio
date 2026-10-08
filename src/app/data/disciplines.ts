@@ -77,9 +77,9 @@ export const DISCIPLINES: Discipline[] = [
       description:
         'Design engineering by Nathan Masachi: Tembo, KESHO and INLINE, taking interaction design into production code.',
     },
-    headline: ['Designed with intent.', 'Built to work.'],
+    headline: ['Designed.', 'Developed.', 'Shipped!'],
     intro:
-      'I bring design into production code, combining interaction design, frontend engineering, and systems thinking to ship working products.',
+      'With a background in architecture, digital media, and computer science, I work across design and development to turn ideas into working products with little to no traditional handoff.',
     work: [
       {
         slug: 'tembo-app',
