@@ -108,9 +108,9 @@ export const DISCIPLINES: Discipline[] = [
     meta: {
       title: 'Visual Design',
       description:
-        'Visual design by Nathan Masachi: Project SEEDS, The Incredible Hulk and Tembo, through identity, typography, composition and motion.',
+        'Visual design by Nathan Masachi: Project SEEDS, Tembo and The Incredible Hulk, through identity, typography, composition and motion.',
     },
-    headline: ['A visual', 'designer.'],
+    headline: ['A visual designer', 'who ships.'],
     intro:
       'I build visual identities and experiences through typography, composition, motion, and cohesive design systems.',
     work: [
@@ -121,16 +121,16 @@ export const DISCIPLINES: Discipline[] = [
         contribution: 'Brand identity · Logo design · Web design',
       },
       {
-        slug: 'the-incredible-hulk',
-        summary:
-          'Kinetic typography and particle effects carry the story, made in After Effects for Masachi DC Studios with Brandspot Media.',
-        contribution: 'Motion design · Kinetic typography',
-      },
-      {
         slug: 'tembo-app',
         summary:
           'The visual language of an app I founded, designed and shipped: interface composition and TEMBO yellow, carried through Storylines and their Moments.',
         contribution: 'Founder · Interface design · Brand',
+      },
+      {
+        slug: 'the-incredible-hulk',
+        summary:
+          'Kinetic typography and particle effects carry the story, made in After Effects for Masachi DC Studios with Brandspot Media.',
+        contribution: 'Motion design · Kinetic typography',
       },
     ],
     skills: ['Brand identity', 'Typography & layout', 'Art direction', 'Motion design', 'Visual systems'],
