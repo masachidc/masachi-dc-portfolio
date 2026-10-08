@@ -10,7 +10,7 @@ const MotionLink = motion(Link);
 
 // Off for now: the covers carry their own titles. Set true to bring back the
 // resting title, summary and disciplines (and the scrim behind them).
-const SHOW_RESTING_TEXT = false;
+const SHOW_RESTING_TEXT = true;
 
 interface ProjectCardProps {
   project: Project;
