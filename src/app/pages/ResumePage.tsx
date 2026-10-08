@@ -271,7 +271,7 @@ export function ResumePage() {
             <dl className="flex max-w-(--measure) flex-col gap-6">
               {SKILLS.map((skill) => (
                 <div key={skill.group}>
-                  <dt className="text-label caps text-fg-subtle">{skill.group}</dt>
+                  <dt className="text-group text-fg-subtle">{skill.group}</dt>
                   <dd className="mt-2 text-body text-fg-muted">{skill.items.join(', ')}</dd>
                 </div>
               ))}
