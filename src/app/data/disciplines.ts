@@ -44,7 +44,7 @@ export const DISCIPLINES: Discipline[] = [
       description:
         'Product design by Nathan Masachi: Tembo, INLINE and AMUSE, from understanding the problem to defining the experience.',
     },
-    headline: ['A product', 'designer.'],
+    headline: ['A product designer', 'who ships.'],
     intro:
       'From understanding the problem to defining the experience, I design digital products around real people and clear decisions.',
     work: [
