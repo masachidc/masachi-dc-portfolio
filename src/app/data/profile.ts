@@ -160,7 +160,7 @@ export const RESUME_DISCIPLINES = ['Product Design', 'Design Engineering', 'Visu
 export const SKILLS: { group: string; items: string[] }[] = [
   { group: 'Product Design', items: ['Product strategy', 'UX research', 'Interaction design', 'Rapid prototyping', 'Shipping', 'Figma'] },
   { group: 'Design Engineering', items: ['React & TypeScript', 'Design systems', 'Interaction engineering', 'AI-assisted development'] },
-  { group: 'Visual Design', items: ['Brand identity', 'Taste & judgment', 'Typography & layout', 'Motion design'] },
+  { group: 'Visual Design', items: ['Brand identity', 'Taste & judgment', 'Typography & layout', 'Motion design', 'Adobe Creative Cloud'] },
   {
     group: 'Thinking & Leadership',
     items: ['Systems thinking', 'End-to-end ownership', 'Problem-solving', 'Cross-functional collaboration'],
