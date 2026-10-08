@@ -1,5 +1,5 @@
 import { findProject, type Project } from './projects';
-import { RESUME_DISCIPLINES } from './profile';
+import { RESUME_DISCIPLINES, SKILLS } from './profile';
 
 /**
  * The three discipline pages (/product-design, /design-engineering, /visual-design), linked from the Resume's
@@ -31,8 +31,6 @@ export interface Discipline {
   intro: string;
   /** Exactly three, in display order: one homepage mosaic band (the second is the tall card on desktop). */
   work: [DisciplineWork, DisciplineWork, DisciplineWork];
-  /** Exactly five. */
-  skills: [string, string, string, string, string];
 }
 
 export const DISCIPLINES: Discipline[] = [
@@ -67,7 +65,6 @@ export const DISCIPLINES: Discipline[] = [
         contribution: 'Lead Product Designer · UX research · Usability testing',
       },
     ],
-    skills: ['Product strategy', 'UX research', 'Interaction design', 'Prototyping & testing', 'Information architecture'],
   },
   {
     slug: 'design-engineering',
@@ -100,7 +97,6 @@ export const DISCIPLINES: Discipline[] = [
         contribution: 'UI/UX Designer · Technical collaboration',
       },
     ],
-    skills: ['React & TypeScript', 'Design systems', 'Interaction engineering', 'Full-stack development', 'Testing & performance'],
   },
   {
     slug: 'visual-design',
@@ -133,7 +129,6 @@ export const DISCIPLINES: Discipline[] = [
         contribution: 'Motion design · Kinetic typography',
       },
     ],
-    skills: ['Brand identity', 'Typography & layout', 'Art direction', 'Motion design', 'Visual systems'],
   },
 ];
 
@@ -157,4 +152,11 @@ export function disciplineProjects(d: Discipline): Project[] {
     if (!project) throw new Error(`Discipline "${d.name}": unknown project slug "${w.slug}"`);
     return { ...project, description: w.summary, disciplines: w.contribution, hideOnMobile: false };
   });
+}
+
+/** The page's skills: the Resume's skill group of the same name, so the two always match. */
+export function disciplineSkills(d: Discipline): string[] {
+  const group = SKILLS.find((g) => g.group === d.name);
+  if (!group) throw new Error(`No Resume skill group for "${d.name}"`);
+  return group.items;
 }

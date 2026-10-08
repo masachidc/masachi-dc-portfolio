@@ -9,9 +9,9 @@ import { ContactSection } from '../components/ContactSection';
 import { Footer } from '../components/Footer';
 import { fadeUp, stagger, viewportOnce } from '../lib/motion';
 import { usePageMeta } from '../lib/usePageMeta';
-import { disciplineProjects, type Discipline } from '../data/disciplines';
+import { disciplineProjects, disciplineSkills, type Discipline } from '../data/disciplines';
 
-/** The discipline's five skills, after Selected work: numbered like the cards, one line each. */
+/** The discipline's skills (the Resume's group of the same name), after Selected work: numbered like the cards, one line each. */
 function Skills({ discipline }: { discipline: Discipline }) {
   const id = `${discipline.slug}-skills-title`;
   return (
@@ -27,7 +27,7 @@ function Skills({ discipline }: { discipline: Discipline }) {
         Skills
       </motion.h2>
       <ol className="border-t border-line">
-        {discipline.skills.map((skill, i) => (
+        {disciplineSkills(discipline).map((skill, i) => (
           <motion.li
             key={skill}
             variants={fadeUp}
