@@ -115,14 +115,17 @@ function CardInner({ p, imgY, feature, number }: {
         Hover detail panel: a project-colour wash over the still-visible image,
         adding the why (description) rather than repeating the resting summary.
         Decorative duplicate of the card's content, hidden from assistive tech.
+        Inside a [data-bare] grid (discipline pages) the wash is one solid fill
+        of the project colour instead of a gradient.
       */}
       <motion.div
         aria-hidden="true"
         variants={panelStagger}
-        className={`pointer-events-none absolute inset-0 z-20 hidden flex-col justify-end p-7 opacity-0 transition-opacity duration-300 ease-out md:flex md:group-hover:opacity-100 ${light ? 'text-ink' : 'text-white'}`}
+        className={`pointer-events-none absolute inset-0 z-20 hidden flex-col justify-end p-7 opacity-0 transition-opacity duration-300 ease-out in-data-bare:[background:var(--wash-solid)]! md:flex md:group-hover:opacity-100 ${light ? 'text-ink' : 'text-white'}`}
         style={{
           // densest behind the text (bottom-left), lighter toward the image's far corner
           background: `linear-gradient(to right, ${hexToRgba(deep, 0.4)} 0%, ${hexToRgba(deep, 0)} 70%), linear-gradient(to top, ${hexToRgba(deep, 0.97)} 0%, ${hexToRgba(deep, 0.9)} 50%, ${hexToRgba(primary, 0.55)} 100%)`,
+          ['--wash-solid' as string]: deep,
         }}
       >
         <motion.p variants={panelItem} className={`mb-3 font-mono text-micro font-medium tracking-[0.1em] ${light ? 'text-ink/70' : 'text-white/70'}`}>
