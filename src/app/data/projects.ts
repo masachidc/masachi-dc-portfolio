@@ -45,7 +45,7 @@ export const PROJECTS: Project[] = [
     disciplines: 'Shipping · Product Design · Design Engineering',
     year: '2026',
     description:
-      'Goals, hobbies, relationships, pets, and trips become ongoing Storylines that grow through Moments. Designed, engineered, and shipped to the App Store.',
+      'Goals, hobbies, relationships, pets, and trips become ongoing Storylines that grow through Moments. Designed, engineered, and shipped to the App & Play Stores.',
     cover: { src: '/img/works/tembo-app.webp', position: 'center' },
     brand: BRANDS['tembo-app'],
   },
