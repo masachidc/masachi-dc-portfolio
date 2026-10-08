@@ -167,18 +167,31 @@ export const SKILLS: { group: string; items: string[] }[] = [
   { group: 'Tools', items: ['Figma', 'Adobe Illustrator', 'After Effects', 'Premiere Pro', 'SketchUp'] },
 ];
 
-export const EDUCATION: { field: string; minor?: string; school?: string; note?: string; /** Verified dates only. */ when?: string }[] = [
+/** Facts only: no explanatory notes. The field is the headline; degree, minor, school and dates support it. */
+export interface EducationItem {
+  /** Field of study, shown as the headline. */
+  field: string;
+  degree: string;
+  minor?: string;
+  school: string;
+  /** Verified dates only. */
+  when?: string;
+}
+
+export const EDUCATION: EducationItem[] = [
   {
-    field: 'B.S. Digital Interactive Media',
+    field: 'Digital Interactive Media',
+    degree: 'Bachelor of Science (B.S.)',
     minor: 'Minor in Computer Science',
     school: 'Florida International University',
-    when: 'Graduated Apr 2026',
+    when: 'Graduated April 2026',
   },
   {
-    field: 'A.A. Architecture',
+    // Completed: Associate of Arts, May 2024 (Nathan's résumé records).
+    field: 'Architecture',
+    degree: 'Associate of Arts (A.A.)',
     school: 'Hillsborough Community College',
     when: '2021–2024',
-    note: 'Studied before moving into digital interactive media.',
   },
 ];
 
