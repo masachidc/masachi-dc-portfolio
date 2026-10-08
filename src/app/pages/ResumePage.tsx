@@ -86,7 +86,7 @@ function ExperienceAccordion() {
                 <span className="min-w-0">
                   {/* sr-only commas: the visual breaks (block, flex gaps, dots) aren't spoken, so the name reads
                       "Tembo, Founder, …" rather than running the parts together. */}
-                  <span className="block font-display text-title text-ink">{item.org}</span>
+                  <span className="block font-display text-kicker text-ink">{item.org}</span>
                   <span className="sr-only">, </span>
                   <span className="mt-2 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-body text-fg-muted">
                     {meta.map((part, i) => (
@@ -273,7 +273,7 @@ export function ResumePage() {
                   key={item.field}
                   className={index === 0 ? 'pb-10 sm:pb-0' : 'border-t border-line pt-10 sm:border-t-0 sm:pt-0'}
                 >
-                  <h3 className="font-display text-title text-ink">{item.field}</h3>
+                  <h3 className="font-display text-kicker text-ink">{item.field}</h3>
                   <div className="mt-3 text-body text-fg-muted">
                     <p className="text-ink">{item.degree}</p>
                     {item.minor && <p>{item.minor}</p>}
