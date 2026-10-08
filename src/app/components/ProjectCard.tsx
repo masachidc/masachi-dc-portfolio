@@ -9,10 +9,10 @@ import { easeOut } from '../lib/motion';
 
 const MotionLink = motion(Link);
 
-// Off for now: the covers carry their own titles. Set true to bring back the
-// resting title, summary and disciplines (and the scrim behind them). The
-// status mark shows either way.
-const SHOW_RESTING_TEXT = false;
+// The resting title, summary and disciplines (and the scrim behind them).
+// Set false to hide them when the covers carry their own titles. The status
+// mark shows either way.
+const SHOW_RESTING_TEXT = true;
 
 interface ProjectCardProps {
   project: Project;
