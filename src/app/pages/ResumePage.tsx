@@ -313,7 +313,7 @@ export function ResumePage() {
 
           {/* Full width, heading above the divider like Skills, Experience and Education; the grid gap between sections
               is the standard --space-section. */}
-          <Block id="disciplines" title="Disciplines" rule="under" headingClassName="mb-8" className="lg:col-span-2 lg:row-start-3">
+          <Block id="disciplines" title="Explore My Work" rule="under" headingClassName="mb-8" className="lg:col-span-2 lg:row-start-3">
             <Disciplines />
           </Block>
         </div>
