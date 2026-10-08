@@ -46,7 +46,7 @@ function Skills({ discipline }: { discipline: Discipline }) {
 
 /**
  * Template for /product-design, /design-engineering and /visual-design, built from the homepage's own parts: the hero
- * with the discipline's headline and introduction, Selected work as one mosaic band of three cards (with the dot rail
+ * (discipline name as the kicker, then its headline and introduction), Selected work as one mosaic band of three cards (with the dot rail
  * listing just those three), the discipline's skills, then About and Contact unchanged.
  */
 export function DisciplinePage({ discipline }: { discipline: Discipline }) {
@@ -64,7 +64,7 @@ export function DisciplinePage({ discipline }: { discipline: Discipline }) {
       <ProjectIndexRail key={discipline.slug} projects={projects} />
       <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
         {/* key: replay the entrance when moving between discipline pages */}
-        <Hero key={discipline.slug} lines={discipline.headline} intro={discipline.intro} />
+        <Hero key={discipline.slug} kicker={discipline.name} lines={discipline.headline} intro={discipline.intro} />
         <ProjectGrid projects={projects} />
         <Skills discipline={discipline} />
 

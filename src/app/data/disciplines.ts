@@ -26,7 +26,7 @@ export interface Discipline {
   /** Matches RESUME_DISCIPLINES, so the Resume card and its page can't drift apart. */
   name: (typeof RESUME_DISCIPLINES)[number];
   meta: { title: string; description: string };
-  /** Headline under "Meet Nathan Masachi,"; the last line takes the teal accent, as on the homepage. */
+  /** Headline under the discipline name; the last line takes the teal accent, as on the homepage. */
   headline: string[];
   intro: string;
   /** Exactly three, in display order: one homepage mosaic band (the second is the tall card on desktop). */
@@ -44,7 +44,7 @@ export const DISCIPLINES: Discipline[] = [
       description:
         'Product design by Nathan Masachi: Tembo, INLINE and AMUSE, from understanding the problem to defining the experience.',
     },
-    headline: ['A product designer', 'who ships.'],
+    headline: ['Ideas shaped into', 'useful products.'],
     intro:
       'From understanding the problem to defining the experience, I design digital products around real people and clear decisions.',
     work: [
@@ -77,7 +77,7 @@ export const DISCIPLINES: Discipline[] = [
       description:
         'Design engineering by Nathan Masachi: Tembo, KESHO and INLINE, taking interaction design into production code.',
     },
-    headline: ['A designer', 'who engineers.'],
+    headline: ['Designed with intent.', 'Built to work.'],
     intro:
       'I bring design into production code, combining interaction design, frontend engineering, and systems thinking to ship working products.',
     work: [
@@ -110,7 +110,7 @@ export const DISCIPLINES: Discipline[] = [
       description:
         'Visual design by Nathan Masachi: Project SEEDS, Tembo and The Incredible Hulk, through identity, typography, composition and motion.',
     },
-    headline: ['A visual designer', 'who ships.'],
+    headline: ['Making ideas', 'visible.'],
     intro:
       'I build visual identities and experiences through typography, composition, motion, and cohesive design systems.',
     work: [
