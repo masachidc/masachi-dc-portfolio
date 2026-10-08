@@ -15,7 +15,7 @@ export const PROFILE = {
   linkedin: 'https://www.linkedin.com/in/nathanmasachi/',
   /**
    * Résumé for the Resume page's "Download résumé" link: a hosted URL (opens in a new tab) or a path to a PDF in
-   * /public (downloads). While null, the link emails a résumé request instead.
+   * /public (downloads). While null, the page shows no download link.
    */
   resumePdf: null as string | null,
 };
@@ -120,28 +120,29 @@ export const EXPERIENCE: ExperienceItem[] = [
     when: 'May 2025 – Apr 2026',
     points: [
       "Led recruitment and extended FIU's brand system into a program identity approved by FIU branding and the SEEDS team.",
-      'Designed and built a maintainable program website and reusable templates for digital and print communications.',
-      'Supported recruitment during a six-month period in which enrollment more than doubled.',
+      'Designed and built a program website non-technical staff can maintain, and carried the identity across recruitment, social, and presentation materials.',
+      'Enrollment more than doubled during the initiative.',
     ],
     link: { label: 'View Project SEEDS', href: '/works/project-seeds-branding' },
   },
   {
     title: 'Lead Instructor & Curriculum Designer',
-    org: 'STEM Xposure Inc. · Volunteer',
-    role: 'Program Design & Leadership',
+    org: 'STEM Xposure',
+    role: 'Volunteer',
     when: 'May 2021 – May 2024',
+    // No link until /works/stemxposure has a case study: a résumé shouldn't point to an in-progress page.
     points: [
-      'Designed and led a two-week architecture and design curriculum delivered across three consecutive years, reaching 500+ high school students in the U.S. and six African countries.',
-      'Recruited and coordinated 14 volunteer instructors to deliver the program across international cohorts.',
-      'Helped secure a SketchUp licensing partnership that provided students with one year of professional software access.',
+      'Designed a two-week architecture and design curriculum that reached 500+ high school students in the U.S. and six African countries.',
+      'Recruited and coordinated 14 volunteer instructors; the program ran for three consecutive years.',
+      'Took part in the negotiations that secured a SketchUp licensing partnership, giving every student a free one-year professional license.',
     ],
-    link: { label: 'View STEM Xposure', href: '/works/stemxposure' },
   },
 ];
 
 /**
- * Resume category rail. These are intentionally non-interactive until each
- * discipline has a real destination; never ship dead buttons or placeholder links.
+ * Resume disciplines, in display order (/001, /002, …). Plain text until each
+ * discipline has a real project grouping to open; never ship dead buttons or
+ * placeholder links.
  */
 export const RESUME_DISCIPLINES = ['Product Design', 'Design Engineering', 'Visual Design'] as const;
 
@@ -157,7 +158,12 @@ export const SKILLS: { group: string; items: string[] }[] = [
 ];
 
 export const EDUCATION: { field: string; minor?: string; school?: string; note?: string; /** Verified dates only. */ when?: string }[] = [
-  { field: 'Digital Interactive Media', minor: 'Minor in Computer Science', school: 'Florida International University' },
+  {
+    field: 'B.S. Digital Interactive Media',
+    minor: 'Minor in Computer Science',
+    school: 'Florida International University',
+    when: 'Graduated Apr 2026',
+  },
   {
     field: 'Architecture',
     school: 'Hillsborough Community College',

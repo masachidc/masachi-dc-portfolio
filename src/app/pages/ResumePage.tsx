@@ -1,12 +1,12 @@
-import { useId, useState, type ReactNode } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
-import { ArrowUpRight, Minus, Plus } from 'lucide-react';
+import { Fragment, useId, useState, type ReactNode } from 'react';
+import { motion } from 'motion/react';
+import { ArrowUpRight, Download, Minus, Plus } from 'lucide-react';
 import { PageLayout } from '../components/PageLayout';
 import { SiteLink } from '../components/SiteLink';
 import { Bullets } from '../components/caseStudy';
 import { fadeUp, viewportOnce } from '../lib/motion';
 import { EDUCATION, EXPERIENCE, PROFILE, RESUME_DISCIPLINES, RESUME_INTRO, SKILLS } from '../data/profile';
-import { EMAIL } from '../data/site';
+import { EMAIL, isExternal } from '../data/site';
 
 /** Hero link, as in the case-study hero. */
 const heroLink = 'group inline-flex items-center gap-1.5 border-b border-ink pb-1 text-label caps text-ink';
@@ -50,7 +50,14 @@ function Block({
   );
 }
 
+/**
+ * Experience as a single-open accordion (WAI-ARIA APG pattern): each header is a button inside an h3 with
+ * aria-expanded / aria-controls; the panel is a labelled region. Closed panels stay mounted (so aria-controls always
+ * resolves) and are collapsed with a grid-rows transition; `invisible` keeps them out of the tab order and the
+ * accessibility tree, and only flips once the close transition ends.
+ */
 function ExperienceAccordion() {
+  // Most recent role open on load; -1 = all closed.
   const [openIndex, setOpenIndex] = useState(0);
   const baseId = useId();
 
@@ -60,6 +67,7 @@ function ExperienceAccordion() {
         const isOpen = openIndex === index;
         const triggerId = `${baseId}-trigger-${index}`;
         const panelId = `${baseId}-panel-${index}`;
+        const meta = [item.title, item.role, item.when].filter(Boolean);
 
         return (
           <li key={`${item.title}-${item.org}`} className="border-t border-line">
@@ -70,71 +78,68 @@ function ExperienceAccordion() {
                 aria-expanded={isOpen}
                 aria-controls={panelId}
                 onClick={() => setOpenIndex(isOpen ? -1 : index)}
-                className="group grid w-full grid-cols-[1fr_auto] items-center gap-6 py-7 text-left sm:py-8"
+                className="group grid w-full grid-cols-[1fr_auto] items-center gap-6 py-6 text-left sm:py-7"
               >
                 <span className="min-w-0">
+                  {/* sr-only commas: the visual breaks (block, flex gaps, dots) aren't spoken, so the name reads
+                      "Tembo, Founder, …" rather than running the parts together. */}
                   <span className="block font-display text-title text-ink">{item.org}</span>
-                  <span className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-body text-fg-muted">
-                    <span>{item.title}</span>
-                    {item.role && (
-                      <>
-                        <span aria-hidden="true" className="text-fg-faint">
-                          ·
-                        </span>
-                        <span>{item.role}</span>
-                      </>
-                    )}
-                    {item.when && (
-                      <>
-                        <span aria-hidden="true" className="text-fg-faint">
-                          ·
-                        </span>
-                        <span className="text-fg-subtle">{item.when}</span>
-                      </>
-                    )}
+                  <span className="sr-only">, </span>
+                  <span className="mt-2 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-body text-fg-muted">
+                    {meta.map((part, i) => (
+                      <Fragment key={part}>
+                        {i > 0 && (
+                          <>
+                            <span aria-hidden="true" className="text-fg-subtle">
+                              ·
+                            </span>
+                            <span className="sr-only">, </span>
+                          </>
+                        )}
+                        <span className={part === item.when ? 'text-fg-subtle' : undefined}>{part}</span>
+                      </Fragment>
+                    ))}
                   </span>
                 </span>
 
                 <span
                   aria-hidden="true"
-                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition-colors duration-300 sm:h-14 sm:w-14 ${
-                    isOpen ? 'bg-ink text-paper' : 'bg-paper text-ink group-hover:bg-bone-deep'
+                  className={`flex size-11 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 motion-reduce:transition-none ${
+                    isOpen
+                      ? 'border-ink bg-ink text-bone'
+                      : 'border-line bg-paper text-ink group-hover:border-ink/25 group-hover:bg-surface'
                   }`}
                 >
-                  {isOpen ? <Minus size={20} strokeWidth={1.8} /> : <Plus size={20} strokeWidth={1.8} />}
+                  {isOpen ? <Minus size={18} strokeWidth={1.8} /> : <Plus size={18} strokeWidth={1.8} />}
                 </span>
               </button>
             </h3>
 
-            <AnimatePresence initial={false}>
-              {isOpen && (
-                <motion.div
-                  id={panelId}
-                  role="region"
-                  aria-labelledby={triggerId}
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="overflow-hidden"
-                >
-                  <div className="max-w-(--measure) pb-9 pr-16 sm:pb-10 sm:pr-20">
-                    <div className="text-body-lg text-fg-muted">
-                      <Bullets items={item.points} />
-                    </div>
-                    {item.link && (
-                      <SiteLink
-                        href={item.link.href}
-                        className="group mt-6 inline-flex items-center gap-1.5 border-b border-ink pb-1 text-label caps text-ink"
-                      >
-                        {item.link.label}
-                        <ArrowUpRight size={12} strokeWidth={2} aria-hidden />
-                      </SiteLink>
-                    )}
+            <div
+              id={panelId}
+              role="region"
+              aria-labelledby={triggerId}
+              className={`grid transition-[grid-template-rows,visibility] duration-300 ease-out motion-reduce:transition-none ${
+                isOpen ? 'visible grid-rows-[1fr]' : 'invisible grid-rows-[0fr]'
+              }`}
+            >
+              <div className="min-h-0 overflow-hidden">
+                <div className="max-w-(--measure) pb-8 pr-2 sm:pb-9 sm:pr-17">
+                  <div className="text-body-lg text-fg-muted">
+                    <Bullets items={item.points} />
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  {item.link && (
+                    <SiteLink
+                      href={item.link.href}
+                      className="group mt-6 inline-flex items-center gap-1.5 border-b border-ink pb-1 text-label caps text-ink"
+                    >
+                      {item.link.label}
+                      <ArrowUpRight size={12} strokeWidth={2} aria-hidden />
+                    </SiteLink>
+                  )}
+                </div>
+              </div>
+            </div>
           </li>
         );
       })}
@@ -142,30 +147,24 @@ function ExperienceAccordion() {
   );
 }
 
-function DisciplineRail() {
+/**
+ * The three disciplines, indexed /001–/003. Plain text for now: each becomes a link once its project grouping
+ * exists, so nothing here looks clickable. From lg the index sits in the left column and the name in the right,
+ * on the same grid as the sections above.
+ */
+function Disciplines() {
   return (
-    <section aria-labelledby="disciplines" className="border-t border-line">
-      <h2 id="disciplines" className="sr-only">
-        Selected disciplines
-      </h2>
-      <ul className="border-b border-line">
-        {RESUME_DISCIPLINES.map((discipline, index) => (
-          <li key={discipline} className="border-t border-line first:border-t-0">
-            <div className="grid grid-cols-[auto_1fr] items-center gap-6 py-7 sm:grid-cols-[4.5rem_1fr_auto] sm:gap-8 sm:py-8">
-              <span className="font-display text-kicker font-normal text-fg-faint">/00{index + 1}</span>
-              <span className="font-display text-title text-ink">{discipline}</span>
-              <span
-                aria-hidden="true"
-                className="hidden h-12 w-12 items-center justify-center rounded-full bg-paper text-fg-faint sm:flex"
-              >
-                <Plus size={19} strokeWidth={1.7} />
-              </span>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <p className="mt-4 text-small text-fg-subtle">Project groupings will open from these disciplines as the portfolio expands.</p>
-    </section>
+    <ol className="border-b border-line">
+      {RESUME_DISCIPLINES.map((discipline, index) => (
+        <li
+          key={discipline}
+          className="grid grid-cols-[4rem_1fr] items-baseline gap-x-4 border-t border-line py-6 sm:py-7 lg:grid-cols-[2fr_3fr] lg:gap-x-16"
+        >
+          <span className="font-mono text-small tabular-nums text-fg-subtle">/{String(index + 1).padStart(3, '0')}</span>
+          <span className="font-display text-title text-ink">{discipline}</span>
+        </li>
+      ))}
+    </ol>
   );
 }
 
@@ -174,7 +173,7 @@ export function ResumePage() {
     <PageLayout
       meta={{
         title: 'Resume',
-        description: `${PROFILE.name}, ${PROFILE.role}: experience, capabilities, and education.`,
+        description: `Résumé of ${PROFILE.name}, ${PROFILE.role}: founder of Tembo, with brand, web, and curriculum work for FIU Project SEEDS and STEM Xposure.`,
       }}
       kicker="Resume"
       title={
@@ -195,6 +194,19 @@ export function ResumePage() {
             LinkedIn
             <ArrowUpRight size={12} strokeWidth={2} aria-hidden />
           </SiteLink>
+          {/* Only once a real résumé exists: a /public PDF downloads, a hosted link opens in a new tab. */}
+          {PROFILE.resumePdf &&
+            (isExternal(PROFILE.resumePdf) ? (
+              <SiteLink href={PROFILE.resumePdf} className={heroLink}>
+                Download résumé
+                <Download size={12} strokeWidth={2} aria-hidden />
+              </SiteLink>
+            ) : (
+              <a href={PROFILE.resumePdf} download className={heroLink}>
+                Download résumé
+                <Download size={12} strokeWidth={2} aria-hidden />
+              </a>
+            ))}
         </>
       }
     >
@@ -233,9 +245,10 @@ export function ResumePage() {
             </Block>
           </div>
 
-          <div className="lg:col-span-2 lg:row-start-2">
-            <DisciplineRail />
-          </div>
+          {/* Full width under its own rule; the list's grid lines the names up with the Experience column. */}
+          <Block id="disciplines" title="Disciplines" className="lg:col-span-2 lg:row-start-2">
+            <Disciplines />
+          </Block>
         </div>
       </div>
     </PageLayout>
