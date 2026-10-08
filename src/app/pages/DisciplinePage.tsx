@@ -12,8 +12,10 @@ import { usePageMeta } from '../lib/usePageMeta';
 import { disciplineProjects, type Discipline } from '../data/disciplines';
 
 /**
- * The page's capabilities ("How I design", "How I build", …): label, statement and description on the left, the
- * principles between hairlines on the right. Stacks on phones, left column first.
+ * The page's capabilities ("How I work"): label, statement and description on the left, the principles between
+ * hairlines on the right. From lg the section is the same height on every discipline page: the principles sit in a
+ * fixed-height column that scrolls on its own when they overflow, then hands the scroll back to the page. Stacks at
+ * natural height below lg, left column first.
  */
 function Approach({ discipline }: { discipline: Discipline }) {
   const { approach } = discipline;
@@ -40,17 +42,27 @@ function Approach({ discipline }: { discipline: Discipline }) {
             </span>
           ))}
         </p>
-        <p className="mt-6 max-w-[44ch] text-body-lg text-fg-muted">{approach.description}</p>
+        {/* The case-study overview's size: the description reads as the section's summary. */}
+        <p className="mt-6 max-w-[44ch] text-pretty text-lede text-fg-muted">{approach.description}</p>
       </motion.div>
-      {/* Hairlines only between principles: none above the first or below the last. */}
-      <ul className="divide-y divide-line">
-        {approach.principles.map((principle) => (
-          <motion.li key={principle.title} variants={fadeUp} className="py-6 first:pt-0 last:pb-0">
-            <h3 className="text-entry text-ink">{principle.title}</h3>
-            <p className="mt-2 max-w-(--measure) text-body-lg text-fg-muted">{principle.text}</p>
-          </motion.li>
-        ))}
-      </ul>
+      {/* Hairlines only between principles: none above the first or below the last. data-lenis-prevent lets the
+          column scroll natively under Lenis; tabIndex makes it keyboard-scrollable when it overflows. */}
+      <div
+        role="region"
+        aria-label={`${approach.label}: ${discipline.name}`}
+        tabIndex={0}
+        data-lenis-prevent
+        className="lg:h-116 lg:overflow-y-auto lg:overscroll-auto lg:pr-4 lg:[scrollbar-width:thin]"
+      >
+        <ul className="divide-y divide-line">
+          {approach.principles.map((principle) => (
+            <motion.li key={principle.title} variants={fadeUp} className="py-4 first:pt-0 last:pb-0">
+              <h3 className="text-entry text-ink">{principle.title}</h3>
+              <p className="mt-1 max-w-(--measure) text-body-lg text-fg-muted">{principle.text}</p>
+            </motion.li>
+          ))}
+        </ul>
+      </div>
     </motion.section>
   );
 }
