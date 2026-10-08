@@ -1,5 +1,5 @@
 import { findProject, type Project } from './projects';
-import { RESUME_DISCIPLINES, SKILLS } from './profile';
+import { RESUME_DISCIPLINES } from './profile';
 
 /**
  * The three discipline pages (/product-design, /design-engineering, /visual-design), linked from the Resume's
@@ -20,6 +20,11 @@ export interface DisciplineWork {
   contribution: string;
 }
 
+export interface Principle {
+  title: string;
+  text: string;
+}
+
 export interface Discipline {
   /** Route: /<slug>. */
   slug: string;
@@ -31,6 +36,18 @@ export interface Discipline {
   intro: string;
   /** Exactly three, in display order: one homepage mosaic band (the second is the tall card on desktop). */
   work: [DisciplineWork, DisciplineWork, DisciplineWork];
+  /**
+   * The capabilities section after Selected work: a label and statement on the left, exactly four numbered principles
+   * (title + one line) on the right. Principles describe how Nathan works, not tools.
+   */
+  approach: {
+    /** Section heading, e.g. "How I design". */
+    label: string;
+    /** One sentence per line. */
+    headline: string[];
+    description: string;
+    principles: [Principle, Principle, Principle, Principle];
+  };
 }
 
 export const DISCIPLINES: Discipline[] = [
@@ -45,6 +62,18 @@ export const DISCIPLINES: Discipline[] = [
     headline: ['I turn ideas into', 'useful products'],
     intro:
       'With a bias toward shipping, I move quickly from ideas to prototypes and working products, balancing user needs, thoughtful design, and technical feasibility.',
+    approach: {
+      label: 'How I design products',
+      headline: ['Understand the problem.', 'Shape the solution.'],
+      description:
+        'I work from discovery through delivery, using research, experimentation, and technical understanding to make ideas useful.',
+      principles: [
+        { title: 'Product strategy', text: 'Defining the problem, product direction, priorities, and tradeoffs before committing to a solution.' },
+        { title: 'Research & validation', text: 'Using research and usability testing to challenge assumptions and improve decisions.' },
+        { title: 'Interaction & experience', text: 'Designing clear flows, intuitive interfaces, and coherent experiences across a product.' },
+        { title: 'Rapid prototyping', text: 'Turning ideas into interactive prototypes and working experiences to test and refine quickly.' },
+      ],
+    },
     work: [
       {
         slug: 'tembo-app',
@@ -77,6 +106,21 @@ export const DISCIPLINES: Discipline[] = [
     headline: ['Turning ideas into', 'shipped work'],
     intro:
       'With a background in architecture, digital media, and computer science, I work across design and development to turn ideas into working products with little to no traditional handoff.',
+    approach: {
+      label: 'How I build',
+      headline: ['From design intent', 'to working software.'],
+      description:
+        'I combine design judgment, computer science fundamentals, and AI-assisted development to build products that work beyond the prototype.',
+      principles: [
+        { title: 'Interface engineering', text: 'Building responsive, interactive experiences with React, React Native, and TypeScript.' },
+        { title: 'Systems & architecture', text: 'Structuring components, data, and application behavior for maintainability and scale.' },
+        {
+          title: 'AI-assisted development',
+          text: 'Using AI coding agents to accelerate implementation, while directing architecture, evaluating outputs, and validating correctness.',
+        },
+        { title: 'Production & quality', text: 'Taking products through testing, performance optimization, deployment, and release.' },
+      ],
+    },
     work: [
       {
         slug: 'tembo-app',
@@ -109,6 +153,18 @@ export const DISCIPLINES: Discipline[] = [
     headline: ['Making ideas', 'visible'],
     intro:
       'I turn ideas into distinctive visual experiences, combining identity, typography, and motion to create work that feels cohesive, purposeful, and memorable.',
+    approach: {
+      label: 'How I design',
+      headline: ['A clear idea.', 'A distinctive expression.'],
+      description:
+        'Good visual design starts with understanding what needs to be communicated, then finding the right form to make it recognizable, consistent, and memorable.',
+      principles: [
+        { title: 'Identity & systems', text: 'Building cohesive visual languages that work across brands, products, and touchpoints.' },
+        { title: 'Typography & composition', text: 'Using type, hierarchy, color, and layout to give ideas structure and clarity.' },
+        { title: 'Motion & storytelling', text: 'Bringing concepts to life through movement, pacing, and visual narrative.' },
+        { title: 'Design craft', text: 'Refining the details that make an experience feel intentional, polished, and complete.' },
+      ],
+    },
     work: [
       {
         slug: 'project-seeds-branding',
@@ -152,11 +208,4 @@ export function disciplineProjects(d: Discipline): Project[] {
     if (!project) throw new Error(`Discipline "${d.name}": unknown project slug "${w.slug}"`);
     return { ...project, description: w.summary, disciplines: w.contribution, hideOnMobile: false };
   });
-}
-
-/** The page's skills: the Resume's skill group of the same name, so the two always match. */
-export function disciplineSkills(d: Discipline): string[] {
-  const group = SKILLS.find((g) => g.group === d.name);
-  if (!group) throw new Error(`No Resume skill group for "${d.name}"`);
-  return group.items;
 }
