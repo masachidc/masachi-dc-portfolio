@@ -83,7 +83,7 @@ function ExperienceAccordion() {
         const isOpen = openIndex === index;
         const triggerId = `${baseId}-trigger-${index}`;
         const panelId = `${baseId}-panel-${index}`;
-        const meta = [item.title, item.role, item.when].filter(Boolean);
+        const meta = [item.title, item.role].filter(Boolean);
 
         return (
           <li key={`${item.title}-${item.org}`} className="border-t border-line first:border-t-0">
@@ -112,10 +112,19 @@ function ExperienceAccordion() {
                             <span className="sr-only">, </span>
                           </>
                         )}
-                        <span className={part === item.when ? 'text-fg-subtle' : undefined}>{part}</span>
+                        <span>{part}</span>
                       </Fragment>
                     ))}
                   </span>
+                  {/* Dates on their own line, in the homepage cards' metadata style (mono, micro, muted). */}
+                  {item.when && (
+                    <>
+                      <span className="sr-only">, </span>
+                      <span className="mt-2 block font-mono text-micro font-medium tracking-[0.1em] text-fg-subtle">
+                        {item.when}
+                      </span>
+                    </>
+                  )}
                 </span>
 
                 <span
