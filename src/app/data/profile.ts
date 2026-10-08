@@ -191,7 +191,7 @@ export const EDUCATION: EducationItem[] = [
     field: 'Digital Interactive Media/Computer Science',
     degree: 'B.S. Digital Media, CS Minor',
     school: 'Florida International University',
-    when: 'Graduated April 2026',
+    when: '2024–2026',
   },
 ];
 
