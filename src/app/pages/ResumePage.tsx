@@ -60,8 +60,8 @@ function Block({
  * accessibility tree, and only flips once the close transition ends.
  */
 function ExperienceAccordion() {
-  // Most recent role open on load; -1 = all closed.
-  const [openIndex, setOpenIndex] = useState(0);
+  // All closed on load (-1); opening one closes the others.
+  const [openIndex, setOpenIndex] = useState(-1);
   const baseId = useId();
 
   return (
