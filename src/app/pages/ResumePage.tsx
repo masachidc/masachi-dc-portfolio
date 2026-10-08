@@ -7,9 +7,9 @@ import { SiteLink } from '../components/SiteLink';
 import { ContactRail } from '../components/ContactRail';
 import { Bullets } from '../components/caseStudy';
 import { fadeUp, viewportOnce } from '../lib/motion';
-import { EDUCATION, EXPERIENCE, PROFILE, RESUME_INTRO, SKILLS } from '../data/profile';
+import { EDUCATION, EXPERIENCE, PROFILE, RESUME_DISCIPLINES, RESUME_INTRO, SKILLS } from '../data/profile';
 import { isExternal } from '../data/site';
-import { DISCIPLINES, disciplineHref } from '../data/disciplines';
+import { disciplineHref, findDiscipline } from '../data/disciplines';
 
 /** Hero link, as in the case-study hero. */
 const heroLink = 'group inline-flex items-center gap-1.5 border-b border-ink pb-1 text-label caps text-ink';
@@ -181,50 +181,52 @@ function ExperienceAccordion() {
 }
 
 /**
- * Explore work: one card per discipline page (DISCIPLINES, in its order), index top-left, arrow top-right, name
- * bottom-left. Each card is one link; hover and keyboard focus firm up the border and nudge and darken the arrow.
+ * The three disciplines as equal editorial cards: index top-left, arrow top-right, name bottom-left. Each card is one
+ * link to its discipline page (/product-design, …); hover and focus firm up the border and darken the arrow.
  * Three columns from md (portrait 4:5); stacked shorter cards on phones.
  */
-function ExploreWork() {
+function Disciplines() {
   return (
     <ol className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-6">
-      {DISCIPLINES.map((discipline, index) => (
-        <li key={discipline.slug} className="flex">
-          <Link
-            to={disciplineHref(discipline)}
-            className="group flex min-h-44 w-full flex-col justify-between border border-line bg-paper p-6 transition-colors duration-300 hover:border-ink/25 focus-visible:border-ink/25 motion-reduce:transition-none md:aspect-[4/5] md:min-h-0 lg:p-8"
-          >
-            <span className="flex items-start justify-between gap-4">
-              {/* The homepage card's number (N°01, as projectNumber() formats it) and type; text-fg-subtle instead of
-                  bone because these cards are light. */}
-              <span aria-hidden="true" className="font-mono text-micro font-medium tracking-[0.1em] text-fg-subtle">
-                N°{String(index + 1).padStart(2, '0')}
+      {RESUME_DISCIPLINES.map((discipline, index) => {
+        return (
+          <li key={discipline} className="flex">
+            <Link
+              to={disciplineHref(findDiscipline(discipline))}
+              className="group flex min-h-44 w-full flex-col justify-between border border-line bg-paper p-6 transition-colors duration-300 hover:border-ink/20 focus-visible:border-ink/20 motion-reduce:transition-none md:aspect-[4/5] md:min-h-0 lg:p-8"
+            >
+              <span className="flex items-start justify-between gap-4">
+                {/* The homepage card's number (N°01, as projectNumber() formats it) and type; text-fg-subtle instead of
+                    bone because these cards are light. */}
+                <span className="font-mono text-micro font-medium tracking-[0.1em] text-fg-subtle">
+                  N°{String(index + 1).padStart(2, '0')}
+                </span>
+                <ArrowUpRight
+                  aria-hidden
+                  size={18}
+                  strokeWidth={1.5}
+                  className="shrink-0 text-fg-faint transition-[color,transform] duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink group-focus-visible:text-ink motion-reduce:transition-none"
+                />
               </span>
-              <ArrowUpRight
-                aria-hidden
-                size={18}
-                strokeWidth={1.5}
-                className="shrink-0 text-fg-faint transition-[color,transform] duration-300 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink group-focus-visible:-translate-y-0.5 group-focus-visible:translate-x-0.5 group-focus-visible:text-ink motion-reduce:transition-none"
-              />
-            </span>
-            {/* One word per line on every card, so the three titles share a shape whatever the card width. The space
-                before the <br> keeps the spoken name "Product Design", not "ProductDesign". */}
-            <h3 className="font-display text-title text-ink">
-              {discipline.title.split(' ').map((word, i) => (
-                <Fragment key={word}>
-                  {i > 0 && (
-                    <>
-                      {' '}
-                      <br />
-                    </>
-                  )}
-                  {word}
-                </Fragment>
-              ))}
-            </h3>
-          </Link>
-        </li>
-      ))}
+              {/* One word per line on every card, so the three titles share a shape whatever the card width. The space
+                  before the <br> keeps the spoken name "Product Design", not "ProductDesign". */}
+              <h3 className="font-display text-title text-ink">
+                {discipline.split(' ').map((word, i) => (
+                  <Fragment key={word}>
+                    {i > 0 && (
+                      <>
+                        {' '}
+                        <br />
+                      </>
+                    )}
+                    {word}
+                  </Fragment>
+                ))}
+              </h3>
+            </Link>
+          </li>
+        );
+      })}
     </ol>
   );
 }
@@ -310,9 +312,9 @@ export function ResumePage() {
           </Block>
 
           {/* Full width, heading above the divider like Skills, Experience and Education; the grid gap between sections
-              is the standard --space-section. The cards lead into the discipline pages. */}
-          <Block id="explore-work" title="Explore work" rule="under" headingClassName="mb-8" className="lg:col-span-2 lg:row-start-3">
-            <ExploreWork />
+              is the standard --space-section. */}
+          <Block id="disciplines" title="Explore My Work" rule="under" headingClassName="mb-8" className="lg:col-span-2 lg:row-start-3">
+            <Disciplines />
           </Block>
         </div>
       </div>
