@@ -42,7 +42,7 @@ export const DISCIPLINES: Discipline[] = [
       description:
         'Product design by Nathan Masachi: Tembo, INLINE and AMUSE, from understanding the problem to defining the experience.',
     },
-    headline: ['I turn ideas into', 'useful products.'],
+    headline: ['I turn ideas into', 'useful products'],
     intro:
       'With a bias toward shipping, I move quickly from ideas to prototypes and working products, balancing user needs, thoughtful design, and technical feasibility.',
     work: [
@@ -74,7 +74,7 @@ export const DISCIPLINES: Discipline[] = [
       description:
         'Design engineering by Nathan Masachi: Tembo, KESHO and INLINE, taking interaction design into production code.',
     },
-    headline: ['Designed.', 'Developed.', 'Shipped!'],
+    headline: ['Designed', 'Developed', 'Shipped!'],
     intro:
       'With a background in architecture, digital media, and computer science, I work across design and development to turn ideas into working products with little to no traditional handoff.',
     work: [
@@ -106,7 +106,7 @@ export const DISCIPLINES: Discipline[] = [
       description:
         'Visual design by Nathan Masachi: Project SEEDS, Tembo and The Incredible Hulk, through identity, typography, composition and motion.',
     },
-    headline: ['Making ideas', 'visible.'],
+    headline: ['Making ideas', 'visible'],
     intro:
       'I build visual identities and experiences through typography, composition, motion, and cohesive design systems.',
     work: [
