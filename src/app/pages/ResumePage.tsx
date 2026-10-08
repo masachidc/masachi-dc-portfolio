@@ -188,6 +188,7 @@ export function ResumePage() {
         </>
       }
       width="reading"
+      titleSize="headline"
       lede={RESUME_INTRO}
       actions={
         <>

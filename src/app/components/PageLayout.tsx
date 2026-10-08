@@ -13,6 +13,7 @@ export function PageLayout({
   lede,
   actions,
   width = 'site',
+  titleSize = 'display',
   children,
 }: {
   meta: { title: string; description: string; noindex?: boolean };
@@ -23,6 +24,8 @@ export function PageLayout({
   actions?: ReactNode;
   /** Hero container: `reading` matches the case-study column, for pages whose body uses it too. */
   width?: 'site' | 'reading';
+  /** Hero title role: `display` by default; `headline` for a quieter page (Resume). */
+  titleSize?: 'display' | 'headline';
   children: ReactNode;
 }) {
   usePageMeta(meta);
@@ -48,7 +51,7 @@ export function PageLayout({
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: easeOut, delay: 0.1 }}
-            className="max-w-[18ch] font-display text-display text-ink"
+            className={`max-w-[18ch] font-display text-ink ${titleSize === 'headline' ? 'text-headline' : 'text-display'}`}
           >
             {title}
           </motion.h1>
