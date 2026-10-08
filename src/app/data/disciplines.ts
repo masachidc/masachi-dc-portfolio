@@ -108,7 +108,7 @@ export const DISCIPLINES: Discipline[] = [
     },
     headline: ['Making ideas', 'visible'],
     intro:
-      'I build visual identities and experiences through typography, composition, motion, and cohesive design systems.',
+      'I turn ideas into distinctive visual experiences, combining identity, typography, and motion to create work that feels cohesive, purposeful, and memorable.',
     work: [
       {
         slug: 'project-seeds-branding',
