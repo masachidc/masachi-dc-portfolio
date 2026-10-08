@@ -189,7 +189,7 @@ export const EDUCATION: EducationItem[] = [
   },
   {
     field: 'Digital Interactive Media/Computer Science',
-    degree: 'Bachelor of Science (B.S.) Digital Interactive Media, Minor in Computer Science',
+    degree: 'B.S. Digital Media, CS Minor',
     school: 'Florida International University',
     when: 'Graduated April 2026',
   },
