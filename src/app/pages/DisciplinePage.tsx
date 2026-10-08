@@ -42,9 +42,10 @@ function Approach({ discipline }: { discipline: Discipline }) {
         </p>
         <p className="mt-6 max-w-[44ch] text-body-lg text-fg-muted">{approach.description}</p>
       </motion.div>
-      <ol className="border-t border-line">
+      {/* Hairlines only between principles: none above the first or below the last. */}
+      <ol className="divide-y divide-line">
         {approach.principles.map((principle, i) => (
-          <motion.li key={principle.title} variants={fadeUp} className="flex items-baseline gap-4 border-b border-line py-6 sm:gap-6">
+          <motion.li key={principle.title} variants={fadeUp} className="flex items-baseline gap-4 py-6 first:pt-0 last:pb-0 sm:gap-6">
             <span aria-hidden="true" className="w-8 shrink-0 font-mono text-micro font-medium tracking-[0.1em] text-fg-subtle">
               {String(i + 1).padStart(2, '0')}
             </span>
