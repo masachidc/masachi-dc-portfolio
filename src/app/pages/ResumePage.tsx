@@ -277,7 +277,7 @@ export function ResumePage() {
                   <div className="mt-3 text-body text-fg-muted">
                     <p className="text-ink">{item.degree}</p>
                     {item.minor && <p>{item.minor}</p>}
-                    <p>{item.school}</p>
+                    <p className="font-semibold">{item.school}</p>
                   </div>
                   {item.when && <p className="mt-4 text-small text-fg-subtle">{item.when}</p>}
                 </li>
