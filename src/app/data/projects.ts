@@ -59,7 +59,7 @@ export const PROJECTS: Project[] = [
     disciplines: 'Full-Stack Development · Closed Testing',
     year: '2026',
     description:
-      'A social prediction product for football fans: Calls sealed before kickoff, graded after the whistle. Designed, built, deployed, tested, and decommissioned.',
+      'A prediction product for football fans. Predictions are made before kickoff, scored and revealed after the whistle. Designed, built, deployed, tested, and decommissioned.',
     cover: { src: '/img/works/kesho-app.webp', position: 'center' },
     brand: BRANDS['kesho-app'],
   },
