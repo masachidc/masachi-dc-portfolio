@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { ArrowUpRight, Download, Minus, Plus } from 'lucide-react';
 import { PageLayout } from '../components/PageLayout';
 import { SiteLink } from '../components/SiteLink';
+import { ContactRail } from '../components/ContactRail';
 import { Bullets } from '../components/caseStudy';
 import { fadeUp, viewportOnce } from '../lib/motion';
 import { EDUCATION, EXPERIENCE, PROFILE, RESUME_DISCIPLINES, RESUME_INTRO, SKILLS } from '../data/profile';
@@ -241,6 +242,7 @@ export function ResumePage() {
         </>
       }
     >
+      <ContactRail />
       <div className="container-reading pb-(--space-section)">
         {/* Skills and Experience headings sit above one divider: each heading carries the rule, and from lg the
             Skills rule runs across the gutter (-mr-16 = gap-x-16) to meet Experience's. The Experience heading keeps
