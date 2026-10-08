@@ -264,22 +264,20 @@ export function ResumePage() {
 
           {/* Full width, heading above the divider. Two equal columns on tablets; from lg the page's 2fr/3fr grid, so
               the second school starts exactly where Experience does. Stacked on phones with a hairline between the
-              schools. The field of study is the headline (text-entry, as the Experience organisations); degree, minor and school
-              support it, then the dates. */}
+              schools. The qualification is the headline (text-entry, as the Experience organisations), then the minor,
+              the school (larger, semibold, grey) and the dates. */}
           <Block id="education" title="Education" rule="under" headingClassName="mb-8" className="lg:col-span-2 lg:row-start-2">
             <ul className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-16 lg:grid-cols-[2fr_3fr]">
               {EDUCATION.map((item, index) => (
                 <li
-                  key={item.field}
+                  key={item.qualification}
                   className={index === 0 ? 'pb-10 sm:pb-0' : 'border-t border-line pt-10 sm:border-t-0 sm:pt-0'}
                 >
-                  <h3 className="text-entry text-ink">{item.field}</h3>
-                  <div className="mt-3 text-body text-fg-muted">
-                    <p className="text-ink">{item.degree}</p>
-                    {item.minor && <p>{item.minor}</p>}
-                    <p>{item.school}</p>
-                  </div>
-                  {item.when && <p className="mt-4 text-small text-fg-subtle">{item.when}</p>}
+                  <h3 className="text-entry text-ink">{item.qualification}</h3>
+                  {item.minor && <p className="mt-2 text-body text-fg-muted">{item.minor}</p>}
+                  {/* The school: larger and semibold, in muted grey, under the qualification. */}
+                  <p className="mt-3 text-body-lg font-semibold text-fg-muted">{item.school}</p>
+                  {item.when && <p className="mt-1 text-small text-fg-subtle">{item.when}</p>}
                 </li>
               ))}
             </ul>
