@@ -163,7 +163,7 @@ export const SKILLS: { group: string; items: string[] }[] = [
   { group: 'Visual Design', items: ['Brand identity', 'Art direction', 'Typography & layout', 'Motion design'] },
   {
     group: 'Thinking & Leadership',
-    items: ['Systems thinking', 'Problem-solving', 'Cross-functional collaboration', 'End-to-end ownership'],
+    items: ['Systems thinking', 'End-to-end ownership', 'Problem-solving', 'Cross-functional collaboration'],
   },
 ];
 
