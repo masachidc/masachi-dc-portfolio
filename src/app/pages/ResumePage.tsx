@@ -262,9 +262,9 @@ export function ResumePage() {
             </dl>
           </Block>
 
-          {/* Full width, heading above the divider. Two equal columns from sm with a hairline between them; stacked on
-              phones with a hairline between the schools. The field of study is the headline (the Experience
-              organisation size); degree, minor and school support it, then the dates. */}
+          {/* Full width, heading above the divider. Two equal columns from sm; stacked on phones with a hairline
+              between the schools. The qualification is the headline (the Experience organisation size); minor and
+              school support it, then the dates. */}
           <Block id="education" title="Education" rule="under" headingClassName="mb-8" className="lg:col-span-2 lg:row-start-2">
             <ul className="grid grid-cols-1 sm:grid-cols-2">
               {EDUCATION.map((item, index) => (
@@ -273,12 +273,11 @@ export function ResumePage() {
                   className={
                     index === 0
                       ? 'pb-10 sm:pb-0 sm:pr-8 lg:pr-12'
-                      : 'border-t border-line pt-10 sm:border-t-0 sm:border-l sm:pl-8 sm:pt-0 lg:pl-12'
+                      : 'border-t border-line pt-10 sm:border-t-0 sm:pl-8 sm:pt-0 lg:pl-12'
                   }
                 >
                   <h3 className="font-display text-title text-ink">{item.field}</h3>
                   <div className="mt-3 text-body text-fg-muted">
-                    <p className="text-ink">{item.degree}</p>
                     {item.minor && <p>{item.minor}</p>}
                     <p>{item.school}</p>
                   </div>
