@@ -41,7 +41,7 @@ export const PROJECTS: Project[] = [
     cardTitle: 'TEMBO',
     railTitle: 'TEMBO App',
     summary: 'Social sharing built around ongoing life stories',
-    disciplines: 'Founder · Product Design · Design Engineering',
+    disciplines: 'Shipping · Product Design · Design Engineering',
     year: '2026',
     description:
       'Goals, hobbies, relationships, pets, and trips become ongoing Storylines that grow through Moments. Designed, engineered, and shipped to the App Store.',
@@ -54,11 +54,11 @@ export const PROJECTS: Project[] = [
     cardTitle: 'KESHO',
     railTitle: 'KESHO App',
     summary: 'Predictions that lock before the outcome',
-    disciplines: 'Product Design · Full Stack',
+    disciplines: 'Full-Stack Development · Closed Testing',
     year: '2026',
     description:
       'A social prediction product for football fans: Calls sealed before kickoff, graded after the whistle. Designed, built, deployed, tested, and decommissioned.',
-    cover: { src: unsplash('photo-1768330187404-59e46cf222c9'), position: 'center', placeholder: true },
+    cover: { src: '/img/works/kesho-app.webp', position: 'center' },
     brand: BRANDS['kesho-app'],
   },
   {
@@ -67,11 +67,11 @@ export const PROJECTS: Project[] = [
     cardTitle: 'AMUSE',
     railTitle: 'AMUSE Web App',
     summary: 'Discover, plan and book museum visits in Kenya',
-    disciplines: 'Product Design · UX Research',
+    disciplines: 'Product Design · UX Research · Usability Testing',
     year: '2025',
     description:
       'Research moved it from a native app to a lightweight web platform with M-Pesa booking; usability testing made My Museum a core feature.',
-    cover: { src: unsplash('photo-1774514580599-c3dae376348e'), position: 'center 35%', placeholder: true },
+    cover: { src: '/img/works/amuse-art-museum.webp', position: 'center' },
     brand: BRANDS['amuse-art-museum'],
   },
   {
@@ -80,11 +80,11 @@ export const PROJECTS: Project[] = [
     cardTitle: 'INLINE',
     railTitle: 'INLINE Extension',
     summary: 'Annotate any webpage without leaving the tab',
-    disciplines: 'UI/UX Design',
+    disciplines: 'UI/UX Design · Technical Collaboration',
     year: '2026',
     description:
       'Makes the read-only web writable: a floating icon opens notes, drawing, highlights, and AI on any page. Most Unique Project at FIU Blackstone LaunchPad.',
-    cover: { src: unsplash('photo-1768638687898-7851d341cb87'), position: 'center', placeholder: true },
+    cover: { src: '/img/works/inline-chrome-extension.webp', position: 'center' },
     brand: BRANDS['inline-chrome-extension'],
   },
   {
@@ -93,13 +93,33 @@ export const PROJECTS: Project[] = [
     cardTitle: 'PROJECT SEEDS',
     railTitle: 'Project SEEDS',
     summary: "A distinct identity within FIU's brand system",
-    disciplines: 'Brand Identity · Web',
+    disciplines: 'Brand Identity Design · Logo Design',
     year: '2025',
     description:
       'Gave a program with no consistent look an identity approved by FIU branding, and a site non-technical staff can maintain. Enrollment more than doubled during the initiative.',
-    cover: { src: '/img/works/project-seeds-brand-guidelines.webp', position: 'center 35%' },
+    cover: { src: '/img/works/project-seeds-brand-guidelines.webp', position: 'center' },
     brand: BRANDS['project-seeds-branding'],
   },
+  {
+    slug: 'stemxposure',
+    title: 'STEM Xposure',
+    cardTitle: 'STEM XPOSURE',
+    railTitle: 'STEM Xposure',
+    summary: 'A two-week architecture and design program across seven countries',
+    disciplines: 'Curriculum Design · Program Leadership',
+    year: '2026',
+    description:
+      'I designed the curriculum, recruited and onboarded 14 volunteer instructors, and helped deliver three years of programming to 500+ high school students.',
+    cover: { src: '/img/works/stemxposure.webp', position: 'center' },
+    brand: BRANDS.stemxposure,
+  },
+];
+
+/**
+ * Work kept out of Selected work but still routable at /works/<slug>, since
+ * existing links point to it.
+ */
+export const OTHER_PROJECTS: Project[] = [
   {
     slug: 'the-incredible-hulk',
     title: 'The Incredible Hulk',
@@ -113,26 +133,6 @@ export const PROJECTS: Project[] = [
     cover: { src: '/img/works/the-incredible-hulk.webp', position: 'center' },
     brand: BRANDS['the-incredible-hulk'],
     hideOnMobile: true,
-  },
-];
-
-/**
- * Work kept out of Selected work but still routable at /works/<slug>, since
- * About and Impact link to it. STEM X moves to its own category later.
- */
-export const OTHER_PROJECTS: Project[] = [
-  {
-    slug: 'stemxposure',
-    title: 'STEM X',
-    cardTitle: 'STEM X',
-    railTitle: 'STEM X Architecture Camp',
-    summary: 'Architecture and design camp across seven countries',
-    disciplines: 'Curriculum · Architecture',
-    year: '2026',
-    description:
-      'A two-week architecture and design camp, run for three years, reaching 500+ high school students in the US and six African countries.',
-    cover: { src: unsplash('photo-1598941101837-e3fdd6d94b24'), position: 'center 40%', placeholder: true },
-    brand: BRANDS.stemxposure,
   },
 ];
 

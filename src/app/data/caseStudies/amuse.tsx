@@ -20,7 +20,12 @@ export const amuse: CaseStudy = {
     { label: 'Decision', text: 'A lightweight web platform with M-Pesa in the booking flow, instead of another museum app.' },
     { label: 'Outcome', text: 'Testing with five participants reshaped search and navigation and made My Museum a core feature.' },
   ],
-  cover: { slot: 'AMUSE cover', ratio: '16/9', src: img('photo-1518998053901-5348d3961a04'), alt: 'Gallery interior with white walls and framed art' },
+  cover: {
+    slot: 'AMUSE cover',
+    ratio: '2000/982',
+    src: '/img/works/amuse-art-museum.webp',
+    alt: 'AMUSE Museum Booking App: the AMUSE logo on deep maroon with Product Design, UX Research, Accessibility, Prototyping, Usability testing and Design Systems tags, beside two phone screens showing The Art of Clay exhibition and a Buy Tickets page.',
+  },
   overview: (
     <>
       AMUSE is a mobile-first museum platform designed to connect the fragmented journey between{' '}
