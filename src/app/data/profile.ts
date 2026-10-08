@@ -159,7 +159,7 @@ export const RESUME_DISCIPLINES = ['Product Design', 'Design Engineering', 'Visu
 /** Four groups, mirroring the disciplines plus how Nathan works. Keep each group short: signal, not keyword density. */
 export const SKILLS: { group: string; items: string[] }[] = [
   { group: 'Product Design', items: ['Product strategy', 'UX research', 'Interaction design', 'Rapid prototyping', 'Shipping'] },
-  { group: 'Design Engineering', items: ['React & React Native', 'TypeScript', 'Design systems', 'Full-stack development'] },
+  { group: 'Design Engineering', items: ['React & TypeScript', 'Design systems', 'Interaction engineering', 'AI-assisted development'] },
   { group: 'Visual Design', items: ['Brand identity', 'Art direction', 'Typography & layout', 'Motion design'] },
   {
     group: 'Thinking & Leadership',
