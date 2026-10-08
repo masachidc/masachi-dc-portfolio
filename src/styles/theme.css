@@ -84,9 +84,10 @@
   --text-card-lg--letter-spacing: -0.015em;
   --text-card-lg--font-weight: 800;
 
-  /* Entry titles: a role's organisation, a degree — one step above reading copy, below the kicker. */
-  --text-entry: 1.25rem; /* 20px */
-  --text-entry--line-height: 1.35;
+  /* Entry titles: a role's organisation, a degree. Fluid like the other title roles; sans semibold in ink, so it
+     stays distinct from the muted display kicker that heads each section. */
+  --text-entry: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem); /* 20 → 24px */
+  --text-entry--line-height: 1.25;
   --text-entry--letter-spacing: -0.01em;
   --text-entry--font-weight: 600;
 
