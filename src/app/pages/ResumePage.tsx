@@ -101,7 +101,7 @@ function ExperienceAccordion() {
                       "Tembo, Founder, …" rather than running the parts together. */}
                   <span className="block text-entry text-ink">{item.org}</span>
                   <span className="sr-only">, </span>
-                  <span className="mt-2 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-body text-fg-muted">
+                  <span className="mt-2 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-body-lg text-fg-muted">
                     {meta.map((part, i) => (
                       <Fragment key={part}>
                         {i > 0 && (
@@ -116,11 +116,12 @@ function ExperienceAccordion() {
                       </Fragment>
                     ))}
                   </span>
-                  {/* Dates on their own line, in the homepage cards' metadata style (mono, micro, muted). */}
+                  {/* Dates on their own line: mono like the homepage cards' metadata, one step below the role (15 vs 18px)
+                      and lighter grey. */}
                   {item.when && (
                     <>
                       <span className="sr-only">, </span>
-                      <span className="mt-2 block font-mono text-micro font-medium tracking-[0.1em] text-fg-subtle">
+                      <span className="mt-1.5 block font-mono text-body text-fg-subtle">
                         {item.when}
                       </span>
                     </>
