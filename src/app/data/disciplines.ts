@@ -37,7 +37,7 @@ export interface Discipline {
   /** Exactly three, in display order: one homepage mosaic band (the second is the tall card on desktop). */
   work: [DisciplineWork, DisciplineWork, DisciplineWork];
   /**
-   * The capabilities section after Selected work: a label and statement on the left, exactly five numbered principles
+   * The capabilities section after Selected work: a label and statement on the left, exactly five principles
    * (title + one line) on the right. Principles describe how Nathan works, not tools.
    */
   approach: {

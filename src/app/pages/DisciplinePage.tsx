@@ -12,8 +12,8 @@ import { usePageMeta } from '../lib/usePageMeta';
 import { disciplineProjects, type Discipline } from '../data/disciplines';
 
 /**
- * The page's capabilities ("How I design", "How I build", …): label, statement and description on the left, four
- * numbered principles between hairlines on the right. Stacks on phones, left column first.
+ * The page's capabilities ("How I design", "How I build", …): label, statement and description on the left, the
+ * principles between hairlines on the right. Stacks on phones, left column first.
  */
 function Approach({ discipline }: { discipline: Discipline }) {
   const { approach } = discipline;
@@ -43,19 +43,14 @@ function Approach({ discipline }: { discipline: Discipline }) {
         <p className="mt-6 max-w-[44ch] text-body-lg text-fg-muted">{approach.description}</p>
       </motion.div>
       {/* Hairlines only between principles: none above the first or below the last. */}
-      <ol className="divide-y divide-line">
-        {approach.principles.map((principle, i) => (
-          <motion.li key={principle.title} variants={fadeUp} className="flex items-baseline gap-4 py-6 first:pt-0 last:pb-0 sm:gap-6">
-            <span aria-hidden="true" className="w-8 shrink-0 font-mono text-micro font-medium tracking-[0.1em] text-fg-subtle">
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <div className="min-w-0">
-              <h3 className="text-entry text-ink">{principle.title}</h3>
-              <p className="mt-2 max-w-(--measure) text-body-lg text-fg-muted">{principle.text}</p>
-            </div>
+      <ul className="divide-y divide-line">
+        {approach.principles.map((principle) => (
+          <motion.li key={principle.title} variants={fadeUp} className="py-6 first:pt-0 last:pb-0">
+            <h3 className="text-entry text-ink">{principle.title}</h3>
+            <p className="mt-2 max-w-(--measure) text-body-lg text-fg-muted">{principle.text}</p>
           </motion.li>
         ))}
-      </ol>
+      </ul>
     </motion.section>
   );
 }
