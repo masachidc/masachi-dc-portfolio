@@ -52,12 +52,12 @@ function MosaicBand({ group, mirrored, number }: { group: Project[]; mirrored: b
 
 /**
  * Selected work. The homepage shows every project in PROJECTS; a discipline page passes its own three, numbered by
- * their place on that page, and `bare` to hide each card's resting text and scrim, leaving the status mark (see ProjectCard).
+ * their place on that page.
  */
-export function ProjectGrid({ projects = PROJECTS, bare = false }: { projects?: Project[]; bare?: boolean } = {}) {
+export function ProjectGrid({ projects = PROJECTS }: { projects?: Project[] } = {}) {
   const number = (p: Project) => String(projects.indexOf(p) + 1).padStart(2, '0');
   return (
-    <section id="work" aria-labelledby="work-title" data-bare={bare || undefined} className="relative bg-bone">
+    <section id="work" aria-labelledby="work-title" className="relative bg-bone">
       {/* Hero description → "Selected work" equals nav → hero kicker: both are --space-section. */}
       <div className="container-site pb-(--space-section) pt-(--space-section)">
         <h2 id="work-title" className="mb-8 font-display text-kicker uppercase text-ink">

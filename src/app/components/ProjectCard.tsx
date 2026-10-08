@@ -12,7 +12,7 @@ const MotionLink = motion(Link);
 // The resting title, summary and disciplines (and the scrim behind them).
 // Set false to hide them when the covers carry their own titles. The status
 // mark shows either way.
-const SHOW_RESTING_TEXT = true;
+const SHOW_RESTING_TEXT = false;
 
 interface ProjectCardProps {
   project: Project;
@@ -81,10 +81,9 @@ function CardInner({ p, imgY, feature, number }: {
 
       {SHOW_RESTING_TEXT && (
         <>
-        {/* scrim only in the bottom-left corner, behind the text. The scrim and resting text drop out inside a
-            [data-bare] grid (discipline pages), leaving only the status mark; the link's aria-label keeps the text. */}
+        {/* scrim only in the bottom-left corner, behind the text */}
         <div
-          className="absolute inset-0 transition-opacity duration-500 in-data-bare:hidden md:group-hover:opacity-0"
+          className="absolute inset-0 transition-opacity duration-500 md:group-hover:opacity-0"
           style={{
             background:
               'radial-gradient(ellipse 95% 70% at 0% 100%, color-mix(in srgb, var(--color-ink-deep) 93%, transparent) 0%, color-mix(in srgb, var(--color-ink-deep) 60%, transparent) 45%, transparent 100%)',
@@ -95,7 +94,7 @@ function CardInner({ p, imgY, feature, number }: {
           At rest the card answers, in reading order: what it is (title), why it
           matters (summary), what Nathan did (disciplines). Number and year stay quiet.
         */}
-        <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5 pr-32 transition-opacity duration-300 in-data-bare:hidden sm:p-6 sm:pr-32 md:group-hover:opacity-0">
+        <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5 pr-32 transition-opacity duration-300 sm:p-6 sm:pr-32 md:group-hover:opacity-0">
           <div className="min-w-0">
             <p className="mb-3 font-mono text-micro font-medium tracking-[0.1em] text-bone/65">{meta}</p>
             <h3 className={`${titleClass} text-bone`}>{p.cardTitle}</h3>
@@ -112,21 +111,15 @@ function CardInner({ p, imgY, feature, number }: {
       </div>
 
       {/*
-        Hover detail panel: a project-colour wash over the still-visible image,
+        Hover detail panel: one solid fill of the project colour over the image,
         adding the why (description) rather than repeating the resting summary.
         Decorative duplicate of the card's content, hidden from assistive tech.
-        Inside a [data-bare] grid (discipline pages) the wash is one solid fill
-        of the project colour instead of a gradient.
       */}
       <motion.div
         aria-hidden="true"
         variants={panelStagger}
-        className={`pointer-events-none absolute inset-0 z-20 hidden flex-col justify-end p-7 opacity-0 transition-opacity duration-300 ease-out in-data-bare:[background:var(--wash-solid)]! md:flex md:group-hover:opacity-100 ${light ? 'text-ink' : 'text-white'}`}
-        style={{
-          // densest behind the text (bottom-left), lighter toward the image's far corner
-          background: `linear-gradient(to right, ${hexToRgba(deep, 0.4)} 0%, ${hexToRgba(deep, 0)} 70%), linear-gradient(to top, ${hexToRgba(deep, 0.97)} 0%, ${hexToRgba(deep, 0.9)} 50%, ${hexToRgba(primary, 0.55)} 100%)`,
-          ['--wash-solid' as string]: deep,
-        }}
+        className={`pointer-events-none absolute inset-0 z-20 hidden flex-col justify-end p-7 opacity-0 transition-opacity duration-300 ease-out md:flex md:group-hover:opacity-100 ${light ? 'text-ink' : 'text-white'}`}
+        style={{ background: deep }}
       >
         <motion.p variants={panelItem} className={`mb-3 font-mono text-micro font-medium tracking-[0.1em] ${light ? 'text-ink/70' : 'text-white/70'}`}>
           {meta}
