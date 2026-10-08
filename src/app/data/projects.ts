@@ -31,8 +31,6 @@ export interface Project {
   hideOnMobile?: boolean;
 }
 
-const unsplash = (id: string) => `https://images.unsplash.com/${id}?w=1600&q=80&auto=format&fit=crop`;
-
 // Order: Selected work on the homepage, as Nathan ranks it.
 export const PROJECTS: Project[] = [
   {
