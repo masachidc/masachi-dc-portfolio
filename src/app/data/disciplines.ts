@@ -44,7 +44,7 @@ export const DISCIPLINES: Discipline[] = [
     },
     headline: ['I turn ideas into', 'useful products.'],
     intro:
-      'From understanding the problem to defining the experience, I design digital products around real people and clear decisions.',
+      'With a bias toward shipping, I move quickly from ideas to prototypes and working products, balancing user needs, thoughtful design, and technical feasibility.',
     work: [
       {
         slug: 'tembo-app',
