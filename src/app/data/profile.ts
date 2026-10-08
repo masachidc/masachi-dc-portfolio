@@ -156,9 +156,9 @@ export const EXPERIENCE: ExperienceItem[] = [
  */
 export const RESUME_DISCIPLINES = ['Product Design', 'Design Engineering', 'Visual Design'] as const;
 
-/** Four groups, mirroring the disciplines plus how Nathan works. Keep each group to four: signal, not keyword density. */
+/** Four groups, mirroring the disciplines plus how Nathan works. Keep each group short: signal, not keyword density. */
 export const SKILLS: { group: string; items: string[] }[] = [
-  { group: 'Product Design', items: ['Product strategy', 'UX research', 'Interaction design', 'Prototyping & testing'] },
+  { group: 'Product Design', items: ['Product strategy', 'UX research', 'Interaction design', '0-1 prototyping', 'Shipping'] },
   { group: 'Design Engineering', items: ['React & React Native', 'TypeScript', 'Design systems', 'Full-stack development'] },
   { group: 'Visual Design', items: ['Brand identity', 'Art direction', 'Typography & layout', 'Motion design'] },
   {
