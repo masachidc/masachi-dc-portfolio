@@ -84,6 +84,12 @@
   --text-card-lg--letter-spacing: -0.015em;
   --text-card-lg--font-weight: 800;
 
+  /* Entry titles: a role's organisation, a degree — one step above reading copy, below the kicker. */
+  --text-entry: 1.25rem; /* 20px */
+  --text-entry--line-height: 1.35;
+  --text-entry--letter-spacing: -0.01em;
+  --text-entry--font-weight: 600;
+
   /* Reading copy. */
   --text-body-lg: 1.125rem; /* 18px — case-study prose, hero sub */
   --text-body-lg--line-height: 1.7;

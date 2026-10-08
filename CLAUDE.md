@@ -9,7 +9,7 @@ Personal portfolio. React 18 + Vite 6 + Tailwind CSS v4 + motion + react-router-
 
 ## Conventions
 
-- **Design tokens** live in `src/styles/theme.css`. Use type roles (`text-display`, `text-headline`, `text-title`, `text-lede`, `text-kicker`, `text-body-lg`, `text-body`, `text-small`, `text-label caps`, `text-micro caps`), text colors (`text-ink`, `text-fg-muted`, `text-fg-subtle`, `text-fg-faint` — large text only), and layout utilities (`container-site`, `container-reading`, `section-y`). Avoid new `text-[Npx]` / `max-w-[...] px-...` one-offs.
+- **Design tokens** live in `src/styles/theme.css`. Use type roles (`text-display`, `text-headline`, `text-title`, `text-lede`, `text-kicker`, `text-entry` (entry titles: a role's organisation, a degree), `text-body-lg`, `text-body`, `text-small`, `text-label caps`, `text-micro caps`), text colors (`text-ink`, `text-fg-muted`, `text-fg-subtle`, `text-fg-faint` — large text only), and layout utilities (`container-site`, `container-reading`, `section-y`). Avoid new `text-[Npx]` / `max-w-[...] px-...` one-offs.
 - **Routes**: `/` home, `/works/<slug>` case studies (slugs match existing public masachidc.com URLs), `/about`, `/impact`, `/resume`; unknown paths render the 404 page. Old `/projects/<slug>` URLs redirect.
 - **Projects**: `src/app/data/projects.ts` — array order is display order.
 - **Brand systems**: `src/app/data/brands.ts`, one per project (keyed by slug), referenced as `project.brand`. Each case study uses its project's brand; the card hover wash and rails use `brand.primary`. Only brand colours Nathan has given — never approximate or invent them.
