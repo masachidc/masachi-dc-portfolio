@@ -9,7 +9,7 @@ import type { Project } from '../data/projects';
  */
 export function StatusMark({
   label,
-  color = 'var(--color-accent-soft)',
+  color = 'var(--color-paper)',
   className = '',
 }: {
   label: Project['mark'];

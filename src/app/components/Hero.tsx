@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, type ReactNode } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { easeOut } from '../lib/motion';
 import { RevealLine } from './RevealLine';
@@ -18,7 +18,19 @@ function CornerMark({ className, delay }: { className: string; delay: number }) 
   );
 }
 
-export function Hero() {
+/**
+ * The homepage hero, reusable: the defaults are the homepage's copy. Discipline pages pass their own kicker, headline
+ * lines (the last line takes the teal accent) and introduction.
+ */
+export function Hero({
+  kicker = 'Meet Nathan Masachi,',
+  lines = ['A product designer', 'who ships.'],
+  intro = 'I design products and build them, from research and interface design through to production code in React and React Native.',
+}: {
+  kicker?: ReactNode;
+  lines?: string[];
+  intro?: ReactNode;
+} = {}) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.25]);
@@ -37,14 +49,15 @@ export function Hero() {
           transition={{ duration: 0.7, ease: easeOut }}
           className="mb-5 text-kicker text-fg-faint"
         >
-          Meet Nathan Masachi,
+          {kicker}
         </motion.p>
 
         <h1 className="font-display text-display text-ink">
-          <RevealLine delay={0.15}>A product designer</RevealLine>
-          <RevealLine delay={0.28} className="text-accent">
-            who ships.
-          </RevealLine>
+          {lines.map((line, i) => (
+            <RevealLine key={line} delay={0.15 + i * 0.13} className={i === lines.length - 1 ? 'text-accent' : ''}>
+              {line}
+            </RevealLine>
+          ))}
         </h1>
 
         <motion.div
@@ -53,8 +66,7 @@ export function Hero() {
           transition={{ duration: 0.8, ease: easeOut, delay: 0.55 }}
         >
           <p className="mt-6 max-w-[44ch] text-body-lg font-medium text-fg-muted">
-            I design products and build them, from research and interface design through to
-            production code in React and React Native.
+            {intro}
           </p>
         </motion.div>
       </motion.div>

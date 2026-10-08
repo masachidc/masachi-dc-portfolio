@@ -8,6 +8,8 @@ import { AboutPage } from './app/pages/AboutPage.tsx';
 import { ImpactPage } from './app/pages/ImpactPage.tsx';
 import { ResumePage } from './app/pages/ResumePage.tsx';
 import { NotFoundPage } from './app/pages/NotFoundPage.tsx';
+import { DisciplinePage } from './app/pages/DisciplinePage.tsx';
+import { DISCIPLINES, disciplineHref } from './app/data/disciplines.ts';
 import './styles/index.css';
 
 /**
@@ -41,6 +43,9 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/impact" element={<ImpactPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/resume" element={<ResumePage />} />
+        {DISCIPLINES.map((d) => (
+          <Route key={d.slug} path={disciplineHref(d)} element={<DisciplinePage discipline={d} />} />
+        ))}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
