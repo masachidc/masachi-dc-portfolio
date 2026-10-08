@@ -3,6 +3,7 @@ import { amuse } from './amuse';
 import { inline } from './inline';
 import { kesho } from './kesho';
 import { projectSeeds } from './projectSeeds';
+import { stemxposure } from './stemxposure';
 import { tembo } from './tembo';
 import type { CaseStudy } from './types';
 
@@ -10,7 +11,7 @@ export type { CaseBlock, CaseStudy, DeepDive, Media, MediaRatio } from './types'
 export { DEEP_DIVES, deepDivesFor, findDeepDive } from './deepDives';
 
 /** Authored case studies. To add one: create `<slug>.tsx` beside this file and list it here. */
-const WRITTEN: CaseStudy[] = [tembo, amuse, kesho, inline, projectSeeds];
+const WRITTEN: CaseStudy[] = [tembo, amuse, kesho, inline, projectSeeds, stemxposure];
 
 /**
  * Projects without an authored study still get a real URL: a draft built only
