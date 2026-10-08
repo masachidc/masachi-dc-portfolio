@@ -52,7 +52,7 @@ function Approach({ discipline }: { discipline: Discipline }) {
         aria-label={`${approach.label}: ${discipline.name}`}
         tabIndex={0}
         data-lenis-prevent
-        className="lg:h-116 lg:overflow-y-auto lg:overscroll-auto lg:pr-4 lg:[scrollbar-width:thin]"
+        className="lg:h-148 lg:overflow-y-auto lg:overscroll-auto lg:pr-4 lg:[scrollbar-width:thin]"
       >
         <ul className="divide-y divide-line">
           {approach.principles.map((principle) => (

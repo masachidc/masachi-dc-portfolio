@@ -81,9 +81,10 @@ function CardInner({ p, imgY, feature, number }: {
 
       {SHOW_RESTING_TEXT && (
         <>
-        {/* scrim only in the bottom-left corner, behind the text */}
+        {/* scrim only in the bottom-left corner, behind the text. The scrim and resting text drop out inside a
+            [data-bare] grid (discipline pages), leaving only the status mark; the link's aria-label keeps the text. */}
         <div
-          className="absolute inset-0 transition-opacity duration-500 md:group-hover:opacity-0"
+          className="absolute inset-0 transition-opacity duration-500 in-data-bare:hidden md:group-hover:opacity-0"
           style={{
             background:
               'radial-gradient(ellipse 95% 70% at 0% 100%, color-mix(in srgb, var(--color-ink-deep) 93%, transparent) 0%, color-mix(in srgb, var(--color-ink-deep) 60%, transparent) 45%, transparent 100%)',
@@ -94,12 +95,11 @@ function CardInner({ p, imgY, feature, number }: {
           At rest the card answers, in reading order: what it is (title), why it
           matters (summary), what Nathan did (disciplines). Number and year stay quiet.
         */}
-        <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5 pr-32 transition-opacity duration-300 sm:p-6 sm:pr-32 md:group-hover:opacity-0">
+        <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5 pr-32 transition-opacity duration-300 in-data-bare:hidden sm:p-6 sm:pr-32 md:group-hover:opacity-0">
           <div className="min-w-0">
             <p className="mb-3 font-mono text-micro font-medium tracking-[0.1em] text-bone/65">{meta}</p>
-            {/* Title and summary drop out inside a [data-bare] grid (discipline pages); the link's aria-label keeps both. */}
-            <h3 className={`${titleClass} text-bone in-data-bare:hidden`}>{p.cardTitle}</h3>
-            <p className="mt-2 max-w-(--measure) text-body font-medium text-bone/90 in-data-bare:hidden">{p.summary}</p>
+            <h3 className={`${titleClass} text-bone`}>{p.cardTitle}</h3>
+            <p className="mt-2 max-w-(--measure) text-body font-medium text-bone/90">{p.summary}</p>
             <p className="mt-3 text-micro caps text-bone/65">{p.disciplines}</p>
           </div>
         </div>

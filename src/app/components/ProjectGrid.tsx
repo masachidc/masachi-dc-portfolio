@@ -52,7 +52,7 @@ function MosaicBand({ group, mirrored, number }: { group: Project[]; mirrored: b
 
 /**
  * Selected work. The homepage shows every project in PROJECTS; a discipline page passes its own three, numbered by
- * their place on that page, and `bare` to hide each card's resting title and summary (see ProjectCard).
+ * their place on that page, and `bare` to hide each card's resting text and scrim, leaving the status mark (see ProjectCard).
  */
 export function ProjectGrid({ projects = PROJECTS, bare = false }: { projects?: Project[]; bare?: boolean } = {}) {
   const number = (p: Project) => String(projects.indexOf(p) + 1).padStart(2, '0');
