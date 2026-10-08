@@ -2,9 +2,10 @@
  * Professional record behind About, Impact and Resume.
  *
  * Every fact here comes from Nathan's published portfolio (masachidc.com
- * pages and case studies) or public listings. Keep causality honest: report
- * outcomes alongside the work, not as caused by it, unless the source proves
- * it. Unconfirmed details stay out; see CONTENT GAPS at the bottom.
+ * pages and case studies), verified résumé records, or public listings. Keep
+ * causality honest: report outcomes alongside the work, not as caused by it,
+ * unless the source proves it. Unconfirmed details stay out; see CONTENT GAPS
+ * at the bottom.
  */
 
 export const PROFILE = {
@@ -14,12 +15,17 @@ export const PROFILE = {
   linkedin: 'https://www.linkedin.com/in/nathanmasachi/',
   /**
    * Résumé for the Resume page's "Download résumé" link: a hosted URL (opens in a new tab) or a path to a PDF in
-   * /public (downloads). While null, the link emails a résumé request instead.
+   * /public (downloads). While null, the page shows no download link.
    */
   resumePdf: null as string | null,
 };
 
 export const TEMBO_APP_STORE = 'https://apps.apple.com/us/app/tembo-storylines/id6804888179';
+/**
+ * Tembo's Google Play listing. Null while the production release is in review (applied early Oct 2026); set it to
+ * the live listing URL and the Resume switches to "App Store and Google Play release" and links to the listing.
+ */
+export const TEMBO_GOOGLE_PLAY: string | null = null;
 
 /** Evidence of consequence. Headlines are plain statements, not vanity metrics. */
 export interface ImpactItem {
@@ -83,118 +89,115 @@ export const RESUME_INTRO =
   'A product designer who ships. Trained in architecture, digital media, and computer science, I work across design and development to turn ideas into working products without a traditional handoff. I build with longevity, scale, and depth in mind.';
 
 /**
- * Resume roles, most relevant first. Adding a role is data only: 2–3 points,
- * each an action with its context or result. Report results alongside the work,
- * not as caused by it.
+ * Resume roles, most relevant first. Keep the public record compact: the
+ * accordion carries proof, while case studies carry the full project story.
  */
 export interface ExperienceItem {
   title: string;
   org: string;
+  /** Short functional lens shown beside the formal title in the collapsed row. */
+  role?: string;
   /** Only verified dates. Omit rather than guess. */
   when?: string;
   points: string[];
   /** Public proof of the work, shown under the points. */
-  link?: { label: string; href: string };
+  links?: { label: string; href: string }[];
 }
 
 export const EXPERIENCE: ExperienceItem[] = [
   {
     title: 'Founder',
     org: 'Tembo',
+    role: 'Product Designer & Design Engineer',
     when: 'Aug 2026 – Present',
     points: [
-      'Founded, designed, and shipped Tembo: Storylines, a social iOS app now live on the App Store.',
-      'Designed its core model: everyday moments gathered into ongoing Storylines about goals, hobbies, relationships, pets, and trips.',
+      `Founded, designed, and shipped Tembo: Storylines, a social iOS and Android app that organizes ongoing life experiences into Storylines made of Moments, from product concept through ${
+        TEMBO_GOOGLE_PLAY ? 'App Store and Google Play release' : 'App Store release and Google Play submission'
+      }.`,
+      'Defined the core product model and end-to-end experience for creating, adding to, discovering, and following Storylines, with privacy controls at both the account and Storyline level.',
+      'Built the production mobile stack in React Native, Expo, TypeScript, and Supabase, including authentication, photo publishing, moderation, privacy-aware media delivery, analytics, and observability.',
+      'Established production engineering practices across database authorization, forward-only migrations, automated app, database, and function tests, CI gates, and staged releases.',
     ],
-    link: { label: 'View on the App Store', href: TEMBO_APP_STORE },
+    links: [
+      { label: 'View on the App Store', href: TEMBO_APP_STORE },
+      ...(TEMBO_GOOGLE_PLAY ? [{ label: 'View on Google Play', href: TEMBO_GOOGLE_PLAY }] : []),
+    ],
   },
   {
     title: 'Marketing Officer',
     org: 'FIU Project SEEDS',
-    when: '2025',
+    role: 'Brand & Web Design',
+    when: 'May 2025 – Apr 2026',
     points: [
-      "Led recruitment and extended FIU's brand system into an identity approved by FIU branding and the SEEDS team.",
-      'Designed and built a program website simple enough for non-technical staff to maintain.',
+      "Led recruitment and extended FIU's brand system into a program identity approved by FIU branding and the SEEDS team.",
+      'Designed and built a program website non-technical staff can maintain, and carried the identity across recruitment, social, and presentation materials.',
       'Enrollment more than doubled during the initiative.',
     ],
+    links: [{ label: 'View Project SEEDS', href: '/works/project-seeds-branding' }],
   },
   {
     title: 'Lead Instructor & Curriculum Designer',
-    org: 'STEM Xposure Inc. · Volunteer',
-    when: '3 consecutive years',
+    org: 'STEM Xposure',
+    role: 'Volunteer',
+    when: 'May 2021 – May 2024',
+    // No link until /works/stemxposure has a case study: a résumé shouldn't point to an in-progress page.
     points: [
-      'Built a two-week architecture and design curriculum that reached 500+ high school students in the US and six African countries.',
-      'Recruited and onboarded 14 classmates as volunteer instructors, and took part in negotiations that secured a free SketchUp license for every student.',
+      'Designed a two-week architecture and design curriculum that reached 500+ high school students in the U.S. and six African countries.',
+      'Recruited and coordinated 14 volunteer instructors; the program ran for three consecutive years.',
+      'Took part in the negotiations that secured a SketchUp licensing partnership, giving every student a free one-year professional license.',
     ],
   },
 ];
 
-/** Resume projects: the strongest supporting evidence only, not every portfolio piece. Roles above aren't repeated here. */
-export interface ProjectLine {
-  name: string;
-  role: string;
-  when: string;
-  summary: string;
-  href: string;
+/**
+ * Resume disciplines, in display order (N°01, N°02, …, as on the homepage cards). Plain text until each
+ * discipline has a real project grouping to open; never ship dead buttons or
+ * placeholder links.
+ */
+export const RESUME_DISCIPLINES = ['Product Design', 'Design Engineering', 'Visual Design'] as const;
+
+/** Four groups, mirroring the disciplines plus how Nathan works. Keep each group short: signal, not keyword density. */
+export const SKILLS: { group: string; items: string[] }[] = [
+  { group: 'Product Design', items: ['Product strategy', 'UX research', 'Interaction design', 'Rapid prototyping', 'Shipping', 'Figma'] },
+  { group: 'Design Engineering', items: ['React & TypeScript', 'Design systems', 'Interaction engineering', 'AI-assisted development'] },
+  { group: 'Visual Design', items: ['Brand identity', 'Taste & judgment', 'Typography & layout', 'Motion design', 'Adobe Creative Cloud'] },
+  {
+    group: 'Thinking & Leadership',
+    items: ['Systems thinking', 'End-to-end ownership', 'Problem-solving', 'Cross-functional collaboration'],
+  },
+];
+
+/** Facts only: no explanatory notes. The field is the headline; degree, minor, school and dates support it. */
+export interface EducationItem {
+  /** Field of study, shown as the headline. */
+  field: string;
+  degree: string;
+  minor?: string;
+  school: string;
+  /** Verified dates only. */
+  when?: string;
 }
 
-export const RESUME_PROJECTS: ProjectLine[] = [
+// Display order: Architecture first, then Digital Interactive Media (Nathan's choice).
+export const EDUCATION: EducationItem[] = [
   {
-    name: 'KESHO',
-    role: 'Product designer & full-stack developer',
-    when: '2026',
-    summary:
-      'Designed, built, and shipped a social prediction product for football fans, ran an invite-only beta of 92 people, and decided to stop when complexity outgrew the evidence. Next.js, TypeScript, Postgres.',
-    href: '/works/kesho-app',
-  },
-  {
-    name: 'AMUSE Art Museum',
-    role: 'Lead product designer',
-    when: '2025',
-    summary:
-      'Museum discovery and booking for Kenya. Research moved it from a native app to a lightweight web platform with M-Pesa booking; usability testing made My Museum a core feature.',
-    href: '/works/amuse-art-museum',
-  },
-  {
-    name: 'INLINE',
-    role: 'UI/UX designer on a five-person team',
-    when: '2026',
-    summary:
-      "A Chrome extension that makes any webpage writable with notes, drawing, highlights, and AI. Most Unique Project at FIU Blackstone LaunchPad's demo day.",
-    href: '/works/inline-chrome-extension',
-  },
-];
-
-/** Capabilities first, tools last. Keep each group short: signal, not keyword density. */
-export const SKILLS: { group: string; items: string[] }[] = [
-  { group: 'Product', items: ['User research', 'Product strategy', 'Information architecture', 'Interaction design', 'Usability testing'] },
-  { group: 'Design', items: ['Interface design', 'Design systems', 'Prototyping', 'Brand identity', 'Motion design'] },
-  {
-    group: 'Engineering',
-    items: ['TypeScript', 'React', 'React Native', 'Next.js', 'PostgreSQL', 'Tailwind CSS', 'CI/CD with GitHub Actions and Vercel', 'AI-assisted development'],
-  },
-  { group: 'Tools', items: ['Figma', 'Adobe Illustrator', 'After Effects', 'Premiere Pro', 'SketchUp'] },
-];
-
-export const EDUCATION: { field: string; minor?: string; school?: string; note?: string; /** Verified dates only. */ when?: string }[] = [
-  { field: 'Digital Interactive Media', minor: 'Minor in Computer Science', school: 'Florida International University' },
-  {
+    // Completed: Associate of Arts, May 2024 (Nathan's résumé records).
     field: 'Architecture',
+    degree: 'Associate of Arts (A.A.)',
     school: 'Hillsborough Community College',
     when: '2021–2024',
-    note: 'Studied before moving into digital interactive media.',
+  },
+  {
+    field: 'Digital Interactive Media/Computer Science',
+    degree: 'B.S. Digital Media, CS Minor',
+    school: 'Florida International University',
+    when: '2024–2026',
   },
 ];
 
 /*
  * CONTENT GAPS (internal — never render):
- * - Degree names, and FIU dates.
- * - Confirm Digital Interactive Media + CS minor were at FIU (inferred from FIU
- *   journalism school / Caplin News and SEEDS "about to graduate").
- *   Resume stays noindex until this is confirmed: education is the one record
- *   section that is still inferred.
  * - Tembo: public-safe usage metrics (none verified; the case study claims none).
- * - Employment dates for SEEDS (year only) and STEM Xposure (years).
  * - A current résumé PDF (or hosted link) for PROFILE.resumePdf.
  * - Portrait for About (optional).
  */
