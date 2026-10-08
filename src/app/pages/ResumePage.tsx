@@ -20,6 +20,12 @@ const RULE = {
   none: { section: '', heading: 'mb-8' },
 };
 
+/** fadeUp, delayed to follow the hero's entrance (its last item starts at 0.25s). */
+const fadeUpAfterHero = {
+  hidden: fadeUp.hidden,
+  show: { ...fadeUp.show, transition: { ...fadeUp.show.transition, delay: 0.35 } },
+};
+
 /** One résumé section, headed like a case-study outcomes block: the muted kicker is the h2. */
 function Block({
   id,
@@ -27,6 +33,7 @@ function Block({
   rule = 'always',
   className = '',
   headingClassName = '',
+  revealOnLoad = false,
   children,
 }: {
   id: string;
@@ -35,15 +42,20 @@ function Block({
   className?: string;
   /** Extra heading classes, e.g. to run the left column's rule across the gutter. */
   headingClassName?: string;
+  /**
+   * Fade in on page load (just after the hero) instead of on scroll. For the first sections, whose headings sit at or
+   * just below the fold: they must be visible on arrival, as the cue to scroll.
+   */
+  revealOnLoad?: boolean;
   children: ReactNode;
 }) {
+  const reveal = revealOnLoad ? { animate: 'show' } : { whileInView: 'show', viewport: viewportOnce };
   return (
     <motion.section
       aria-labelledby={id}
       initial="hidden"
-      whileInView="show"
-      viewport={viewportOnce}
-      variants={fadeUp}
+      {...reveal}
+      variants={revealOnLoad ? fadeUpAfterHero : fadeUp}
       className={`${RULE[rule].section} ${className}`}
     >
       <h2 id={id} className={`font-display text-kicker text-fg-faint ${RULE[rule].heading} ${headingClassName}`}>
@@ -241,11 +253,11 @@ export function ResumePage() {
             less space below it because each accordion row has its own top padding, so Tembo lines up with the first
             skill group. */}
         <div className="mt-4 grid grid-cols-1 gap-y-(--space-section) lg:mt-8 lg:grid-cols-[2fr_3fr] lg:gap-x-16">
-          <Block id="experience" title="Experience" rule="under" headingClassName="mb-2" className="lg:col-start-2 lg:row-start-1">
+          <Block id="experience" title="Experience" rule="under" revealOnLoad headingClassName="mb-2" className="lg:col-start-2 lg:row-start-1">
             <ExperienceAccordion />
           </Block>
 
-          <Block id="skills" title="Skills" rule="under" headingClassName="mb-8 lg:-mr-16" className="lg:col-start-1 lg:row-start-1">
+          <Block id="skills" title="Skills" rule="under" revealOnLoad headingClassName="mb-8 lg:-mr-16" className="lg:col-start-1 lg:row-start-1">
             <dl className="flex max-w-(--measure) flex-col gap-6">
               {SKILLS.map((skill) => (
                 <div key={skill.group}>
