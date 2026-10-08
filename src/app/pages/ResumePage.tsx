@@ -19,7 +19,7 @@ const RULE = {
   none: { section: '', heading: 'mb-8' },
 };
 
-/** One résumé section. The h2 is a small caps label, so entry titles (text-kicker) read above it in the hierarchy. */
+/** One résumé section, headed like a case-study outcomes block: the muted kicker is the h2. */
 function Block({
   id,
   title,
@@ -45,7 +45,7 @@ function Block({
       variants={fadeUp}
       className={`${RULE[rule].section} ${className}`}
     >
-      <h2 id={id} className={`text-label caps text-fg-subtle ${RULE[rule].heading} ${headingClassName}`}>
+      <h2 id={id} className={`font-display text-kicker text-fg-faint ${RULE[rule].heading} ${headingClassName}`}>
         {title}
       </h2>
       {children}
@@ -86,7 +86,7 @@ function ExperienceAccordion() {
                 <span className="min-w-0">
                   {/* sr-only commas: the visual breaks (block, flex gaps, dots) aren't spoken, so the name reads
                       "Tembo, Founder, …" rather than running the parts together. */}
-                  <span className="block font-display text-kicker text-ink">{item.org}</span>
+                  <span className="block text-body-lg font-semibold text-ink">{item.org}</span>
                   <span className="sr-only">, </span>
                   <span className="mt-2 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-body text-fg-muted">
                     {meta.map((part, i) => (
@@ -264,7 +264,7 @@ export function ResumePage() {
 
           {/* Full width, heading above the divider. Two equal columns on tablets; from lg the page's 2fr/3fr grid, so
               the second school starts exactly where Experience does. Stacked on phones with a hairline between the
-              schools. The field of study is the headline (text-kicker, as the Experience organisations); degree, minor and school
+              schools. The field of study is the headline (the résumé entry style, as the Experience organisations); degree, minor and school
               support it, then the dates. */}
           <Block id="education" title="Education" rule="under" headingClassName="mb-8" className="lg:col-span-2 lg:row-start-2">
             <ul className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-16 lg:grid-cols-[2fr_3fr]">
@@ -273,7 +273,7 @@ export function ResumePage() {
                   key={item.field}
                   className={index === 0 ? 'pb-10 sm:pb-0' : 'border-t border-line pt-10 sm:border-t-0 sm:pt-0'}
                 >
-                  <h3 className="font-display text-kicker text-ink">{item.field}</h3>
+                  <h3 className="text-body-lg font-semibold text-ink">{item.field}</h3>
                   <div className="mt-3 text-body text-fg-muted">
                     <p className="text-ink">{item.degree}</p>
                     {item.minor && <p>{item.minor}</p>}
