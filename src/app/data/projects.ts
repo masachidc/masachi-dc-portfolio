@@ -55,7 +55,7 @@ export const PROJECTS: Project[] = [
     title: 'KESHO',
     cardTitle: 'KESHO',
     railTitle: 'KESHO App',
-    summary: 'Predictions that lock at kickoff and reveal at the end',
+    summary: 'Predictions that lock at kickoff and reveal at the end of the event',
     disciplines: 'Full-Stack Development · Closed Testing',
     year: '2026',
     description:
