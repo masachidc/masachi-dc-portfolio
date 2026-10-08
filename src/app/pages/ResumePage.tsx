@@ -156,20 +156,38 @@ function ExperienceAccordion() {
 }
 
 /**
- * The three disciplines, indexed /001–/003. Plain text for now: each becomes a link once its project grouping
- * exists, so nothing here looks clickable. From lg the index sits in the left column and the name in the right,
- * on the same grid as the sections above.
+ * The three disciplines as equal editorial cards: index top-left, arrow top-right, name bottom-left. Not links
+ * yet: each card becomes one once its project grouping exists. Until then there is no link, button, pointer cursor
+ * or lift, the arrow is muted and hidden from assistive tech, and hover only firms up the border.
+ * Three columns from md (portrait 4:5); stacked shorter cards on phones.
  */
 function Disciplines() {
   return (
-    <ol className="border-b border-line">
+    <ol className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-6">
       {RESUME_DISCIPLINES.map((discipline, index) => (
         <li
           key={discipline}
-          className="grid grid-cols-[4rem_1fr] items-baseline gap-x-4 border-t border-line py-6 sm:py-7 lg:grid-cols-[2fr_3fr] lg:gap-x-16"
+          className="flex min-h-44 flex-col justify-between border border-line bg-paper p-6 transition-colors duration-300 hover:border-ink/20 motion-reduce:transition-none md:aspect-[4/5] md:min-h-0 lg:p-8"
         >
-          <span className="font-mono text-small tabular-nums text-fg-subtle">/{String(index + 1).padStart(3, '0')}</span>
-          <span className="font-display text-title text-ink">{discipline}</span>
+          <div className="flex items-start justify-between gap-4">
+            <span className="font-mono text-small tabular-nums text-fg-subtle">/{String(index + 1).padStart(3, '0')}</span>
+            <ArrowUpRight aria-hidden size={18} strokeWidth={1.5} className="shrink-0 text-fg-faint" />
+          </div>
+          {/* One word per line on every card, so the three titles share a shape whatever the card width. The space
+              before the <br> keeps the spoken name "Product Design", not "ProductDesign". */}
+          <h3 className="font-display text-title text-ink">
+            {discipline.split(' ').map((word, i) => (
+              <Fragment key={word}>
+                {i > 0 && (
+                  <>
+                    {' '}
+                    <br />
+                  </>
+                )}
+                {word}
+              </Fragment>
+            ))}
+          </h3>
         </li>
       ))}
     </ol>
