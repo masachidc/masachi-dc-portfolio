@@ -175,7 +175,7 @@ export const EDUCATION: { field: string; minor?: string; school?: string; note?:
     when: 'Graduated Apr 2026',
   },
   {
-    field: 'Architecture',
+    field: 'A.A. Architecture',
     school: 'Hillsborough Community College',
     when: '2021–2024',
     note: 'Studied before moving into digital interactive media.',
