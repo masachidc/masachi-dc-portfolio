@@ -21,12 +21,10 @@ export interface Project {
   /** Temporary: link out to a case study hosted elsewhere instead of /works/<slug>. */
   externalUrl?: string;
   /**
-   * Card image. `placeholder: true` marks generic stock imagery awaiting a real
-   * project cover — swap `src` (and drop the flag) when artwork exists.
-   * `frame` is the cover's composition: `wide` is 2:1, `tall` is 1:2. Phone and
-   * tablet cards use it so the artwork isn't cropped into a shared box.
+   * Card image. `src` is the desktop mosaic artwork. `mobile` is the 4:3 phone
+   * and tablet cover. `placeholder: true` marks generic stock awaiting a real cover.
    */
-  cover: { src: string; position: string; placeholder?: boolean; frame?: 'wide' | 'tall' };
+  cover: { src: string; position: string; placeholder?: boolean; mobile?: MobileCover };
   /** The project's brand system (see brands.ts): card hover wash, rail highlights, case study. */
   brand: Brand;
   /** Leave off the phone-width Selected work grid (still shown on tablet and desktop). */
@@ -36,6 +34,38 @@ export interface Project {
   /** Concise, verified credits shown in the Selected Work hover overlay. */
   credits?: {
     disciplines: string[];
+  };
+}
+
+/**
+ * Phone and tablet Selected work covers. Every file is 4:3 WebP:
+ * 800×600 for small screens, 1600×1200 otherwise. Desktop mosaic art stays on `cover.src`.
+ * The mosaic starts at Tailwind's `lg` breakpoint.
+ */
+export const WORK_MOSAIC_QUERY = '(min-width: 1024px)';
+
+export const MOBILE_COVER = {
+  width: 1600,
+  height: 1200,
+  smallWidth: 800,
+  /** Content box of `.container-site`. The gutter is at least 1.5rem on each side. */
+  sizes: 'calc(100vw - 3rem)',
+} as const;
+
+/** 4:3 WebP pair for a phone/tablet cover. `stem` is the file name without `.webp`. */
+export interface MobileCover {
+  /** 1600×1200. Also the fallback when srcset is not used. */
+  src: string;
+  /** 800w and 1600w, so a phone does not have to download the larger file. */
+  srcSet: string;
+}
+
+function mobileCover(stem: string): MobileCover {
+  const large = `/img/works/${stem}.webp`;
+  const small = `/img/works/${stem}-800.webp`;
+  return {
+    src: large,
+    srcSet: `${small} ${MOBILE_COVER.smallWidth}w, ${large} ${MOBILE_COVER.width}w`,
   };
 }
 
@@ -52,7 +82,7 @@ export const PROJECTS: Project[] = [
     year: '2026',
     description:
       'Goals, hobbies, relationships, pets, and trips become ongoing Storylines that grow through Moments. Designed, engineered, and shipped to the App & Play Stores.',
-    cover: { src: '/img/works/tembo-app.webp', position: 'center' },
+    cover: { src: '/img/works/tembo-app.webp', position: 'center', mobile: mobileCover('tembo-app-mobile') },
     brand: BRANDS['tembo-app'],
     credits: {
       disciplines: ['Design Engineering', 'Product Design', 'Shipping'],
@@ -69,7 +99,7 @@ export const PROJECTS: Project[] = [
     year: '2026',
     description:
       'A prediction product for football fans. Predictions are made before kickoff, scored and revealed after the whistle. Designed, built, deployed, tested, and decommissioned.',
-    cover: { src: '/img/works/kesho-app.webp', position: 'center', frame: 'tall' },
+    cover: { src: '/img/works/kesho-app.webp', position: 'center', mobile: mobileCover('kesho-app-mobile') },
     brand: BRANDS['kesho-app'],
     credits: {
       disciplines: ['AI-assisted development', 'Product Design', 'Closed Testing'],
@@ -86,7 +116,7 @@ export const PROJECTS: Project[] = [
     year: '2025',
     description:
       'Research moved it from a native app to a lightweight web platform with M-Pesa booking; usability testing made My Museum a core feature.',
-    cover: { src: '/img/works/amuse-art-museum.webp', position: 'center' },
+    cover: { src: '/img/works/amuse-art-museum.webp', position: 'center', mobile: mobileCover('amuse-art-museum-mobile') },
     brand: BRANDS['amuse-art-museum'],
     credits: {
       disciplines: ['Product Design', 'UX Research', 'Prototyping'],
@@ -103,7 +133,7 @@ export const PROJECTS: Project[] = [
     year: '2026',
     description:
       'Makes the read-only web writable: a floating icon opens notes, drawing, highlights, and AI on any page. Most Unique Project at FIU Blackstone LaunchPad.',
-    cover: { src: '/img/works/inline-chrome-extension.webp', position: 'center', frame: 'tall' },
+    cover: { src: '/img/works/inline-chrome-extension.webp', position: 'center', mobile: mobileCover('inline-chrome-extension-mobile') },
     brand: BRANDS['inline-chrome-extension'],
     credits: {
       disciplines: ['Technical Collaboration', 'Web Accessibility', 'UI/UX Design'],
@@ -120,7 +150,11 @@ export const PROJECTS: Project[] = [
     year: '2025',
     description:
       'Gave a program with no consistent look an identity approved by FIU branding, and a site non-technical staff can maintain. Enrollment more than doubled during the initiative.',
-    cover: { src: '/img/works/project-seeds-brand-guidelines.webp', position: 'center' },
+    cover: {
+      src: '/img/works/project-seeds-brand-guidelines.webp',
+      position: 'center',
+      mobile: mobileCover('project-seeds-brand-guidelines-mobile'),
+    },
     brand: BRANDS['project-seeds-branding'],
     credits: {
       disciplines: ['Brand Identity', 'Logo Design', 'Web Design'],
@@ -137,7 +171,7 @@ export const PROJECTS: Project[] = [
     year: '2026',
     description:
       'I designed the curriculum, recruited and onboarded 14 volunteer instructors, and helped deliver three years of programming to 500+ high school students.',
-    cover: { src: '/img/works/stemxposure.webp', position: 'center' },
+    cover: { src: '/img/works/stemxposure.webp', position: 'center', mobile: mobileCover('stemxposure-mobile') },
     brand: BRANDS.stemxposure,
     credits: {
       disciplines: ['Stakeholder Partnerships', 'Program Leadership', 'Curriculum Design'],
@@ -161,6 +195,7 @@ export const OTHER_PROJECTS: Project[] = [
     year: '2025',
     description:
       'Kinetic typography and particle effects carry the story, made in After Effects for Masachi DC Studios with Brandspot Media.',
+    // No 4:3 mobile cover was supplied. Touch layouts use this desktop file in the shared frame.
     cover: { src: '/img/works/the-incredible-hulk.webp', position: 'center' },
     brand: BRANDS['the-incredible-hulk'],
     hideOnMobile: true,

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { PROJECTS, type Project } from '../data/projects';
+import { PROJECTS, WORK_MOSAIC_QUERY, type Project } from '../data/projects';
 import { ProjectCard } from './ProjectCard';
 
 /** True from the desktop mosaic breakpoint up. One layout mounts, so covers aren't fetched twice. */
 function useDesktopMosaic() {
-  const query = '(min-width: 1024px)';
+  const query = WORK_MOSAIC_QUERY;
   const [desktop, setDesktop] = useState(() =>
     typeof window !== 'undefined' ? window.matchMedia(query).matches : false,
   );
@@ -51,7 +51,7 @@ function MosaicBand({
     return (
       <div className={`grid gap-6 ${group.length === 2 ? 'aspect-[5/2] grid-cols-2' : 'aspect-[5/2] grid-cols-1'}`}>
         {group.map((p) => (
-          <ProjectCard key={p.slug} project={p} number={number(p)} priority={priority} />
+          <ProjectCard key={p.slug} project={p} number={number(p)} priority={priority} mosaic />
         ))}
       </div>
     );
@@ -63,15 +63,15 @@ function MosaicBand({
       <div className="grid h-full grid-cols-3 grid-rows-2 gap-6">
         {mirrored ? (
           <>
-            <ProjectCard project={a} number={number(a)} feature priority={priority} className="col-span-1 row-span-2" />
-            <ProjectCard project={b} number={number(b)} priority={priority} className="col-span-2 col-start-2 row-span-1" />
-            <ProjectCard project={c} number={number(c)} priority={priority} className="col-span-2 col-start-2 row-span-1 row-start-2" />
+            <ProjectCard project={a} number={number(a)} feature priority={priority} mosaic className="col-span-1 row-span-2" />
+            <ProjectCard project={b} number={number(b)} priority={priority} mosaic className="col-span-2 col-start-2 row-span-1" />
+            <ProjectCard project={c} number={number(c)} priority={priority} mosaic className="col-span-2 col-start-2 row-span-1 row-start-2" />
           </>
         ) : (
           <>
-            <ProjectCard project={a} number={number(a)} priority={priority} className="col-span-2 row-span-1" />
-            <ProjectCard project={b} number={number(b)} feature priority={priority} className="col-span-1 col-start-3 row-span-2 row-start-1" />
-            <ProjectCard project={c} number={number(c)} priority={priority} className="col-span-2 row-span-1 row-start-2" />
+            <ProjectCard project={a} number={number(a)} priority={priority} mosaic className="col-span-2 row-span-1" />
+            <ProjectCard project={b} number={number(b)} feature priority={priority} mosaic className="col-span-1 col-start-3 row-span-2 row-start-1" />
+            <ProjectCard project={c} number={number(c)} priority={priority} mosaic className="col-span-2 row-span-1 row-start-2" />
           </>
         )}
       </div>
@@ -95,9 +95,8 @@ export function ProjectGrid({ projects = PROJECTS }: { projects?: Project[] } = 
         </h2>
 
         {/*
-          Below the mosaic, cards stack in one column. Wide and tall covers differ
-          by about 4× in height, so a two-column row leaves a large hole under the
-          shorter card. One column keeps each cover full width and in reading order.
+          Below the mosaic, cards stack in one column. Every cover is 4:3, so the
+          row stays one consistent height and reading order without a short/tall hole.
         */}
         {desktop ? (
           <div className="flex flex-col gap-6">
