@@ -57,7 +57,7 @@ function CardContent({ card }: { card: NavigationCard }) {
         />
       </div>
       <div>
-        <h3 className="whitespace-nowrap font-display text-title">{card.title}</h3>
+        <h3 className="font-display text-title lg:whitespace-nowrap">{card.title}</h3>
         <p className="mt-4 max-w-[28ch] text-body opacity-80">{card.description}</p>
       </div>
     </div>
@@ -78,12 +78,12 @@ export function HomeNavigationCards() {
       <motion.h2 id="where-to-next-title" variants={fadeUp} className="mb-8 font-display text-kicker text-fg-faint">
         Where to next
       </motion.h2>
-      <ol className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-12 lg:gap-16">
+      <ol className="mx-auto grid w-full max-w-[22rem] grid-cols-1 gap-6 md:mx-0 md:max-w-none md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-16">
         {CARDS.map((card) => (
           <motion.li
             key={card.label}
             variants={fadeUp}
-            className="flex w-full max-w-[19rem] md:max-w-none"
+            className="flex w-full"
           >
             <div className="work-stage w-full">
               <span aria-hidden="true" className="work-shadow" />

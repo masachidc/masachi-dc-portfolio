@@ -99,7 +99,7 @@ export default function App() {
                 height={4549}
                 decoding="async"
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-0 z-0 h-full w-full select-none object-cover"
+                className="immersive-bg"
               />
             </picture>
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-bone/50" />
@@ -120,8 +120,9 @@ export default function App() {
                 width={2560}
                 height={900}
                 decoding="async"
+                loading="lazy"
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-0 z-0 h-full w-full select-none object-cover"
+                className="immersive-bg"
               />
             </picture>
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-bone/50" />

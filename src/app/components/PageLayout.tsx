@@ -57,7 +57,7 @@ export function PageLayout({
               height={4549}
               decoding="async"
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 h-full w-full select-none object-cover"
+              className="immersive-bg"
             />
           </picture>
         )}

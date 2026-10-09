@@ -127,7 +127,7 @@ export function WhatIDo() {
       variants={stagger(0, 0.08)}
       className="container-site section-y"
     >
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-6">
         <motion.div variants={fadeUp}>
           <p className="mb-3 font-display text-kicker text-fg-faint">What I can do</p>
           <h2 id="what-i-do-title" className="max-w-[15ch] text-balance font-display text-headline text-ink">
