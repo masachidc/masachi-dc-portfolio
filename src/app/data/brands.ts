@@ -17,15 +17,16 @@ export interface Brand {
 export const BRANDS = {
   // TEMBO and INLINE deep: same hue as the brand colour, darkened at Nathan's request.
   'tembo-app': { primary: '#FFC829', primaryDeep: '#E0A800' },
-  // Interim: the original card blue, kept until KESHO's brand colours are set.
-  'kesho-app': { primary: '#0057FF', primaryDeep: '#00297A' },
+  // The Hulk's green, chosen by Nathan for KESHO.
+  'kesho-app': { primary: '#0B7A3B', primaryDeep: '#03401F' },
   'amuse-art-museum': { primary: '#260101' },
   'inline-chrome-extension': { primary: '#007BA8', primaryDeep: '#004B66' },
   'project-seeds-branding': { primary: '#001047', source: 'CMYK 100/87/42/52' },
   // Interim: the original card green, kept until the Hulk's brand colours are set.
   'the-incredible-hulk': { primary: '#0B7A3B', primaryDeep: '#03401F' },
-  // The red of the "Global STEM Summer Camp" logo ribbon, picked by Nathan.
-  stemxposure: { primary: '#E4010D' },
+  // The red of the "Global STEM Summer Camp" logo ribbon, picked by Nathan. Deep: a darker red-orange for the card
+  // hover, at Nathan's request (the ribbon red was too bright as a full fill).
+  stemxposure: { primary: '#E4010D', primaryDeep: '#B8360F' },
 } satisfies Record<string, Brand>;
 
 /** True for light colours (e.g. TEMBO yellow) that need ink text on top, not white. */

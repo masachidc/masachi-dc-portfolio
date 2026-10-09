@@ -103,7 +103,7 @@ function ExperienceAccordion() {
                       "Tembo, Founder, …" rather than running the parts together. */}
                   <span className="block text-entry text-ink">{item.org}</span>
                   <span className="sr-only">, </span>
-                  <span className="mt-2 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-body-lg text-fg-muted">
+                  <span className="mt-2 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-body-lg font-semibold text-fg-subtle">
                     {meta.map((part, i) => (
                       <Fragment key={part}>
                         {i > 0 && (
@@ -134,7 +134,7 @@ function ExperienceAccordion() {
                   aria-hidden="true"
                   className={`flex size-11 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 motion-reduce:transition-none ${
                     isOpen
-                      ? 'border-ink bg-ink text-bone'
+                      ? 'border-fg-muted bg-fg-muted text-bone'
                       : 'border-line bg-paper text-ink group-hover:border-ink/25 group-hover:bg-surface'
                   }`}
                 >
@@ -154,7 +154,7 @@ function ExperienceAccordion() {
               <div className="min-h-0 overflow-hidden">
                 <div className="max-w-(--measure) pb-8 pr-2 sm:pb-9 sm:pr-17">
                   <div className="text-body-lg text-fg-muted">
-                    <Bullets items={item.points} />
+                    <Bullets items={item.points} dash={false} />
                   </div>
                   {item.links && (
                     <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
@@ -193,7 +193,7 @@ function Disciplines() {
           <li key={discipline} className="flex">
             <Link
               to={disciplineHref(findDiscipline(discipline))}
-              className="group flex min-h-44 w-full flex-col justify-between border border-line bg-paper p-6 transition-colors duration-300 hover:border-ink/20 focus-visible:border-ink/20 motion-reduce:transition-none md:aspect-[4/5] md:min-h-0 lg:p-8"
+              className="group flex min-h-44 w-full flex-col justify-between rounded-[var(--radius-surface)] border border-line bg-paper p-6 transition-colors duration-300 hover:border-ink/20 focus-visible:border-ink/20 motion-reduce:transition-none md:aspect-[4/5] md:min-h-0 lg:p-8"
             >
               <span className="flex items-start justify-between gap-4">
                 {/* The homepage card's number (N°01, as projectNumber() formats it) and type; text-fg-subtle instead of
@@ -247,6 +247,7 @@ export function ResumePage() {
       }
       width="reading"
       titleSize="headline"
+      viewportBg
       lede={RESUME_INTRO}
       // Email, LinkedIn and X live in the contact rail (and the footer). The hero only carries a download link, and only
       // once a real résumé exists: a /public PDF downloads, a hosted link opens in a new tab.

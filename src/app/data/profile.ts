@@ -86,7 +86,7 @@ export const IMPACT: ImpactItem[] = [
 
 /** Resume intro: the positioning paragraph under the contact links (~35–55 words). */
 export const RESUME_INTRO =
-  'A product designer who ships. Trained in architecture, digital media, and computer science, I work across design and development to turn ideas into working products without a traditional handoff. I build with longevity, scale, and depth in mind.';
+  'A product designer who ships. Trained in architecture, digital media, and computer science, I work across design and development to turn ideas into working products with minimal handoff. I build with longevity, scale, and depth in mind.';
 
 /**
  * Resume roles, most relevant first. Keep the public record compact: the
@@ -108,7 +108,7 @@ export const EXPERIENCE: ExperienceItem[] = [
   {
     title: 'Founder',
     org: 'Tembo',
-    role: 'Product Designer & Design Engineer',
+    role: 'Product Designer/Engineer',
     when: 'Aug 2026 – Present',
     points: [
       `Founded, designed, and shipped Tembo: Storylines, a social iOS and Android app that organizes ongoing life experiences into Storylines made of Moments, from product concept through ${

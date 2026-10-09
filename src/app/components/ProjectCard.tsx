@@ -1,18 +1,15 @@
-import { type MouseEvent, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react';
+import { motion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { projectHref, projectNumber, type Project } from '../data/projects';
 import { isLightColor } from '../data/brands';
 import { StatusMark } from './StatusMark';
 import { easeOut } from '../lib/motion';
 
-const MotionLink = motion(Link);
-
 // The resting title, summary and disciplines (and the scrim behind them).
 // Set false to hide them when the covers carry their own titles. The status
 // mark shows either way.
-const SHOW_RESTING_TEXT = true;
+const SHOW_RESTING_TEXT = false;
 
 interface ProjectCardProps {
   project: Project;
@@ -23,13 +20,6 @@ interface ProjectCardProps {
   number?: string;
 }
 
-function hexToRgba(hex: string, alpha: number) {
-  const n = parseInt(hex.replace('#', ''), 16);
-  const r = (n >> 16) & 255;
-  const g = (n >> 8) & 255;
-  const b = n & 255;
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
 // Cards reveal as soon as any part is on screen (or about to be), so the ones
 // peeking above the fold on first load animate in immediately instead of
 // waiting for a scroll. The shared viewportOnce inset would hold them back.
@@ -40,24 +30,13 @@ const cardEntrance = {
   show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.9, ease: easeOut } },
 };
 
-const cardHover = {
-  rest: { y: 0, transition: { duration: 0.4, ease: easeOut } },
-  hover: { y: -4, transition: { duration: 0.5, ease: easeOut } },
-};
+/** Visible stamp. BUILD reads as BUILT; the accessible name uses the same word. */
+function statusStamp(mark: Project['mark']) {
+  return mark === 'BUILD' ? 'BUILT' : mark;
+}
 
-const panelStagger = {
-  rest: { transition: { staggerChildren: 0.025, staggerDirection: -1 } },
-  hover: { transition: { staggerChildren: 0.05, delayChildren: 0.06 } },
-};
-
-const panelItem = {
-  rest: { opacity: 0, y: 8, transition: { duration: 0.18, ease: easeOut } },
-  hover: { opacity: 1, y: 0, transition: { duration: 0.32, ease: easeOut } },
-};
-
-function CardInner({ p, imgY, feature, number }: {
+function CardInner({ p, feature, number }: {
   p: Project;
-  imgY: ReturnType<typeof useTransform>;
   feature: boolean;
   number: string;
 }) {
@@ -69,22 +48,19 @@ function CardInner({ p, imgY, feature, number }: {
   const light = isLightColor(deep);
   return (
     <>
-      <motion.img
+      <img
         src={p.cover.src}
         alt=""
         decoding="async"
         className="absolute inset-0 h-full w-full object-cover"
-        style={{ objectPosition: p.cover.position, filter: 'saturate(0.92) brightness(0.88)', y: imgY }}
-        whileHover={{ scale: 1.025 }}
-        transition={{ duration: 0.9, ease: easeOut }}
+        style={{ objectPosition: p.cover.position }}
       />
 
       {SHOW_RESTING_TEXT && (
         <>
-        {/* scrim only in the bottom-left corner, behind the text. The scrim and resting text drop out inside a
-            [data-bare] grid (discipline pages), leaving only the status mark; the link's aria-label keeps the text. */}
+        {/* scrim only in the bottom-left corner, behind the text */}
         <div
-          className="absolute inset-0 transition-opacity duration-500 in-data-bare:hidden md:group-hover:opacity-0"
+          className="absolute inset-0 transition-opacity duration-500 md:group-hover:opacity-0"
           style={{
             background:
               'radial-gradient(ellipse 95% 70% at 0% 100%, color-mix(in srgb, var(--color-ink-deep) 93%, transparent) 0%, color-mix(in srgb, var(--color-ink-deep) 60%, transparent) 45%, transparent 100%)',
@@ -95,7 +71,7 @@ function CardInner({ p, imgY, feature, number }: {
           At rest the card answers, in reading order: what it is (title), why it
           matters (summary), what Nathan did (disciplines). Number and year stay quiet.
         */}
-        <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5 pr-32 transition-opacity duration-300 in-data-bare:hidden sm:p-6 sm:pr-32 md:group-hover:opacity-0">
+        <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5 pr-32 transition-opacity duration-300 sm:p-6 sm:pr-32 md:group-hover:opacity-0">
           <div className="min-w-0">
             <p className="mb-3 font-mono text-micro font-medium tracking-[0.1em] text-bone/65">{meta}</p>
             <h3 className={`${titleClass} text-bone`}>{p.cardTitle}</h3>
@@ -106,96 +82,66 @@ function CardInner({ p, imgY, feature, number }: {
         </>
       )}
 
-      {/* status mark, bottom-right, at rest (the hover panel takes over on desktop) */}
-      <div className="absolute bottom-0 right-0 z-10 p-5 transition-opacity duration-300 sm:p-6 md:group-hover:opacity-0">
-        <StatusMark label={p.mark} />
+      {/* Status stays visible above both the cover and hover-credit states. */}
+      <div className="absolute bottom-0 right-0 z-30 p-5 sm:p-6">
+        <StatusMark label={statusStamp(p.mark)} />
       </div>
 
       {/*
-        Hover detail panel: a project-colour wash over the still-visible image,
+        Hover detail panel: one solid fill of the project colour over the image,
         adding the why (description) rather than repeating the resting summary.
         Decorative duplicate of the card's content, hidden from assistive tech.
       */}
-      <motion.div
+      <div
         aria-hidden="true"
-        variants={panelStagger}
-        className={`pointer-events-none absolute inset-0 z-20 hidden flex-col justify-end p-7 opacity-0 transition-opacity duration-300 ease-out md:flex md:group-hover:opacity-100 ${light ? 'text-ink' : 'text-white'}`}
-        style={{
-          // densest behind the text (bottom-left), lighter toward the image's far corner
-          background: `linear-gradient(to right, ${hexToRgba(deep, 0.4)} 0%, ${hexToRgba(deep, 0)} 70%), linear-gradient(to top, ${hexToRgba(deep, 0.97)} 0%, ${hexToRgba(deep, 0.9)} 50%, ${hexToRgba(primary, 0.55)} 100%)`,
-        }}
+        className={`pointer-events-none absolute inset-0 z-20 hidden flex-col justify-end p-7 opacity-0 transition-opacity duration-300 ease-out motion-reduce:transition-none md:flex md:group-hover:opacity-100 md:group-focus-visible:opacity-100 ${light ? 'text-ink' : 'text-white'}`}
+        style={{ background: deep }}
       >
-        <motion.p variants={panelItem} className={`mb-3 font-mono text-micro font-medium tracking-[0.1em] ${light ? 'text-ink/70' : 'text-white/70'}`}>
+        {p.credits && (
+          <div className="absolute right-7 top-7 max-w-[23ch] text-right">
+            {p.credits.disciplines.map((discipline) => (
+              <p key={discipline} className={`text-small font-normal ${light ? 'text-ink' : 'text-white'}`}>{discipline}</p>
+            ))}
+          </div>
+        )}
+        <p className={`mb-3 font-mono text-micro font-medium tracking-[0.1em] ${light ? 'text-ink/70' : 'text-white/70'}`}>
           {meta}
-        </motion.p>
-        <motion.p variants={panelItem} className={`mb-3 ${titleClass}`}>
+        </p>
+        <p className={`mb-3 ${titleClass}`}>
           {p.cardTitle}
-        </motion.p>
-        <motion.p variants={panelItem} className={`mb-5 max-w-[36ch] text-body ${light ? 'text-ink/85' : 'text-white/85'}`}>
+        </p>
+        <p className={`mb-5 max-w-[36ch] text-body ${light ? 'text-ink/85' : 'text-white/85'}`}>
           {p.description}
-        </motion.p>
-        <motion.span
-          variants={panelItem}
+        </p>
+        <span
           className={`inline-flex items-center gap-1.5 self-start border-b pb-1 text-label caps ${light ? 'border-ink/30' : 'border-white/30'}`}
         >
           View case study <ArrowUpRight size={12} strokeWidth={2.25} />
-        </motion.span>
-      </motion.div>
+        </span>
+      </div>
     </>
   );
 }
 
+/** Cover, clipped. Depth lives on .work-card and the cast ellipse beside it. */
+const cardSurface = [
+  'work-card group block aspect-square w-full overflow-hidden bg-ink',
+  'min-[380px]:aspect-[4/3] sm:aspect-[4/5] lg:aspect-auto lg:h-full',
+].join(' ');
+
 export function ProjectCard({ project: p, className = '', feature = false, number = projectNumber(p) }: ProjectCardProps) {
-  const restShadow = '0 1px 2px rgba(10,10,11,0.05), 0 24px 48px -30px rgba(10,10,11,0.22)';
-  const hoverShadow = `0 1px 2px rgba(10,10,11,0.06), 0 32px 60px -24px ${hexToRgba(p.brand.primaryDeep ?? p.brand.primary, 0.4)}`;
   const href = projectHref(p);
   const isInternal = !p.externalUrl;
-  const linkLabel = `${p.railTitle} (${p.mark.toLowerCase()}): ${p.summary}. ${p.disciplines}. View case study`;
-
-  const cardRef = useRef<HTMLAnchorElement>(null);
-  const { scrollYProgress } = useScroll({ target: cardRef, offset: ['start end', 'end start'] });
-  const reduceMotion = useReducedMotion();
-  const imgY = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [-22, 22]);
-
-  const rotateXRaw = useMotionValue(0);
-  const rotateYRaw = useMotionValue(0);
-  const rotateX = useSpring(rotateXRaw, { stiffness: 200, damping: 22, mass: 0.5 });
-  const rotateY = useSpring(rotateYRaw, { stiffness: 200, damping: 22, mass: 0.5 });
-
-  function handleTilt(e: MouseEvent<HTMLAnchorElement>) {
-    const el = cardRef.current;
-    if (!el || reduceMotion) return;
-    const rect = el.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width - 0.5;
-    const py = (e.clientY - rect.top) / rect.height - 0.5;
-    rotateYRaw.set(px * 3);
-    rotateXRaw.set(py * -3);
-  }
-
-  function resetTilt() {
-    rotateXRaw.set(0);
-    rotateYRaw.set(0);
-  }
+  const creditLabel = p.credits ? ` Disciplines: ${p.credits.disciplines.join(', ')}.` : '';
+  const linkLabel = `${p.railTitle} (${statusStamp(p.mark).toLowerCase()}): ${p.summary}. ${p.disciplines}.${creditLabel} View case study`;
 
   const sharedCardProps = {
     'data-project-anchor': p.slug,
     'aria-label': linkLabel,
-    onMouseMove: handleTilt,
-    onMouseLeave: resetTilt,
-    initial: 'rest' as const,
-    whileHover: 'hover' as const,
-    variants: cardHover,
-    style: {
-      rotateX,
-      rotateY,
-      transformPerspective: 1000,
-      '--rest-shadow': restShadow,
-      '--hover-shadow': hoverShadow,
-    } as never,
-    className: 'group relative block aspect-square w-full overflow-hidden min-[380px]:aspect-[4/3] sm:aspect-[4/5] bg-ink shadow-[var(--rest-shadow)] transition-shadow duration-500 [transform-style:preserve-3d] hover:shadow-[var(--hover-shadow)] lg:aspect-auto lg:h-full',
+    className: cardSurface,
   };
 
-  const innerProps = { p, imgY, feature, number };
+  const innerProps = { p, feature, number };
 
   return (
     <motion.div
@@ -205,24 +151,21 @@ export function ProjectCard({ project: p, className = '', feature = false, numbe
       variants={cardEntrance}
       className={`flex flex-col ${className}`}
     >
-      {isInternal ? (
-        <MotionLink ref={cardRef as never} to={href} {...sharedCardProps}>
-          <CardInner {...innerProps} />
-        </MotionLink>
-      ) : (
-        <motion.a
-          ref={cardRef}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          {...sharedCardProps}
-        >
-          <CardInner {...innerProps} />
-        </motion.a>
-      )}
+      <div className="work-stage">
+        <span aria-hidden="true" className="work-shadow" />
+        {isInternal ? (
+          <Link to={href} {...sharedCardProps}>
+            <CardInner {...innerProps} />
+          </Link>
+        ) : (
+          <a href={href} target="_blank" rel="noopener noreferrer" {...sharedCardProps}>
+            <CardInner {...innerProps} />
+          </a>
+        )}
+      </div>
 
-      {/* why it's interesting — below the card on touch screens, where there's no hover */}
-      <p className="mt-4 text-body text-fg-muted md:hidden">{p.description}</p>
+      {/* Sighted touch fallback. The link name already includes this, so it stays out of the accessibility tree. */}
+      <p aria-hidden="true" className="mt-4 text-body text-fg-muted md:hidden">{p.description}</p>
     </motion.div>
   );
 }

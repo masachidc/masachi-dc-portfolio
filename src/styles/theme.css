@@ -31,6 +31,7 @@
   --color-fg-faint: #8a8a8f; /* LARGE text only (≥ 18.7px bold) — 3.4:1 */
 
   --color-line: rgb(10 10 11 / 0.1); /* hairlines and borders */
+  --color-card-stroke: #b8bbc0; /* cool-gray project-card edge */
 
   --color-accent: #008c95; /* brand teal — large text, fills, rules (4.05:1). Also set in public/favicon.svg. */
   --color-accent-soft: #33bcca; /* on dark grounds */
@@ -66,11 +67,17 @@
   --text-lede--line-height: 1.45;
   --text-lede--letter-spacing: -0.01em;
 
-  /* Bold lead-in above a title ("Challenge", "Meet Nathan Masachi,"). */
+  /* Bold lead-in above a title ("Challenge", discipline names, section labels). */
   --text-kicker: clamp(1.25rem, 1.12rem + 0.5vw, 1.375rem);
   --text-kicker--line-height: 1.2;
   --text-kicker--letter-spacing: -0.01em;
   --text-kicker--font-weight: 700;
+
+  /* Homepage hero greeting ("Meet Nathan Masachi,"). Larger than a section kicker; the display headline stays dominant. */
+  --text-greeting: clamp(1.5rem, 1.25rem + 0.8vw, 2rem); /* 24 → 32px */
+  --text-greeting--line-height: 1.15;
+  --text-greeting--letter-spacing: -0.01em;
+  --text-greeting--font-weight: 700;
 
   /* Project name on a card. */
   --text-card: clamp(1.5rem, 1.3rem + 0.6vw, 1.875rem);
@@ -128,6 +135,22 @@
   --gutter: clamp(1.5rem, 0.6rem + 3.6vw, 4rem); /* 24 → 64px */
   --space-section: clamp(4rem, 2.8rem + 4.8vw, 6rem); /* 64 → 96px */
   --header-h: 72px;
+  --radius-surface: 10px;
+}
+
+/*
+ * Homepage content keeps the shared left gutter, so the wordmark, headline, and
+ * footer stay on one edge. On the right, clear the fixed project rail when the
+ * container runs out to the viewport; once the container is centered, the
+ * existing margin is enough and this collapses back to the shared gutter.
+ */
+@media (min-width: 1280px) {
+  .home-layout .container-site {
+    --home-rail-clearance: calc(
+      6.5rem - (100vw - min(100vw, calc(var(--container-site) + 2 * var(--gutter)))) / 2
+    );
+    padding-right: max(var(--gutter), var(--home-rail-clearance));
+  }
 }
 
 /* Full-width site container: header, footer, homepage bands. */
@@ -182,5 +205,82 @@
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;
     border-radius: 2px;
+  }
+}
+
+/*
+ * Selected work surfaces. The cast is an ellipse under the cover, not a stroke
+ * around it, so pale artwork stays separate from the white field.
+ */
+.work-stage {
+  position: relative;
+  height: 100%;
+}
+
+.work-shadow {
+  position: absolute;
+  z-index: 0;
+  left: 12%;
+  right: 12%;
+  bottom: -10px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(10, 10, 11, 0.42);
+  filter: blur(14px);
+  pointer-events: none;
+  transition:
+    bottom 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    height 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.work-card {
+  position: relative;
+  z-index: 1;
+  border: 0;
+  border-radius: var(--radius-surface);
+  box-shadow:
+    0 16px 32px -12px rgb(78 83 90 / 10%);
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* A square overlay keeps the 1px stroke independent from the artwork. */
+.work-card::after {
+  position: absolute;
+  z-index: 30;
+  inset: 0;
+  border: 1px solid var(--color-card-stroke);
+  border-radius: inherit;
+  content: '';
+  pointer-events: none;
+}
+
+/* The card clips its artwork, so the focus ring has to sit inside the edge. */
+.work-card:focus-visible {
+  outline-offset: -4px;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .work-stage:hover .work-shadow {
+    bottom: -16px;
+    height: 40px;
+    background: rgba(10, 10, 11, 0.5);
+    filter: blur(18px);
+  }
+
+  .work-stage:hover .work-card {
+    transform: translateY(-5px);
+    box-shadow:
+      0 24px 44px -12px rgb(78 83 90 / 14%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-shadow,
+  .work-card {
+    transition: none;
   }
 }

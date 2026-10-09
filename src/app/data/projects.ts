@@ -31,6 +31,10 @@ export interface Project {
   hideOnMobile?: boolean;
   /** Status stamp on the card: SHIPPED (released) or BUILD. */
   mark: 'SHIPPED' | 'BUILD';
+  /** Concise, verified credits shown in the Selected Work hover overlay. */
+  credits?: {
+    disciplines: string[];
+  };
 }
 
 // Order: Selected work on the homepage, as Nathan ranks it.
@@ -48,6 +52,9 @@ export const PROJECTS: Project[] = [
       'Goals, hobbies, relationships, pets, and trips become ongoing Storylines that grow through Moments. Designed, engineered, and shipped to the App & Play Stores.',
     cover: { src: '/img/works/tembo-app.webp', position: 'center' },
     brand: BRANDS['tembo-app'],
+    credits: {
+      disciplines: ['Design Engineering', 'Product Design', 'Shipping'],
+    },
   },
   {
     slug: 'kesho-app',
@@ -62,6 +69,9 @@ export const PROJECTS: Project[] = [
       'A prediction product for football fans. Predictions are made before kickoff, scored and revealed after the whistle. Designed, built, deployed, tested, and decommissioned.',
     cover: { src: '/img/works/kesho-app.webp', position: 'center' },
     brand: BRANDS['kesho-app'],
+    credits: {
+      disciplines: ['AI-assisted development', 'Product Design', 'Closed Testing'],
+    },
   },
   {
     slug: 'amuse-art-museum',
@@ -76,6 +86,9 @@ export const PROJECTS: Project[] = [
       'Research moved it from a native app to a lightweight web platform with M-Pesa booking; usability testing made My Museum a core feature.',
     cover: { src: '/img/works/amuse-art-museum.webp', position: 'center' },
     brand: BRANDS['amuse-art-museum'],
+    credits: {
+      disciplines: ['Product Design', 'UX Research', 'Prototyping'],
+    },
   },
   {
     slug: 'inline-chrome-extension',
@@ -90,6 +103,9 @@ export const PROJECTS: Project[] = [
       'Makes the read-only web writable: a floating icon opens notes, drawing, highlights, and AI on any page. Most Unique Project at FIU Blackstone LaunchPad.',
     cover: { src: '/img/works/inline-chrome-extension.webp', position: 'center' },
     brand: BRANDS['inline-chrome-extension'],
+    credits: {
+      disciplines: ['Technical Collaboration', 'Web Accessibility', 'UI/UX Design'],
+    },
   },
   {
     slug: 'project-seeds-branding',
@@ -104,6 +120,9 @@ export const PROJECTS: Project[] = [
       'Gave a program with no consistent look an identity approved by FIU branding, and a site non-technical staff can maintain. Enrollment more than doubled during the initiative.',
     cover: { src: '/img/works/project-seeds-brand-guidelines.webp', position: 'center' },
     brand: BRANDS['project-seeds-branding'],
+    credits: {
+      disciplines: ['Brand Identity', 'Logo Design', 'Web Design'],
+    },
   },
   {
     slug: 'stemxposure',
@@ -118,6 +137,9 @@ export const PROJECTS: Project[] = [
       'I designed the curriculum, recruited and onboarded 14 volunteer instructors, and helped deliver three years of programming to 500+ high school students.',
     cover: { src: '/img/works/stemxposure.webp', position: 'center' },
     brand: BRANDS.stemxposure,
+    credits: {
+      disciplines: ['Stakeholder Partnerships', 'Program Leadership', 'Curriculum Design'],
+    },
   },
 ];
 

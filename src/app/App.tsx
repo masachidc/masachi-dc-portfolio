@@ -6,11 +6,15 @@ import { usePageMeta } from './lib/usePageMeta';
 import { Nav } from './components/Nav';
 import { Hero } from './components/Hero';
 import { ProjectGrid } from './components/ProjectGrid';
-import { HomeAbout } from './components/HomeAbout';
-import { ContactSection } from './components/ContactSection';
+import { WhatIDo } from './components/WhatIDo';
+import { HomeNavigationCards } from './components/HomeNavigationCards';
 import { Footer } from './components/Footer';
 import { ProjectIndexRail } from './components/ProjectIndexRail';
 import { ScrollProgress } from './components/ScrollProgress';
+import viewportBackground from '../../assets/viewport-bg.jpg';
+import viewportBackgroundAvif from '../../assets/viewport-bg.avif';
+import navigationBackground from '../../assets/viewport-bg-nav.jpg';
+import navigationBackgroundAvif from '../../assets/viewport-bg-nav.avif';
 
 function useSmoothScroll() {
   useEffect(() => {
@@ -84,11 +88,47 @@ export default function App() {
         <Nav />
         {/* Inside the content layer so the header (z-50) and its dropdown stack above the rail (z-30). */}
         <ProjectIndexRail />
-        <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
-          <Hero />
-          <ProjectGrid />
-          <HomeAbout />
-          <ContactSection />
+        <main id="main" tabIndex={-1} className="home-layout flex-1 focus:outline-none">
+          <div className="relative isolate overflow-hidden">
+            <picture>
+              <source srcSet={viewportBackgroundAvif} type="image/avif" />
+              <img
+                src={viewportBackground}
+                alt=""
+                width={2560}
+                height={4549}
+                decoding="async"
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 z-0 h-full w-full select-none object-cover"
+              />
+            </picture>
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-bone/50" />
+            <div className="relative z-10">
+              <Hero kickerRole="greeting" />
+              <ProjectGrid />
+            </div>
+          </div>
+          <div className="bg-bone">
+            <WhatIDo />
+          </div>
+          <div className="relative isolate overflow-hidden">
+            <picture>
+              <source srcSet={navigationBackgroundAvif} type="image/avif" />
+              <img
+                src={navigationBackground}
+                alt=""
+                width={2560}
+                height={900}
+                decoding="async"
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 z-0 h-full w-full select-none object-cover"
+              />
+            </picture>
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-bone/50" />
+            <div className="relative z-10">
+              <HomeNavigationCards />
+            </div>
+          </div>
         </main>
         <Footer />
       </div>

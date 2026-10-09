@@ -11,13 +11,13 @@ export function Hl({ children }: { children: ReactNode }) {
   return <strong className="font-semibold text-ink">{children}</strong>;
 }
 
-/** Accent-dash bullet list. */
-export function Bullets({ items }: { items: string[] }) {
+/** Accent-dash bullet list. `dash` is off on the résumé, where the points stand alone. */
+export function Bullets({ items, dash = true }: { items: string[]; dash?: boolean }) {
   return (
     <ul className="space-y-3">
       {items.map((item, i) => (
-        <li key={`${item}-${i}`} className="flex items-start gap-3">
-          <span aria-hidden="true" className="mt-[13px] h-1 w-4 shrink-0 bg-accent" />
+        <li key={`${item}-${i}`} className={dash ? 'flex items-start gap-3' : undefined}>
+          {dash && <span aria-hidden="true" className="mt-[13px] h-1 w-4 shrink-0 bg-accent" />}
           <span>{item}</span>
         </li>
       ))}
@@ -30,7 +30,7 @@ export function Cards({ items }: { items: string[] }) {
   return (
     <ul className="grid grid-cols-1 gap-3 pt-2 sm:grid-cols-2">
       {items.map((item, i) => (
-        <li key={`${item}-${i}`} className="rounded-[6px] bg-surface p-4 text-body leading-snug text-ink/80">
+        <li key={`${item}-${i}`} className="rounded-[var(--radius-surface)] bg-surface p-4 text-body leading-snug text-ink/80">
           {item}
         </li>
       ))}
@@ -117,7 +117,7 @@ export function Sequence({ rows, arrow = false, note }: { rows: { label: string;
             {items.map((t, i) => (
               <li key={i} aria-hidden="true" className="flex items-center gap-1.5">
                 {arrow && i > 0 && <span className="text-small text-fg-subtle">→</span>}
-                <span className={`inline-flex h-8 min-w-8 items-center justify-center rounded-[4px] px-2.5 text-small font-semibold ${shade(t)}`}>
+                <span className={`inline-flex h-8 min-w-8 items-center justify-center rounded-[var(--radius-surface)] px-2.5 text-small font-semibold ${shade(t)}`}>
                   {t}
                 </span>
               </li>

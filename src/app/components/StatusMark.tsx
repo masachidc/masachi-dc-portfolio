@@ -12,7 +12,7 @@ export function StatusMark({
   color = 'var(--color-paper)',
   className = '',
 }: {
-  label: Project['mark'];
+  label: Project['mark'] | 'BUILT';
   color?: string;
   className?: string;
 }) {
@@ -23,9 +23,9 @@ export function StatusMark({
   const w = Math.round(textW + padX * 2);
   const h = 26;
   return (
-    <svg aria-hidden="true" width={w} height={h} viewBox={`0 0 ${w} ${h}`} className={`shrink-0 ${className}`}>
+    <svg aria-hidden="true" width={w} height={h} viewBox={`0 0 ${w} ${h}`} className={`shrink-0 drop-shadow-[0_4px_8px_rgba(10,10,11,0.22)] ${className}`}>
       <mask id={maskId}>
-        <rect width={w} height={h} rx={4} fill="white" />
+        <rect width={w} height={h} fill="white" />
         <text
           x={padX}
           y={h / 2}
@@ -40,8 +40,8 @@ export function StatusMark({
         </text>
       </mask>
       {/* tint seen only through the letters, so the cutout reads on light covers too */}
-      <rect width={w} height={h} rx={4} fill="var(--color-ink-deep)" fillOpacity={0.8} />
-      <rect width={w} height={h} rx={4} fill={color} mask={`url(#${maskId})`} />
+      <rect width={w} height={h} fill="var(--color-ink-deep)" fillOpacity={0.8} />
+      <rect width={w} height={h} fill={color} mask={`url(#${maskId})`} />
     </svg>
   );
 }

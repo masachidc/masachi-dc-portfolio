@@ -20,16 +20,20 @@ function CornerMark({ className, delay }: { className: string; delay: number }) 
 
 /**
  * The homepage hero, reusable: the defaults are the homepage's copy. Discipline pages pass their own kicker, headline
- * lines (the last line takes the teal accent) and introduction.
+ * lines (the last line takes the teal accent) and introduction. The homepage greeting is a larger type role; other
+ * pages keep the shared section kicker.
  */
 export function Hero({
   kicker = 'Meet Nathan Masachi,',
   lines = ['A product designer', 'who ships.'],
   intro = 'I design products and build them, from research and interface design through to production code in React and React Native.',
+  kickerRole = 'kicker',
 }: {
   kicker?: ReactNode;
   lines?: string[];
   intro?: ReactNode;
+  /** `greeting` is the homepage lead-in. Discipline pages keep the shared section kicker. */
+  kickerRole?: 'kicker' | 'greeting';
 } = {}) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
@@ -37,17 +41,17 @@ export function Hero({
   const y = useTransform(scrollYProgress, [0, 1], [0, 60]);
 
   return (
-    <section ref={ref} className="relative bg-bone">
-      <CornerMark className="left-(--gutter) top-4" delay={0.9} />
-      <CornerMark className="right-(--gutter) top-4 rotate-90" delay={1.0} />
+    <section ref={ref} className="relative">
+      <CornerMark className="left-(--gutter) top-4 z-10" delay={0.9} />
+      <CornerMark className="right-(--gutter) top-4 z-10 rotate-90" delay={1.0} />
 
       {/* Top padding = the section rhythm; ProjectGrid mirrors it above "Selected work". */}
-      <motion.div style={{ opacity, y }} className="container-site pt-(--space-section)">
+      <motion.div style={{ opacity, y }} className="container-site relative pt-(--space-section)">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: easeOut }}
-          className="mb-5 text-kicker text-fg-faint"
+          className={`mb-5 text-fg-faint ${kickerRole === 'greeting' ? 'text-greeting' : 'text-kicker'}`}
         >
           {kicker}
         </motion.p>
