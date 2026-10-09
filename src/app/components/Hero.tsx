@@ -56,7 +56,7 @@ export function Hero({
           {kicker}
         </motion.p>
 
-        <h1 className="font-display text-display text-ink">
+        <h1 className="hero-display font-display text-display text-ink">
           {lines.map((line, i) => (
             <RevealLine key={line} delay={0.15 + i * 0.13} className={i === lines.length - 1 ? 'text-accent' : ''}>
               {line}
@@ -69,7 +69,7 @@ export function Hero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: easeOut, delay: 0.55 }}
         >
-          <p className="mt-6 max-w-[44ch] text-body-lg font-medium text-fg-muted">
+          <p className="mt-6 max-w-[44ch] text-pretty text-body-lg font-medium text-fg-muted">
             {intro}
           </p>
         </motion.div>

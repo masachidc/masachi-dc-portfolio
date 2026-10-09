@@ -14,7 +14,7 @@ import { RESUME_DISCIPLINES } from './profile';
 export interface DisciplineWork {
   /** A slug from PROJECTS or OTHER_PROJECTS. */
   slug: string;
-  /** What the project shows about this discipline: the card's hover (and mobile) description, ~15–28 words. */
+  /** What the project shows about this discipline: the desktop hover description, ~15–28 words. */
   summary: string;
   /** Nathan's part, "·"-separated: replaces the card's `disciplines` line. */
   contribution: string;

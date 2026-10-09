@@ -16,15 +16,17 @@ export interface Project {
   disciplines: string;
   /** Omit until verified. */
   year?: string;
-  /** Why it's interesting, ~15–28 words; must not repeat `summary`. Shown on hover (desktop) and below the card (mobile). */
+  /** Why it's interesting, ~15–28 words; must not repeat `summary`. Shown on the desktop hover panel. */
   description: string;
   /** Temporary: link out to a case study hosted elsewhere instead of /works/<slug>. */
   externalUrl?: string;
   /**
    * Card image. `placeholder: true` marks generic stock imagery awaiting a real
    * project cover — swap `src` (and drop the flag) when artwork exists.
+   * `frame` is the cover's composition: `wide` is 2:1, `tall` is 1:2. Phone and
+   * tablet cards use it so the artwork isn't cropped into a shared box.
    */
-  cover: { src: string; position: string; placeholder?: boolean };
+  cover: { src: string; position: string; placeholder?: boolean; frame?: 'wide' | 'tall' };
   /** The project's brand system (see brands.ts): card hover wash, rail highlights, case study. */
   brand: Brand;
   /** Leave off the phone-width Selected work grid (still shown on tablet and desktop). */
@@ -67,7 +69,7 @@ export const PROJECTS: Project[] = [
     year: '2026',
     description:
       'A prediction product for football fans. Predictions are made before kickoff, scored and revealed after the whistle. Designed, built, deployed, tested, and decommissioned.',
-    cover: { src: '/img/works/kesho-app.webp', position: 'center' },
+    cover: { src: '/img/works/kesho-app.webp', position: 'center', frame: 'tall' },
     brand: BRANDS['kesho-app'],
     credits: {
       disciplines: ['AI-assisted development', 'Product Design', 'Closed Testing'],
@@ -101,7 +103,7 @@ export const PROJECTS: Project[] = [
     year: '2026',
     description:
       'Makes the read-only web writable: a floating icon opens notes, drawing, highlights, and AI on any page. Most Unique Project at FIU Blackstone LaunchPad.',
-    cover: { src: '/img/works/inline-chrome-extension.webp', position: 'center' },
+    cover: { src: '/img/works/inline-chrome-extension.webp', position: 'center', frame: 'tall' },
     brand: BRANDS['inline-chrome-extension'],
     credits: {
       disciplines: ['Technical Collaboration', 'Web Accessibility', 'UI/UX Design'],

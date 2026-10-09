@@ -1,5 +1,24 @@
+import { useEffect, useState } from 'react';
 import { PROJECTS, type Project } from '../data/projects';
 import { ProjectCard } from './ProjectCard';
+
+/** True from the desktop mosaic breakpoint up. One layout mounts, so covers aren't fetched twice. */
+function useDesktopMosaic() {
+  const query = '(min-width: 1024px)';
+  const [desktop, setDesktop] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia(query).matches : false,
+  );
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    const onChange = () => setDesktop(media.matches);
+    onChange();
+    media.addEventListener('change', onChange);
+    return () => media.removeEventListener('change', onChange);
+  }, []);
+
+  return desktop;
+}
 
 /** Split into groups of three for the desktop mosaic. */
 function groupsOfThree(items: Project[]) {
@@ -17,12 +36,22 @@ function groupsOfThree(items: Project[]) {
  * Slots follow reading order (top-left, top-right, then below), so array
  * order is the order a visitor reads the cards.
  */
-function MosaicBand({ group, mirrored, number }: { group: Project[]; mirrored: boolean; number: (p: Project) => string }) {
+function MosaicBand({
+  group,
+  mirrored,
+  number,
+  priority = false,
+}: {
+  group: Project[];
+  mirrored: boolean;
+  number: (p: Project) => string;
+  priority?: boolean;
+}) {
   if (group.length < 3) {
     return (
       <div className={`grid gap-6 ${group.length === 2 ? 'aspect-[5/2] grid-cols-2' : 'aspect-[5/2] grid-cols-1'}`}>
         {group.map((p) => (
-          <ProjectCard key={p.slug} project={p} number={number(p)} />
+          <ProjectCard key={p.slug} project={p} number={number(p)} priority={priority} />
         ))}
       </div>
     );
@@ -34,15 +63,15 @@ function MosaicBand({ group, mirrored, number }: { group: Project[]; mirrored: b
       <div className="grid h-full grid-cols-3 grid-rows-2 gap-6">
         {mirrored ? (
           <>
-            <ProjectCard project={a} number={number(a)} feature className="col-span-1 row-span-2" />
-            <ProjectCard project={b} number={number(b)} className="col-span-2 col-start-2 row-span-1" />
-            <ProjectCard project={c} number={number(c)} className="col-span-2 col-start-2 row-span-1 row-start-2" />
+            <ProjectCard project={a} number={number(a)} feature priority={priority} className="col-span-1 row-span-2" />
+            <ProjectCard project={b} number={number(b)} priority={priority} className="col-span-2 col-start-2 row-span-1" />
+            <ProjectCard project={c} number={number(c)} priority={priority} className="col-span-2 col-start-2 row-span-1 row-start-2" />
           </>
         ) : (
           <>
-            <ProjectCard project={a} number={number(a)} className="col-span-2 row-span-1" />
-            <ProjectCard project={b} number={number(b)} feature className="col-span-1 col-start-3 row-span-2 row-start-1" />
-            <ProjectCard project={c} number={number(c)} className="col-span-2 row-span-1 row-start-2" />
+            <ProjectCard project={a} number={number(a)} priority={priority} className="col-span-2 row-span-1" />
+            <ProjectCard project={b} number={number(b)} feature priority={priority} className="col-span-1 col-start-3 row-span-2 row-start-1" />
+            <ProjectCard project={c} number={number(c)} priority={priority} className="col-span-2 row-span-1 row-start-2" />
           </>
         )}
       </div>
@@ -55,6 +84,7 @@ function MosaicBand({ group, mirrored, number }: { group: Project[]; mirrored: b
  * their place on that page.
  */
 export function ProjectGrid({ projects = PROJECTS }: { projects?: Project[] } = {}) {
+  const desktop = useDesktopMosaic();
   const number = (p: Project) => String(projects.indexOf(p) + 1).padStart(2, '0');
   return (
     <section id="work" aria-labelledby="work-title" className="relative">
@@ -64,19 +94,30 @@ export function ProjectGrid({ projects = PROJECTS }: { projects?: Project[] } = 
           Selected work
         </h2>
 
-        {/* mobile / tablet — simple stacked & 2-col rhythm */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:hidden">
-          {projects.map((p) => (
-            <ProjectCard key={p.slug} project={p} number={number(p)} className={p.hideOnMobile ? 'max-sm:hidden' : ''} />
-          ))}
-        </div>
-
-        {/* desktop — asymmetric editorial mosaic */}
-        <div className="hidden lg:flex lg:flex-col lg:gap-6">
-          {groupsOfThree(projects).map((group, i) => (
-            <MosaicBand key={group[0].slug} group={group} mirrored={i % 2 === 1} number={number} />
-          ))}
-        </div>
+        {/*
+          Below the mosaic, cards stack in one column. Wide and tall covers differ
+          by about 4× in height, so a two-column row leaves a large hole under the
+          shorter card. One column keeps each cover full width and in reading order.
+        */}
+        {desktop ? (
+          <div className="flex flex-col gap-6">
+            {groupsOfThree(projects).map((group, i) => (
+              <MosaicBand key={group[0].slug} group={group} mirrored={i % 2 === 1} number={number} priority={i === 0} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 items-start gap-8">
+            {projects.map((p, i) => (
+              <ProjectCard
+                key={p.slug}
+                project={p}
+                number={number(p)}
+                priority={i === 0}
+                className={p.hideOnMobile ? 'max-sm:hidden' : ''}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
