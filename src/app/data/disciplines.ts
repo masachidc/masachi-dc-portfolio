@@ -64,9 +64,9 @@ export const DISCIPLINES: Discipline[] = [
       'With a bias toward shipping, I move quickly from ideas to prototypes and working products, balancing user needs, thoughtful design, and technical feasibility.',
     approach: {
       label: 'How I work',
-      headline: ['I design with the whole product in mind.'],
+      headline: ['Understand the problem.', 'Shape the solution.'],
       description:
-        'I connect user needs, business goals, and technical realities to turn ideas into products, from concept to release.',
+        'I take products from early questions to clear, testable experiences, using research, product thinking, and iteration to decide what should be built and why.',
       principles: [
         { title: 'Product strategy', text: 'I define the problem, product direction, priorities, and tradeoffs.' },
         { title: 'Research & validation', text: 'I use research and testing to challenge assumptions and guide decisions.' },
@@ -108,9 +108,9 @@ export const DISCIPLINES: Discipline[] = [
       'With a background in architecture, digital media, and computer science, I work across design and development to turn ideas into working products with little to no traditional handoff.',
     approach: {
       label: 'How I work',
-      headline: ['I design with the whole product in mind.'],
+      headline: ['Carry the design', 'all the way through.'],
       description:
-        'I connect user needs, business goals, and technical realities to turn ideas into products, from concept to release.',
+        'I take interface decisions into working software, using AI-assisted development and a computer science foundation to reason through implementation, systems, and tradeoffs.',
       principles: [
         { title: 'React & TypeScript', text: 'I build production interfaces across React, React Native, and TypeScript.' },
         { title: 'Design systems', text: 'I turn visual and interaction decisions into reusable components, tokens, and patterns.' },
@@ -153,9 +153,9 @@ export const DISCIPLINES: Discipline[] = [
       'I turn ideas into distinctive visual experiences, combining identity, typography, and motion to create work that feels cohesive, purposeful, and memorable.',
     approach: {
       label: 'How I work',
-      headline: ['I design with the whole product in mind.'],
+      headline: ['A clear idea.', 'A distinctive expression.'],
       description:
-        'I connect user needs, business goals, and technical realities to turn ideas into products, from concept to release.',
+        'I turn ideas into visual systems that are recognizable, coherent, and built to work across real products and touchpoints.',
       principles: [
         { title: 'Identity & systems', text: 'I build visual languages that stay consistent across brands, products, and applications.' },
         { title: 'Typography & composition', text: 'I use type, hierarchy, color, and layout to give ideas structure and clarity.' },

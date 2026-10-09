@@ -129,10 +129,13 @@ export function WhatIDo() {
     >
       <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-6">
         <motion.div variants={fadeUp}>
-          <p className="mb-3 font-display text-kicker text-fg-faint">What I can do</p>
+          <p className="mb-3 font-display text-kicker text-fg-faint">How I work</p>
           <h2 id="what-i-do-title" className="max-w-[15ch] text-balance font-display text-headline text-ink">
-            From the first decision to the final release.
+            I design with the whole product in mind.
           </h2>
+          <p className="mt-6 max-w-[44ch] text-pretty text-lede text-fg-muted">
+            I connect user needs, business goals, and technical realities to turn ideas into products, from concept to release.
+          </p>
         </motion.div>
 
         <ul className="divide-y divide-line">
