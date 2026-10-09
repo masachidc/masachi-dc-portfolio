@@ -135,7 +135,7 @@
   --gutter: clamp(1.5rem, 0.6rem + 3.6vw, 4rem); /* 24 → 64px */
   --space-section: clamp(4rem, 2.8rem + 4.8vw, 6rem); /* 64 → 96px */
   --header-h: 72px;
-  --radius-surface: 10px;
+  --radius-surface: 0px;
 }
 
 /*
