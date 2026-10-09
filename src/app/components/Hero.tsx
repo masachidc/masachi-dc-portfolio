@@ -26,7 +26,7 @@ function CornerMark({ className, delay }: { className: string; delay: number }) 
 export function Hero({
   kicker = 'Meet Nathan Masachi,',
   lines = ['A product designer', 'who ships.'],
-  intro = 'I design products and build them, from research and interface design through to production code in React and React Native.',
+  intro = 'I combine systems thinking, product design, and technical fluency to turn ambiguous ideas into clear, useful products.',
   kickerRole = 'kicker',
 }: {
   kicker?: ReactNode;
