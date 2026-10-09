@@ -24,7 +24,7 @@ export function RevealLine({ children, className = '', delay = 0, trigger = 'loa
   };
 
   return (
-    <span className="block overflow-hidden">
+    <span className="block -mb-[0.16em] overflow-hidden pb-[0.16em]">
       {trigger === 'load' ? (
         <motion.span
           initial={initial}

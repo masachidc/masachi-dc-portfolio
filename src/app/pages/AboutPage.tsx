@@ -5,7 +5,6 @@ import { PageLayout } from '../components/PageLayout';
 import { ContactSection } from '../components/ContactSection';
 import { SiteLink } from '../components/SiteLink';
 import { fadeUp, stagger, viewportOnce } from '../lib/motion';
-import { PROFILE } from '../data/profile';
 
 const PATH = [
   { stage: 'Drafting', text: "I've been designing since high school, where I learned drafting, assembly drawing, and design thinking." },
@@ -87,17 +86,10 @@ export function AboutPage() {
       meta={{
         title: 'About',
         description:
-          'Nathan Masachi is a product designer and design engineer trained in architecture, digital interactive media, and computer science, based in Tampa, Florida.',
+          'I combine systems thinking, product design, and technical fluency to turn ambiguous ideas into clear, useful products.',
       }}
       kicker="About"
-      title="I turn ambiguous ideas into clear, useful products."
-      lede={
-        <>
-          I'm {PROFILE.name}, a designer trained in architecture, digital media, and computer science. I combine{' '}
-          <strong className="font-semibold text-ink">systems thinking, product design, and technical fluency</strong>,
-          and I take products from research into working code. I'm based in {PROFILE.location}.
-        </>
-      }
+      title="I combine systems thinking, product design, and technical fluency to turn ambiguous ideas into clear, useful products."
     >
       <Band id="background" kicker="Background" title="From drafting to working products">
         <ol className="grid grid-cols-1 gap-8 sm:grid-cols-2">
