@@ -86,7 +86,7 @@ function Capability({
             className={`flex size-11 shrink-0 items-center justify-center rounded-full border transition-[color,background-color,border-color,transform] duration-300 ease-out group-active/row:scale-[0.96] motion-reduce:transition-none ${
               open
                 ? 'border-fg-muted bg-fg-muted text-bone'
-                : 'border-line bg-paper text-ink group-hover/row:border-ink/25 group-hover/row:bg-surface group-focus-within/row:border-ink/25 group-focus-within/row:bg-surface'
+                : 'border-line bg-white text-ink group-hover/row:border-ink/25 group-focus-within/row:border-ink/25'
             }`}
           >
             {open ? <Minus size={18} strokeWidth={1.8} /> : <Plus size={18} strokeWidth={1.8} />}

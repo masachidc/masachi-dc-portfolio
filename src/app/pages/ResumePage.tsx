@@ -103,12 +103,12 @@ function ExperienceAccordion() {
                       "Tembo, Founder, …" rather than running the parts together. */}
                   <span className="block text-entry text-ink">{item.org}</span>
                   <span className="sr-only">, </span>
-                  <span className="mt-2 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-body-lg font-semibold text-fg-subtle">
+                  <span className="mt-2 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-body-lg text-ink">
                     {meta.map((part, i) => (
                       <Fragment key={part}>
                         {i > 0 && (
                           <>
-                            <span aria-hidden="true" className="text-fg-subtle">
+                            <span aria-hidden="true">
                               ·
                             </span>
                             <span className="sr-only">, </span>
@@ -135,7 +135,7 @@ function ExperienceAccordion() {
                   className={`flex size-11 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 motion-reduce:transition-none ${
                     isOpen
                       ? 'border-fg-muted bg-fg-muted text-bone'
-                      : 'border-line bg-paper text-ink group-hover:border-ink/25 group-hover:bg-surface'
+                      : 'border-line bg-white text-ink group-hover:border-ink/25'
                   }`}
                 >
                   {isOpen ? <Minus size={18} strokeWidth={1.8} /> : <Plus size={18} strokeWidth={1.8} />}
@@ -179,6 +179,12 @@ function ExperienceAccordion() {
     </ol>
   );
 }
+
+/**
+ * Off for now. The cards and their data stay in this file; set this to true to show
+ * "Explore My Work" (Product Design, Design Engineering, Visual Design) again.
+ */
+const SHOW_EXPLORE_MY_WORK = false;
 
 /**
  * The three disciplines as equal editorial cards: index top-left, arrow top-right, name bottom-left. Each card is one
@@ -312,11 +318,12 @@ export function ResumePage() {
             </ul>
           </Block>
 
-          {/* Full width, heading above the divider like Skills, Experience and Education; the grid gap between sections
-              is the standard --space-section. */}
-          <Block id="disciplines" title="Explore My Work" rule="under" headingClassName="mb-8" className="lg:col-span-2 lg:row-start-3">
-            <Disciplines />
-          </Block>
+          {/* Hidden for now. Flip SHOW_EXPLORE_MY_WORK to render this block again. */}
+          {SHOW_EXPLORE_MY_WORK && (
+            <Block id="disciplines" title="Explore My Work" rule="under" headingClassName="mb-8" className="lg:col-span-2 lg:row-start-3">
+              <Disciplines />
+            </Block>
+          )}
         </div>
       </div>
     </PageLayout>
