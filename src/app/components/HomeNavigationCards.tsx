@@ -83,21 +83,21 @@ export function HomeNavigationCards() {
           <motion.li
             key={card.label}
             variants={fadeUp}
-            className="flex w-full max-w-[19rem] md:max-w-[17rem] md:justify-self-center lg:max-w-[18.5rem]"
+            className="flex w-full max-w-[19rem] md:max-w-none"
           >
             <div className="work-stage w-full">
               <span aria-hidden="true" className="work-shadow" />
               {card.external ? (
                 <a
                   href={card.href}
-                  className="work-card group relative flex aspect-[4/5] w-full overflow-hidden"
+                  className="work-card group relative flex aspect-[3/2] w-full overflow-hidden"
                 >
                   <CardContent card={card} />
                 </a>
               ) : (
                 <Link
                   to={card.href}
-                  className="work-card group relative flex aspect-[4/5] w-full overflow-hidden"
+                  className="work-card group relative flex aspect-[3/2] w-full overflow-hidden"
                 >
                   <CardContent card={card} />
                 </Link>
