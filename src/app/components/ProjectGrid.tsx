@@ -57,7 +57,7 @@ function MosaicBand({ group, mirrored, number }: { group: Project[]; mirrored: b
 export function ProjectGrid({ projects = PROJECTS }: { projects?: Project[] } = {}) {
   const number = (p: Project) => String(projects.indexOf(p) + 1).padStart(2, '0');
   return (
-    <section id="work" aria-labelledby="work-title" className="relative bg-bone">
+    <section id="work" aria-labelledby="work-title" className="relative">
       {/* Hero description → "Selected work" equals nav → hero kicker: both are --space-section. */}
       <div className="container-site pb-(--space-section) pt-(--space-section)">
         <h2 id="work-title" className="mb-8 font-display text-kicker uppercase text-ink">

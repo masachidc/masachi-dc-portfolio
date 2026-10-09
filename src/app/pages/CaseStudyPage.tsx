@@ -108,7 +108,7 @@ function Overview({ study }: { study: CaseStudy }) {
 function InProgress({ title }: { title: string }) {
   return (
     <section aria-labelledby="in-progress-title" className="container-reading pb-(--space-section)">
-      <div className="rounded-[8px] bg-surface p-8 sm:p-12">
+      <div className="rounded-[var(--radius-surface)] bg-surface p-8 sm:p-12">
         <p className="text-label caps text-accent-deep">In progress</p>
         <h2 id="in-progress-title" className="mt-3 max-w-[24ch] font-display text-title text-ink">
           The full {title} case study is being finished.

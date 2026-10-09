@@ -11,7 +11,7 @@ const PRACTICE = [
 ];
 
 /** Short human layer after the work: who Nathan is and how he works. Not a biography. */
-export function HomeAbout() {
+export function HomeAbout({ showPractice = true }: { showPractice?: boolean }) {
   return (
     <motion.section
       id="about-nathan"
@@ -38,18 +38,20 @@ export function HomeAbout() {
             research and interface design into working code. I'm based in Tampa, Florida.
           </p>
 
-          <dl className="mt-10 grid grid-cols-1 gap-6 border-t border-line pt-6 sm:grid-cols-3 sm:gap-8">
-            {PRACTICE.map(({ area, detail }) => (
-              <div key={area}>
-                <dt className="text-label caps text-accent-deep">{area}</dt>
-                <dd className="mt-2 text-small text-fg-muted">{detail}</dd>
-              </div>
-            ))}
-          </dl>
+          {showPractice && (
+            <dl className="mt-10 grid grid-cols-1 gap-6 border-t border-line pt-6 sm:grid-cols-3 sm:gap-8">
+              {PRACTICE.map(({ area, detail }) => (
+                <div key={area}>
+                  <dt className="text-label caps text-accent-deep">{area}</dt>
+                  <dd className="mt-2 text-small text-fg-muted">{detail}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
 
           <SiteLink
             href="/about"
-            className="group mt-10 inline-flex items-center gap-1.5 border-b border-ink pb-1 text-label caps text-ink"
+            className={`group inline-flex items-center gap-1.5 border-b border-ink pb-1 text-label caps text-ink ${showPractice ? 'mt-10' : 'mt-8'}`}
           >
             More about me
             <ArrowRight size={12} strokeWidth={2} aria-hidden className="transition-transform duration-300 ease-out group-hover:translate-x-0.5" />

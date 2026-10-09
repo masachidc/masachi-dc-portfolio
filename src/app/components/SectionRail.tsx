@@ -29,7 +29,7 @@ export function SectionRail({ sections }: { sections: readonly RailSection[] }) 
       aria-label="On this page"
       className="group/rail fixed left-6 top-1/2 z-30 hidden -translate-y-1/2 xl:[@media(hover:hover)]:block xl:left-10"
     >
-      <ol className="w-8 rounded-[10px] border border-transparent py-2 transition-all duration-200 ease-out group-hover/rail:w-[240px] group-hover/rail:border-ink/10 group-hover/rail:bg-paper group-hover/rail:px-4 group-hover/rail:shadow-[0_12px_32px_rgba(17,17,17,0.08)] group-focus-within/rail:w-[240px] group-focus-within/rail:border-ink/10 group-focus-within/rail:bg-paper group-focus-within/rail:px-4 group-focus-within/rail:shadow-[0_12px_32px_rgba(17,17,17,0.08)]">
+      <ol className="w-8 rounded-[var(--radius-surface)] border border-transparent py-3 backdrop-blur-[3px] transition-all duration-500 ease-[var(--ease-out-premium)] group-hover/rail:w-[240px] group-hover/rail:border-ink/12 group-hover/rail:bg-paper/92 group-hover/rail:px-4 group-hover/rail:shadow-[0_16px_32px_-12px_rgb(78_83_90_/_10%)] group-focus-within/rail:w-[240px] group-focus-within/rail:border-ink/12 group-focus-within/rail:bg-paper/92 group-focus-within/rail:px-4 group-focus-within/rail:shadow-[0_16px_32px_-12px_rgb(78_83_90_/_10%)] motion-reduce:transition-none">
         {sections.map(({ id, title }) => {
           const active = id === activeId;
           return (

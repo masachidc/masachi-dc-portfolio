@@ -27,7 +27,7 @@ function MediaSlot({ media, review, priority = false }: { media: Media; review: 
         // Lowercase DOM attribute: React 18 doesn't know the camelCase prop.
         {...{ fetchpriority: priority ? 'high' : 'auto' }}
         decoding="async"
-        className="w-full rounded-[6px] bg-bone-deep object-cover shadow-[0_20px_50px_-20px_rgba(10,10,11,0.25)]"
+        className="w-full rounded-[var(--radius-surface)] bg-bone-deep object-cover shadow-[0_20px_50px_-20px_rgba(10,10,11,0.25)]"
         style={{ aspectRatio: media.ratio }}
       />
     );
@@ -36,7 +36,7 @@ function MediaSlot({ media, review, priority = false }: { media: Media; review: 
     <div
       role="img"
       aria-label={`Image coming soon: ${media.slot}`}
-      className="flex w-full flex-col items-center justify-center gap-2 rounded-[6px] border-2 border-dashed border-ink/15 bg-bone p-6 text-center"
+      className="flex w-full flex-col items-center justify-center gap-2 rounded-[var(--radius-surface)] border-2 border-dashed border-ink/15 bg-bone p-6 text-center"
       style={{ aspectRatio: media.ratio }}
     >
       <span className="text-micro caps text-fg-subtle">Image coming soon</span>
