@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
-import { projectHref, projectNumber, type Project } from '../data/projects';
+import { MOBILE_COVER, projectHref, projectNumber, type Project } from '../data/projects';
 import { isLightColor } from '../data/brands';
 import { StatusMark } from './StatusMark';
 import { easeOut } from '../lib/motion';
@@ -20,6 +20,8 @@ interface ProjectCardProps {
   number?: string;
   /** Above-the-fold cover: load immediately. Later cards wait until they near the viewport. */
   priority?: boolean;
+  /** Desktop mosaic. The other layout is not mounted, so each card only references one cover. */
+  mosaic?: boolean;
 }
 
 // Cards reveal as soon as any part is on screen (or about to be), so the ones
@@ -37,33 +39,38 @@ function statusStamp(mark: Project['mark']) {
   return mark === 'BUILD' ? 'BUILT' : mark;
 }
 
-function CardInner({ p, feature, number, priority }: {
+function CardInner({ p, feature, number, priority, mosaic }: {
   p: Project;
   feature: boolean;
   number: string;
   priority: boolean;
+  mosaic: boolean;
 }) {
   const titleClass = `font-display uppercase text-balance ${feature ? 'text-card-lg' : 'text-card'}`;
   const meta = `N°${number}${p.year ? ` · ${p.year}` : ''}`;
   const deep = p.brand.primaryDeep ?? p.brand.primary;
   // light brand colours (e.g. TEMBO yellow) need ink text on the wash, not white
   const light = isLightColor(deep);
-  const tall = p.cover.frame === 'tall';
+  const mobile = !mosaic ? p.cover.mobile : undefined;
   return (
     <>
       {/*
-        Phone and tablet: the cover keeps its own 2:1 or 1:2 frame, flush to the
-        card edges. Desktop: the frame fills the mosaic cell, as before.
+        Phone and tablet: one 4:3 frame, flush to the card edges, using the
+        mobile file (800w / 1600w). Desktop: the frame fills the mosaic cell
+        and uses the original cover. Only the mounted layout is in the DOM,
+        so the other file is never requested.
       */}
-      <div className={`relative w-full bg-ink ${tall ? 'aspect-[1/2]' : 'aspect-[2/1]'} lg:absolute lg:inset-0 lg:aspect-auto`}>
+      <div className="relative aspect-[4/3] w-full bg-surface lg:absolute lg:inset-0 lg:aspect-auto">
         <img
-          src={p.cover.src}
+          src={mobile?.src ?? p.cover.src}
+          srcSet={mobile?.srcSet}
+          sizes={mobile ? MOBILE_COVER.sizes : undefined}
           alt=""
-          width={tall ? 782 : 1564}
-          height={tall ? 1564 : 782}
+          width={mobile ? MOBILE_COVER.width : undefined}
+          height={mobile ? MOBILE_COVER.height : undefined}
           decoding="async"
           loading={priority ? 'eager' : 'lazy'}
-          {...{ fetchpriority: priority ? 'high' : 'auto' }}
+          fetchPriority={priority ? 'high' : 'auto'}
           className="absolute inset-0 h-full w-full object-cover"
           style={{ objectPosition: p.cover.position }}
         />
@@ -152,6 +159,7 @@ export function ProjectCard({
   feature = false,
   number = projectNumber(p),
   priority = false,
+  mosaic = false,
 }: ProjectCardProps) {
   const href = projectHref(p);
   const isInternal = !p.externalUrl;
@@ -164,7 +172,7 @@ export function ProjectCard({
     className: cardSurface,
   };
 
-  const innerProps = { p, feature, number, priority };
+  const innerProps = { p, feature, number, priority, mosaic };
 
   return (
     <motion.div
