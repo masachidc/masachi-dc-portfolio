@@ -6,15 +6,15 @@ import { fadeUp, stagger, viewportOnce } from '../lib/motion';
 const CAPABILITIES = [
   {
     title: 'Product Design',
-    description: 'I can define what to build, when to build, why it matters and how the product experience should feel.',
+    description: 'I define what to build, when to build it, why it matters, and how the product experience should feel.',
   },
   {
     title: 'Design Engineering',
-    description: 'I carry designs into working software, owning technical decisions and implementation, with AI-assisted development.',
+    description: 'I carry designs into working software, owning technical decisions and implementation with AI-assisted development.',
   },
   {
     title: 'Visual Design',
-    description: 'I have developed aesthetic sensibility and can establish the visual direction across product and brand.',
+    description: 'I bring a developed aesthetic sensibility to the work, establishing a consistent visual direction across product and brand.',
   },
   {
     title: 'Systems Thinking',
