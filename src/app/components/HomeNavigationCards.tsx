@@ -1,22 +1,21 @@
-import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { EMAIL } from '../data/site';
 import { fadeUp, stagger, viewportOnce } from '../lib/motion';
+import { SiteLink } from './SiteLink';
 
 type NavigationCard = {
-  label: string;
   title: string;
   description: string;
+  /** Card fill; `textClassName` is the text colour that reads on it. */
   color: string;
   textClassName: string;
+  /** Internal path or mailto: — SiteLink renders the right element. */
   href: string;
-  external?: boolean;
 };
 
 const CARDS: NavigationCard[] = [
   {
-    label: 'About',
     title: 'About me',
     description: 'From architecture to product design, and the experiences that shaped my career.',
     color: '#001047',
@@ -24,7 +23,6 @@ const CARDS: NavigationCard[] = [
     href: '/about',
   },
   {
-    label: 'Resume',
     title: 'Resume',
     description: "A closer look at my experience, skills, and the work I've delivered.",
     color: '#c69a27',
@@ -32,13 +30,11 @@ const CARDS: NavigationCard[] = [
     href: '/resume',
   },
   {
-    label: 'Get in touch',
     title: 'Get in touch',
     description: "Have a role, project, or idea in mind? Let's talk.",
     color: '#006b70',
     textClassName: 'text-white',
     href: `mailto:${EMAIL}`,
-    external: true,
   },
 ];
 
@@ -78,34 +74,18 @@ export function HomeNavigationCards() {
       <motion.h2 id="where-to-next-title" variants={fadeUp} className="mb-8 font-display text-kicker text-fg-faint">
         Where to next
       </motion.h2>
-      <ol className="mx-auto grid w-full max-w-[22rem] grid-cols-1 gap-6 md:mx-0 md:max-w-none md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-16">
+      <ul className="mx-auto grid w-full max-w-[22rem] grid-cols-1 gap-6 md:mx-0 md:max-w-none md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-16">
         {CARDS.map((card) => (
-          <motion.li
-            key={card.label}
-            variants={fadeUp}
-            className="flex w-full"
-          >
+          <motion.li key={card.title} variants={fadeUp} className="flex w-full">
             <div className="work-stage w-full">
               <span aria-hidden="true" className="work-shadow" />
-              {card.external ? (
-                <a
-                  href={card.href}
-                  className="work-card group relative flex aspect-[3/2] w-full overflow-hidden"
-                >
-                  <CardContent card={card} />
-                </a>
-              ) : (
-                <Link
-                  to={card.href}
-                  className="work-card group relative flex aspect-[3/2] w-full overflow-hidden"
-                >
-                  <CardContent card={card} />
-                </Link>
-              )}
+              <SiteLink href={card.href} className="work-card group relative flex aspect-[3/2] w-full overflow-hidden">
+                <CardContent card={card} />
+              </SiteLink>
             </div>
           </motion.li>
         ))}
-      </ol>
+      </ul>
     </motion.section>
   );
 }

@@ -1,20 +1,17 @@
 import { useEffect } from 'react';
 import Lenis from 'lenis';
 import { useLocation } from 'react-router-dom';
-import { scrollToTarget } from './components/SiteLink';
-import { usePageMeta } from './lib/usePageMeta';
-import { Nav } from './components/Nav';
-import { Hero } from './components/Hero';
-import { ProjectGrid } from './components/ProjectGrid';
-import { WhatIDo } from './components/WhatIDo';
-import { HomeNavigationCards } from './components/HomeNavigationCards';
-import { Footer } from './components/Footer';
-import { ProjectIndexRail } from './components/ProjectIndexRail';
-import { ScrollProgress } from './components/ScrollProgress';
-import viewportBackground from '../../assets/viewport-bg.jpg';
-import viewportBackgroundAvif from '../../assets/viewport-bg.avif';
-import navigationBackground from '../../assets/viewport-bg-nav.jpg';
-import navigationBackgroundAvif from '../../assets/viewport-bg-nav.avif';
+import { scrollToTarget, setLenis } from '../lib/scroll';
+import { usePageMeta } from '../lib/usePageMeta';
+import { Nav } from '../components/Nav';
+import { Hero } from '../components/Hero';
+import { ProjectGrid } from '../components/ProjectGrid';
+import { WhatIDo } from '../components/WhatIDo';
+import { HomeNavigationCards } from '../components/HomeNavigationCards';
+import { Footer } from '../components/Footer';
+import { ProjectIndexRail } from '../components/ProjectIndexRail';
+import { ScrollProgress } from '../components/ScrollProgress';
+import { ImmersiveBackground } from '../components/ImmersiveBackground';
 
 function useSmoothScroll() {
   useEffect(() => {
@@ -24,8 +21,7 @@ function useSmoothScroll() {
       duration: 1.1,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
-
-    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
+    setLenis(lenis);
 
     let frame: number;
     function raf(time: number) {
@@ -37,7 +33,7 @@ function useSmoothScroll() {
     return () => {
       cancelAnimationFrame(frame);
       lenis.destroy();
-      (window as unknown as { __lenis?: Lenis }).__lenis = undefined;
+      setLenis(undefined);
     };
   }, []);
 }
@@ -76,7 +72,7 @@ function useHashScroll() {
   }, [hash]);
 }
 
-export default function App() {
+export function HomePage() {
   useSmoothScroll();
   useHashScroll();
   usePageMeta();
@@ -90,19 +86,7 @@ export default function App() {
         <ProjectIndexRail />
         <main id="main" tabIndex={-1} className="home-layout flex-1 focus:outline-none">
           <div className="relative isolate overflow-hidden">
-            <picture>
-              <source srcSet={viewportBackgroundAvif} type="image/avif" />
-              <img
-                src={viewportBackground}
-                alt=""
-                width={2560}
-                height={4549}
-                decoding="async"
-                aria-hidden="true"
-                className="immersive-bg"
-              />
-            </picture>
-            <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-bone/50" />
+            <ImmersiveBackground plate="viewport" veil="bg-bone/50" />
             <div className="relative z-10">
               <Hero kickerRole="greeting" />
               <ProjectGrid />
@@ -112,20 +96,7 @@ export default function App() {
             <WhatIDo />
           </div>
           <div className="relative isolate overflow-hidden">
-            <picture>
-              <source srcSet={navigationBackgroundAvif} type="image/avif" />
-              <img
-                src={navigationBackground}
-                alt=""
-                width={2560}
-                height={900}
-                decoding="async"
-                loading="lazy"
-                aria-hidden="true"
-                className="immersive-bg"
-              />
-            </picture>
-            <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-bone/50" />
+            <ImmersiveBackground plate="navigation" veil="bg-bone/50" lazy />
             <div className="relative z-10">
               <HomeNavigationCards />
             </div>

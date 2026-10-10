@@ -20,11 +20,8 @@ export interface Project {
   description: string;
   /** Temporary: link out to a case study hosted elsewhere instead of /works/<slug>. */
   externalUrl?: string;
-  /**
-   * Card image. `src` is the desktop mosaic artwork. `mobile` is the 4:3 phone
-   * and tablet cover. `placeholder: true` marks generic stock awaiting a real cover.
-   */
-  cover: { src: string; position: string; placeholder?: boolean; mobile?: MobileCover };
+  /** Card image. `src` is the desktop mosaic artwork. `mobile` is the 4:3 phone and tablet cover. */
+  cover: { src: string; position: string; mobile?: MobileCover };
   /** The project's brand system (see brands.ts): card hover wash, rail highlights, case study. */
   brand: Brand;
   /** Leave off the phone-width Selected work grid (still shown on tablet and desktop). */

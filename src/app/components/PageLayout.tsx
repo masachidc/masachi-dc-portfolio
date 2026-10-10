@@ -4,8 +4,7 @@ import { Nav } from './Nav';
 import { Footer } from './Footer';
 import { easeOut } from '../lib/motion';
 import { usePageMeta } from '../lib/usePageMeta';
-import viewportBackground from '../../../assets/viewport-bg.jpg';
-import viewportBackgroundAvif from '../../../assets/viewport-bg.avif';
+import { ImmersiveBackground } from './ImmersiveBackground';
 
 /** Shell for top-level pages: nav, main landmark, footer, metadata, and an editorial page hero. */
 export function PageLayout({
@@ -47,23 +46,7 @@ export function PageLayout({
         tabIndex={-1}
         className={`flex-1 focus:outline-none${viewportBg ? ' relative overflow-hidden' : ''}`}
       >
-        {viewportBg && (
-          <picture>
-            <source srcSet={viewportBackgroundAvif} type="image/avif" />
-            <img
-              src={viewportBackground}
-              alt=""
-              width={2560}
-              height={4549}
-              decoding="async"
-              aria-hidden="true"
-              className="immersive-bg"
-            />
-          </picture>
-        )}
-        {viewportBg && (
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-paper/85" />
-        )}
+        {viewportBg && <ImmersiveBackground plate="viewport" veil="bg-paper/85" />}
         <div className={viewportBg ? 'relative' : undefined}>
           <header className={`${width === 'reading' ? 'container-reading' : 'container-site'} pb-12 pt-16 lg:pb-16 lg:pt-24`}>
             <motion.p

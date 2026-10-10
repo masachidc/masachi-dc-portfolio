@@ -6,15 +6,10 @@ import { isLightColor } from '../data/brands';
 import { StatusMark } from './StatusMark';
 import { easeOut } from '../lib/motion';
 
-// The resting title, summary and disciplines (and the scrim behind them).
-// Set false to hide them when the covers carry their own titles. The status
-// mark shows either way.
-const SHOW_RESTING_TEXT = false;
-
 interface ProjectCardProps {
   project: Project;
   className?: string;
-  /** The tall card in a desktop mosaic band: room for a larger title. */
+  /** The tall card in a desktop mosaic band: room for a larger title on the hover panel. */
   feature?: boolean;
   /** Display number ("01"); defaults to the project's place in Selected work. */
   number?: string;
@@ -74,32 +69,6 @@ function CardInner({ p, feature, number, priority, mosaic }: {
           className="absolute inset-0 h-full w-full object-cover"
           style={{ objectPosition: p.cover.position }}
         />
-
-        {SHOW_RESTING_TEXT && (
-          <>
-          {/* scrim only in the bottom-left corner, behind the text */}
-          <div
-            className="absolute inset-0 transition-opacity duration-500 lg:group-hover:opacity-0"
-            style={{
-              background:
-                'radial-gradient(ellipse 95% 70% at 0% 100%, color-mix(in srgb, var(--color-ink-deep) 93%, transparent) 0%, color-mix(in srgb, var(--color-ink-deep) 60%, transparent) 45%, transparent 100%)',
-            }}
-          />
-
-          {/*
-            At rest the card answers, in reading order: what it is (title), why it
-            matters (summary), what Nathan did (disciplines). Number and year stay quiet.
-          */}
-          <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-5 pr-32 transition-opacity duration-300 sm:p-6 sm:pr-32 lg:group-hover:opacity-0">
-            <div className="min-w-0">
-              <p className="mb-3 font-mono text-micro font-medium tracking-[0.1em] text-bone/65">{meta}</p>
-              <h3 className={`${titleClass} text-bone`}>{p.cardTitle}</h3>
-              <p className="mt-2 max-w-(--measure) text-body font-medium text-bone/90">{p.summary}</p>
-              <p className="mt-3 text-micro caps text-bone/65">{p.disciplines}</p>
-            </div>
-          </div>
-          </>
-        )}
 
         {/* Status stays on the cover at desktop, above both the artwork and the hover panel. */}
         <div className="absolute bottom-0 right-0 z-30 hidden p-5 sm:p-6 lg:block">
