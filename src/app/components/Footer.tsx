@@ -1,6 +1,7 @@
 import { ArrowUp, ArrowUpRight } from 'lucide-react';
 import { CONTACT_LINKS, NAV_LINKS } from '../data/site';
-import { SiteLink, scrollToTarget } from './SiteLink';
+import { scrollToTarget } from '../lib/scroll';
+import { SiteLink } from './SiteLink';
 import { Wordmark } from './Wordmark';
 
 // On the near-black footer: bone/70 ≈ 11:1, bone/60 ≈ 8:1 — all AA.

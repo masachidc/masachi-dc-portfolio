@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
-import type Lenis from 'lenis';
+import { NAV_OFFSET, getLenis } from '../lib/scroll';
 
 export type RailSection = { id: string; title: string };
-
-const NAV_OFFSET = 96;
 
 function scrollToSection(id: string) {
   const target = document.getElementById(id);
   if (!target) return;
 
-  const lenis = (window as unknown as { __lenis?: Lenis }).__lenis;
+  const lenis = getLenis();
   if (lenis) {
     lenis.scrollTo(target, { offset: -NAV_OFFSET });
   } else {

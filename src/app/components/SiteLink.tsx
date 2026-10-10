@@ -1,27 +1,7 @@
 import type { MouseEvent, ReactNode } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import type Lenis from 'lenis';
 import { isExternal } from '../data/site';
-
-const NAV_OFFSET = 96;
-
-/**
- * Scroll to an in-page target (or the top when id is empty), via Lenis when present.
- * The target is resolved to an absolute offset from the live window position, so it
- * stays correct even when Lenis hasn't synced yet (e.g. right after a route change).
- * `instant` jumps without animating — used when arriving from another page.
- */
-export function scrollToTarget(id: string, { instant = false } = {}) {
-  const lenis = (window as unknown as { __lenis?: Lenis }).__lenis;
-  const el = id ? document.getElementById(id) : null;
-  if (id && !el) return;
-  const top = el ? Math.max(0, el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET) : 0;
-  if (lenis) {
-    lenis.scrollTo(top, { immediate: instant, force: true });
-  } else {
-    window.scrollTo({ top, behavior: instant ? 'auto' : 'smooth' });
-  }
-}
+import { scrollToTarget } from '../lib/scroll';
 
 /**
  * One link for every site destination:

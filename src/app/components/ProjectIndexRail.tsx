@@ -7,18 +7,18 @@ import {
   useSpring,
   useTransform,
 } from 'motion/react';
-import type Lenis from 'lenis';
 import { PROJECTS, type Project } from '../data/projects';
 import { ProjectNavigationItem } from './ProjectNavigationItem';
+import { NAV_OFFSET, getLenis } from '../lib/scroll';
 
 function scrollToProject(id: string) {
   const candidates = document.querySelectorAll<HTMLElement>(`[data-project-anchor="${id}"]`);
   const target = Array.from(candidates).find((el) => el.getBoundingClientRect().width > 0);
   if (!target) return;
 
-  const lenis = (window as unknown as { __lenis?: Lenis }).__lenis;
+  const lenis = getLenis();
   if (lenis) {
-    lenis.scrollTo(target, { offset: -96 });
+    lenis.scrollTo(target, { offset: -NAV_OFFSET });
   } else {
     target.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }

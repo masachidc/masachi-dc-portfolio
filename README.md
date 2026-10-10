@@ -1,22 +1,23 @@
+# Masachi DC portfolio
 
-  # Portfolio Redesign
+Nathan Masachi's portfolio at [masachidc.com](https://masachidc.com). React 18, Vite 6, Tailwind CSS v4, Motion and React Router, deployed on Vercel.
 
-  Masachi DC portfolio site — a single-page React + Tailwind build.
+## Running the code
 
-  ## Running the code
+- `npm ci` — install the locked dependencies
+- `npm run dev` — dev server on port 5173
+- `npm run build` — production build in `dist/` (the only validation step)
+- `npm run preview` — serve the production build locally
 
-  Run `npm i` to install the dependencies.
+## Structure
 
-  Run `npm run dev` to start the development server.
+- `src/main.tsx` — entry point and routes; every page except the homepage is code-split
+- `src/app/pages/` — one file per page (home, case study, deep dive, about, impact, resume, discipline, 404)
+- `src/app/components/` — shared UI (nav, footer, cards, rails, media bands)
+- `src/app/data/` — projects, brand systems, case studies, profile, site links and metadata defaults
+- `src/app/lib/` — motion presets, page metadata, scroll helpers
+- `src/styles/theme.css` — design tokens: colour, type scale, layout, motion
+- `public/` — images, favicon, robots.txt, sitemap.xml
+- `vercel.json` — SPA rewrite, long-lived caching for hashed assets, security headers
 
-  Run `npm run build` to produce a production build in `dist/`.
-
-  ## Structure
-
-  - `src/main.tsx` — entry point and routes
-  - `src/app/App.tsx` — homepage (hero, project mosaic)
-  - `src/app/pages/` — case study template, placeholder pages, 404
-  - `src/app/data/` — projects, case-study content, site links and metadata defaults
-  - `src/app/components/` — shared UI (nav, footer, cards, rails, wordmark)
-  - `src/styles/theme.css` — design tokens: color, type scale, layout, motion
-  - `public/` — favicon, robots.txt, sitemap.xml
+Conventions for content and code live in `CLAUDE.md`.

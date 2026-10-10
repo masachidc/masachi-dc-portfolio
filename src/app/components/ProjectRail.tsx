@@ -5,8 +5,7 @@ import { ProjectNavigationItem } from './ProjectNavigationItem';
 // "More projects" rail for case-study pages, in the home page's dot language.
 // At rest: one muted dot per project on the right edge, the project being
 // viewed slightly darker. Hovering or keyboard-focusing the rail opens it into
-// a panel listing every project; each item takes on its project's accent on
-// hover. Pointer devices ≥1280px only, where the side margin clears the reading column.
+// a panel listing every project; each item resolves to ink on hover. Pointer devices ≥1280px only, where the side margin clears the reading column.
 export function ProjectRail({ currentSlug }: { currentSlug: string }) {
   return (
     <nav
